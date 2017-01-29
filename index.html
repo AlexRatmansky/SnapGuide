@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -48,9 +48,27 @@
 
 <template id="view-template" style="display:none">
   <div class="sss">
+
+    <template v-for="guide in guides">
+      <guide-item
+        :is-vertical=guide.isVertical
+        :is-horisontal=guide.isHorisontal
+        :x-pos=xPos
+        :y-pos=yPos
+      />
+    </template>
+
     <div>xPos: {{ xPos }}</div>
     <div>yPos: {{ yPos }}</div>
   </div>
+</template>
+
+<template id="view-guide" style="display:none">
+  <div
+    class="guide"
+    :class="{ '-v': isVertical, '-h': isHorisontal }"
+    :style="{ left: xPos, top: yPos}"
+  ></div>
 </template>
 
 <style>
@@ -62,6 +80,29 @@
     top: 50px;
     background-color: red;
   }
+
+  .guide {
+    display: block;
+    position: absolute;
+    background-color: green;
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+  }
+
+  .guide.-v {
+    width: 1px;
+    top: 0;
+    height: 100%;
+  }
+
+  .guide.-h {
+    left: 0;
+    height: 1px;
+    width: 100%;
+  }
+
+
 </style>
 
 
@@ -70,7 +111,11 @@
     <div class="dtc js-dtc">
 
       <div id="app" @mousemove="onDrag">
-        <guide-item v-bind:x-pos="xPos" v-bind:y-pos="yPos"></guide-item>
+
+        <!--<div class="guide -v"></div>-->
+        <!--<div class="guide -h"></div>-->
+
+        <view-template :x-pos="xPos" :y-pos="yPos" :guides="guides" ></view-template>
       </div>
 
       <div class="simply-countdown-one animate-box" data-animate-effect="fadeInUp"></div>
