@@ -6,15 +6,15 @@ Vue.component('view-template', {
 });
 
 Vue.component('guide-item', {
-  template: '#view-guide',
+  template: '#guide-item',
   props: ['isVertical', 'isHorisontal', 'yPos', 'xPos']
 });
 
 new Vue({
   el: '#app',
   data: {
-    xPos: '0',
-    yPos: '0',
+    xPos: '50',
+    yPos: '50',
     guides: [
       {
         isVertical: false,

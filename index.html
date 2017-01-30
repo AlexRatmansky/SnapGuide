@@ -58,22 +58,23 @@
       />
     </template>
 
-    <div>xPos: {{ xPos }}</div>
-    <div>yPos: {{ yPos }}</div>
+    <div>&nbsp;x: {{ xPos }}</div>
+    <div>&nbsp;y: {{ yPos }}</div>
   </div>
 </template>
 
-<template id="view-guide" style="display:none">
+<template id="guide-item" style="display:none">
   <div
     class="guide"
     :class="{ '-v': isVertical, '-h': isHorisontal }"
-    :style="{ left: xPos, top: yPos}"
+    :style="{ left: xPos - 710 + 'px', top: yPos - 50 + 'px'}"
   ></div>
 </template>
 
 <style>
   .sss {
     position: absolute;
+    color: #000;
     display: block;
     height: 100px;
     width: 100px;
@@ -106,21 +107,20 @@
 </style>
 
 
+
+
+
 <div id="gtco-main-content">
   <div class="dt js-dt">
     <div class="dtc js-dtc">
 
       <div id="app" @mousemove="onDrag">
-
-        <!--<div class="guide -v"></div>-->
-        <!--<div class="guide -h"></div>-->
-
         <view-template :x-pos="xPos" :y-pos="yPos" :guides="guides" ></view-template>
       </div>
 
-      <div class="simply-countdown-one animate-box" data-animate-effect="fadeInUp"></div>
+      <div class="simply-countdown-one animate-box" data-animate-effect="fadeInUp" style="display: none;"></div>
 
-      <div class="row">
+      <div class="row" style="display: none;">
         <div class="col-md-12">
           <div class="row">
             <div class="col-lg-7">
@@ -146,7 +146,7 @@
     </div>
   </div>
 
-  <div id="gtco-footer">
+  <div id="gtco-footer" style="display: none;">
     <div class="row">
       <div class="col-md-6">
         <ul id="gtco-social">
