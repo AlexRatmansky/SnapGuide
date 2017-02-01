@@ -7,7 +7,7 @@ Vue.component('view-template', {
 
 Vue.component('guide-item', {
   template: '#guide-item',
-  props: ['isVertical', 'isHorisontal', 'yPos', 'xPos']
+  props: ['isVertical', 'yPos', 'xPos']
 });
 
 new Vue({
@@ -18,11 +18,9 @@ new Vue({
     guides: [
       {
         isVertical: false,
-        isHorisontal: true
       },
       {
         isVertical: true,
-        isHorisontal: false
       }
     ]
   },

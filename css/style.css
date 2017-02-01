@@ -1,11 +1,24 @@
-.sss {
+html,
+body {
+  padding: 0;
+  margin: 0;
+
+}
+
+body {
+  position: relative;
+}
+
+#app {
   position: absolute;
   color: #000;
   display: block;
-  height: 100px;
-  width: 100px;
-  top: 50px;
-  background-color: red;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  background-color: rgba(255, 255, 0, 0.2);
 }
 
 .guide {
@@ -27,4 +40,13 @@
   left: 0;
   height: 1px;
   width: 100%;
+}
+
+.counter {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: green;
+  color: yellow;
+  padding: 5px 10px;
 }
