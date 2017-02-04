@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.6.0/two.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/easing/EasePack.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js"></script>
+</head>
+<body>
+
+<div id="draw-shapes"></div>
+
+<script>
+  // Make an instance of two and place it on the page.
+  let elem = document.getElementById('draw-shapes');
+  let params = {
+    fullscreen: true
+  };
+
+  let two = new Two(params).appendTo(elem);
+
+  two.scene.fill = 'orangered';
+
+  let circle;
+  let circleArr = [];
+
+  for (let i = 0; i < 20; i++) {
+    circle = two.makeCircle(two.width / 2, two.height / 2, 50 + 10 * i + i);
+
+    circle.fill = 'rgba(255,255,255,0.05)';
+    circle.stroke = 'orangered';
+    circle.linewidth = i;
+
+    circleArr.push(circle)
+  }
+
+  for (let i = 0; i < 20; i++) {
+    TweenLite.to(circleArr[i], i * 0.1 + i * 0.2, {ease: Back.easeOut.config(1, 0.4), scale: 1 + i * 0.1});
+  }
+
+  two.bind('update', function (frameCount) {
+    console.log(frameCount);
+  }).play();
+
+</script>
+
+</body>
+</html>
