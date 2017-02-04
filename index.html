@@ -28,10 +28,6 @@
 </head>
 <body>
 
-<div id="app" @mousemove="onDrag">
-  <view-template :x-pos="xPos" :y-pos="yPos" :guides="guides"></view-template>
-</div>
-
 <div style="padding: 10px">
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aspernatur aut corporis cupiditate, deleniti
   ducimus earum est eum ipsum iusto labore libero, minus nam natus nobis omnis qui quo repellat repellendus sint, soluta
@@ -285,6 +281,10 @@
   labore laboriosam provident sapiente voluptatibus. At, cum eum fugit impedit laudantium nihil optio ullam veniam.
   Accusantium alias aliquid animi atque dicta dolorem esse ex, nobis officia, placeat possimus quod, quos recusandae
   rerum tenetur velit veritatis? Accusantium?</p>
+</div>
+
+<div id="app">
+  <view-template :x-pos="xPos" :y-pos="yPos" :guides="guides"></view-template>
 </div>
 
 <!-- Vue -->

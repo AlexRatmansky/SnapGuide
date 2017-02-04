@@ -1,5 +1,3 @@
-document.body.addEventListener('touchmove', e => e.preventDefault());
-
 Vue.component('view-template', {
   template: '#view-template',
   props: ['xPos', 'yPos', 'guides']
@@ -10,11 +8,12 @@ Vue.component('guide-item', {
   props: ['isVertical', 'yPos', 'xPos']
 });
 
-new Vue({
+vv = new Vue({
   el: '#app',
   data: {
-    xPos: '50',
-    yPos: '50',
+    event: '',
+    xPos: '',
+    yPos: '',
     guides: [
       {
         isVertical: false,
@@ -24,11 +23,14 @@ new Vue({
       }
     ]
   },
-  methods: {
-    onDrag: function (e) {
-      this.xPos = e.pageX;
-      this.yPos = e.pageY;
-    },
+  watch: {
+    event: function (eventObj) {
+      this.xPos = eventObj.pageX;
+      this.yPos = eventObj.pageY;
+    }
   }
-
 });
+
+document.onmousemove = function(e){
+  vv.event = e;
+};
