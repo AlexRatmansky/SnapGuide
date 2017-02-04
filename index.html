@@ -12,7 +12,9 @@
         <guide-item v-else :is-vertical=false :y-pos=yPos></guide-item>
       </div>
 
-      <div class="counter">
+      <div class="counter"
+           :style="{ left: xPos + 10 + 'px', top: yPos + 10 + 'px'}"
+      >
         <div>&nbsp;x: {{ xPos }}</div>
         <div>&nbsp;y: {{ yPos }}</div>
       </div>
@@ -27,6 +29,10 @@
   </template>
 </head>
 <body>
+
+<div id="app">
+  <view-template :x-pos="xPos" :y-pos="yPos" :guides="guides"></view-template>
+</div>
 
 <div style="padding: 10px">
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aspernatur aut corporis cupiditate, deleniti
@@ -281,10 +287,6 @@
   labore laboriosam provident sapiente voluptatibus. At, cum eum fugit impedit laudantium nihil optio ullam veniam.
   Accusantium alias aliquid animi atque dicta dolorem esse ex, nobis officia, placeat possimus quod, quos recusandae
   rerum tenetur velit veritatis? Accusantium?</p>
-</div>
-
-<div id="app">
-  <view-template :x-pos="xPos" :y-pos="yPos" :guides="guides"></view-template>
 </div>
 
 <!-- Vue -->
