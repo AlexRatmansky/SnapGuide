@@ -26,9 +26,8 @@ body {
 }
 .counter {
   position: absolute;
-  top: 0;
-  left: 0;
   background-color: green;
   color: yellow;
   padding: 5px 10px;
+  transition: all 0.25s cubic-bezier(0, 1.5, 1, 1);
 }
