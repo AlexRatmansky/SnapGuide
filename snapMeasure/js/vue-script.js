@@ -31,13 +31,15 @@ vv = new Vue({
   },
   watch: {
     event: function (eventObj) {
+      const currElement = eventObj.path[0] || undefined;
+
       this.xPos = eventObj.pageX;
       this.yPos = eventObj.pageY;
       this.elem = {
-        top: eventObj.path[0].offsetTop + 'px',
-        left: eventObj.path[0].offsetLeft + 'px',
-        width: eventObj.path[0].offsetWidth + 'px',
-        height: eventObj.path[0].offsetHeight + 'px'
+        top: currElement.offsetTop + 'px',
+        left: currElement.offsetLeft + 'px',
+        width: currElement.offsetWidth + 'px',
+        height: currElement.offsetHeight + 'px'
       }
     }
   }
