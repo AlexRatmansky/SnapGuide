@@ -1,3 +1,8 @@
+Vue.component('view-element', {
+  template: '#view-element',
+  props: ['elementProps']
+});
+
 Vue.component('view-template', {
   template: '#view-template',
   props: ['xPos', 'yPos', 'guides']
@@ -14,6 +19,7 @@ vv = new Vue({
     event: '',
     xPos: '',
     yPos: '',
+    elem: '',
     guides: [
       {
         isVertical: false,
@@ -27,6 +33,12 @@ vv = new Vue({
     event: function (eventObj) {
       this.xPos = eventObj.pageX;
       this.yPos = eventObj.pageY;
+      this.elem = {
+        top: eventObj.path[0].offsetTop + 'px',
+        left: eventObj.path[0].offsetLeft + 'px',
+        width: eventObj.path[0].offsetWidth + 'px',
+        height: eventObj.path[0].offsetHeight + 'px'
+      }
     }
   }
 });
@@ -39,6 +51,7 @@ passEventData = throttle(passEventData, 20);
 
 function passEventData(eventData) {
   vv.event = eventData;
+  console.log(eventData);
 }
 
 function throttle(func, ms) {
