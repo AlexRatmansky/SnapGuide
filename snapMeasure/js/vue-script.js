@@ -1,48 +1,9 @@
-Vue.component('view-element', {
-  template: '#view-element',
-  props: ['elementProps']
-});
+import Vue from 'vue'
+import App from './components/App.vue'
 
-Vue.component('view-template', {
-  template: '#view-template',
-  props: ['xPos', 'yPos', 'guides']
-});
-
-Vue.component('guide-item', {
-  template: '#guide-item',
-  props: ['isVertical', 'yPos', 'xPos']
-});
-
-vv = new Vue({
+let vv = new Vue({
   el: '#app',
-  data: {
-    event: '',
-    xPos: '',
-    yPos: '',
-    elem: '',
-    guides: [
-      {
-        isVertical: false,
-      },
-      {
-        isVertical: true,
-      }
-    ]
-  },
-  watch: {
-    event: function (eventObj) {
-      const currElement = eventObj.path[0] || undefined;
-
-      this.xPos = eventObj.pageX;
-      this.yPos = eventObj.pageY;
-      this.elem = {
-        top: currElement.offsetTop + 'px',
-        left: currElement.offsetLeft + 'px',
-        width: currElement.offsetWidth + 'px',
-        height: currElement.offsetHeight + 'px'
-      }
-    }
-  }
+  render: h => h(App)
 });
 
 document.onmousemove = function (e) {
