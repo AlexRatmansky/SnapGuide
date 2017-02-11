@@ -22,7 +22,32 @@
 
   export default {
     name: 'App',
+    data () {
+      return {
+        xPos: '',
+        yPos: '',
+        elem: '',
+        guides: [
+          {isVertical: false,},
+          {isVertical: true,}
+        ]
+      }
+    },
     components: {GuideItem, ViewElement},
-    props: ['guides', 'yPos', 'xPos', 'elem']
+    props: ['event'],
+    watch: {
+      event: function (eventObj) {
+        const currElement = eventObj.path[0] || undefined;
+
+        this.xPos = eventObj.pageX;
+        this.yPos = eventObj.pageY;
+        this.elem = {
+          top: currElement.offsetTop + 'px',
+          left: currElement.offsetLeft + 'px',
+          width: currElement.offsetWidth + 'px',
+          height: currElement.offsetHeight + 'px'
+        }
+      }
+    }
   }
 </script>

@@ -4,30 +4,9 @@ import App from './components/App.vue'
 let vv = new Vue({
   el: '#app',
   data: {
-    event: '',
-    xPos: '',
-    yPos: '',
-    elem: '',
-    guides: [
-      {isVertical: false,},
-      {isVertical: true,}
-    ]
+    event: ''
   },
-  watch: {
-    event: function (eventObj) {
-      const currElement = eventObj.path[0] || undefined;
-
-      this.xPos = eventObj.pageX;
-      this.yPos = eventObj.pageY;
-      this.elem = {
-        top: currElement.offsetTop + 'px',
-        left: currElement.offsetLeft + 'px',
-        width: currElement.offsetWidth + 'px',
-        height: currElement.offsetHeight + 'px'
-      }
-    }
-  },
-  template: '<App :guides=guides :y-pos=yPos :x-pos=xPos :elem=elem />',
+  template: '<App :event=event />',
   components: { App }
 });
 
