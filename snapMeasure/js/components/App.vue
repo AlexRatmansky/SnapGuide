@@ -21,33 +21,8 @@
   import ViewElement from './ViewElement.vue';
 
   export default {
-    name: 'app',
-    data () {
-      return {
-        event: '',
-        xPos: '',
-        yPos: '',
-        elem: '',
-        guides: [
-          {isVertical: false,},
-          {isVertical: true,}
-        ]
-      }
-    },
+    name: 'App',
     components: {GuideItem, ViewElement},
-    watch: {
-      event: function (eventObj) {
-        const currElement = eventObj.path[0] || undefined;
-
-        this.xPos = eventObj.pageX;
-        this.yPos = eventObj.pageY;
-        this.elem = {
-          top: currElement.offsetTop + 'px',
-          left: currElement.offsetLeft + 'px',
-          width: currElement.offsetWidth + 'px',
-          height: currElement.offsetHeight + 'px'
-        }
-      }
-    }
+    props: ['guides', 'yPos', 'xPos', 'elem']
   }
 </script>
