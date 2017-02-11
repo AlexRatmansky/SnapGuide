@@ -1,13 +1,13 @@
 import Vue from 'vue'
-import App from './components/App.vue'
+import SnapMeasure from './components/SnapMeasure.vue'
 
-let SnapMeasure = new Vue({
+let App = new Vue({
   el: '#app',
   data: {
     event: ''
   },
-  template: '<App :event=event />',
-  components: { App }
+  template: '<SnapMeasure :event=event />',
+  components: { SnapMeasure }
 });
 
 document.onmousemove = function (e) {
@@ -17,7 +17,7 @@ document.onmousemove = function (e) {
 passEventData = throttle(passEventData, 20);
 
 function passEventData(eventData) {
-  SnapMeasure.event = eventData;
+  App.event = eventData;
 }
 
 function throttle(func, ms) {
