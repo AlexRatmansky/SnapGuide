@@ -22,7 +22,7 @@
 
   export default {
     name: 'App',
-    data () {
+    data: function () {
       return {
         xPos: '',
         yPos: '',
@@ -51,3 +51,26 @@
     }
   }
 </script>
+
+<style>
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+
+  }
+
+  body {
+    position: relative;
+  }
+
+  .counter {
+    position: absolute;
+    background-color: green;
+    color: yellow;
+    padding: 5px 10px;
+    transition: all 0.25s cubic-bezier(0, 1.5, 1, 1);
+    pointer-events: none;
+    z-index: 101;
+  }
+</style>
