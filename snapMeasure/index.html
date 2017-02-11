@@ -5,47 +5,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="css/style.css">
 
-  <template id="view-template" style="display:none">
-    <div>
-      <div v-for="guide in guides">
-        <guide-item v-if=guide.isVertical :is-vertical=true :x-pos=xPos></guide-item>
-        <guide-item v-else :is-vertical=false :y-pos=yPos></guide-item>
-      </div>
-
-      <div class="counter"
-           :style="{ left: xPos + 10 + 'px', top: yPos + 10 + 'px'}"
-      >
-        <div>&nbsp;x: {{ xPos }}</div>
-        <div>&nbsp;y: {{ yPos }}</div>
-      </div>
-
-    </div>
-  </template>
-
-  <template id="guide-item" style="display:none">
-    <div class="guide"
-      :class="{ '-v': isVertical, '-h': !isVertical }"
-      :style="{ left: xPos + 'px', top: yPos + 'px'}"
-    ></div>
-  </template>
-
-  <template id="view-element" style="display:none">
-    <div class="element"
-         :style="{
-      top: elementProps.top,
-      left: elementProps.left,
-      width: elementProps.width,
-      height: elementProps.height
-      }"
-    ></div>
-  </template>
 </head>
 <body>
 
-<div id="app">
-  <view-template :x-pos="xPos" :y-pos="yPos" :guides="guides"></view-template>
-  <view-element :element-props=elem ></view-element>
-</div>
+<div id="app"></div>
 
 <div style="padding: 10px">
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aspernatur aut corporis cupiditate, deleniti
@@ -302,9 +265,7 @@
   rerum tenetur velit veritatis? Accusantium?</p>
 </div>
 
-<!-- Vue -->
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
-<script src="js/vue-script.js"></script>
+<script src="/dist/build.js"></script>
 
 </body>
 </html>
