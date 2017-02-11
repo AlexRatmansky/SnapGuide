@@ -1,5 +1,5 @@
 <template>
-  <div :class="{$style.guide, '$style.-v': isVertical, '$style.-h': !isVertical }"
+  <div :class="{[$style.guide]: true, [$style.vertical]: isVertical, [$style.horizontal]: !isVertical }"
        :style="{ left: xPos + 'px', top: yPos + 'px'}"
   ></div>
 </template>
@@ -22,13 +22,13 @@
     pointer-events: none;
   }
 
-  .guide.-v {
+  .guide.vertical {
     width: 1px;
     top: 0;
     height: 100%;
   }
 
-  .guide.-h {
+  .guide.horizontal {
     left: 0;
     height: 1px;
     width: 100%;
