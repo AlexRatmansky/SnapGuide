@@ -1,6 +1,5 @@
 <template>
-  <div class="guide"
-       :class="{ '-v': isVertical, '-h': !isVertical }"
+  <div :class="{$style.guide, '$style.-v': isVertical, '$style.-h': !isVertical }"
        :style="{ left: xPos + 'px', top: yPos + 'px'}"
   ></div>
 </template>
@@ -12,7 +11,7 @@
   };
 </script>
 
-<style>
+<style module>
   .guide {
     display: block;
     position: absolute;

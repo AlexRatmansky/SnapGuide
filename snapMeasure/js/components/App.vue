@@ -5,7 +5,7 @@
       <GuideItem v-else :is-vertical=false :y-pos=yPos></GuideItem>
     </div>
 
-    <div class="counter"
+    <div :class="$style.counter"
          :style="{ left: xPos + 10 + 'px', top: yPos + 10 + 'px'}"
     >
       <div>&nbsp;x: {{ xPos }}</div>
@@ -52,7 +52,7 @@
   }
 </script>
 
-<style>
+<style module>
   html,
   body {
     padding: 0;
