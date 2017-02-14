@@ -2,7 +2,7 @@ let path = require('path');
 let webpack = require('webpack');
 
 module.exports = {
-  entry: './js/vue-script.js',
+  entry: './js/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
