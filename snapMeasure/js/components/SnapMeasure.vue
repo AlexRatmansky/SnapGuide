@@ -1,9 +1,15 @@
 <template>
   <div>
-    <div v-for="guide in guides">
+    <div v-for="guide in crossGuides">
       <GuideItem v-if=guide.isVertical :is-vertical=true :x-pos=xPos></GuideItem>
       <GuideItem v-else :is-vertical=false :y-pos=yPos></GuideItem>
     </div>
+
+    <div v-for="guide in guides">
+      <GuideItem v-if=guide.isVertical :is-vertical=true :x-pos=guide.xPos></GuideItem>
+      <GuideItem v-else :is-vertical=false :y-pos=guide.yPos></GuideItem>
+    </div>
+
 
     <div :class="$style.counter"
          :style="{ left: xPos + 10 + 'px', top: yPos + 10 + 'px'}"
@@ -21,22 +27,43 @@
   import ViewElement from './ViewElement.vue';
 
   export default {
+
     name: 'App',
+
     data: function () {
       return {
         xPos: '',
         yPos: '',
         elem: '',
-        guides: [
+        crossGuides: [
           {isVertical: false,},
           {isVertical: true,}
-        ]
+        ],
+        guides: []
       }
     },
+
     components: {GuideItem, ViewElement},
-    props: ['event'],
+
+    props: ['eventData', 'eventName'],
+
+    methods: {
+      addVerticalRule: function () {
+        this.guides.push({
+          isVertical: true,
+          xPos: this.xPos
+        })
+      },
+      addHorizontalRule: function () {
+        this.guides.push({
+          isVertical: false,
+          yPos: this.yPos
+        })
+      }
+    },
+
     watch: {
-      event: function (eventObj) {
+      eventData: function (eventObj) {
         const currElement = eventObj.path[0] || undefined;
 
         this.xPos = eventObj.pageX;
@@ -47,23 +74,17 @@
           width: currElement.offsetWidth + 'px',
           height: currElement.offsetHeight + 'px'
         }
+      },
+      eventName: function (eventName) {
+        if (this[eventName]) {
+          this[eventName]()
+        }
       }
     }
   }
 </script>
 
 <style module>
-  html,
-  body {
-    padding: 0;
-    margin: 0;
-
-  }
-
-  body {
-    position: relative;
-  }
-
   .counter {
     position: absolute;
     background-color: green;
