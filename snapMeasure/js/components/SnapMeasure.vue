@@ -26,6 +26,58 @@
   import GuideItem from './GuideItem.vue';
   import ViewElement from './ViewElement.vue';
 
+  function checkSnap(obj, xPos, yPos) {
+    let top = obj.offsetTop;
+    let left = obj.offsetLeft;
+    let right = left + obj.offsetWidth;
+    let bottom = top + obj.offsetHeight;
+    let newXPos = xPos;
+    let newYPos = yPos;
+    let isSnapped = false;
+    let snapFactor = 25;
+
+    if (checkTop(top, yPos)) {
+      newYPos = top;
+      isSnapped = true;
+    }
+
+    if (checkLeft(left, xPos)) {
+      newXPos = left;
+      isSnapped = true;
+    }
+
+    if (checkRight(right, xPos)) {
+      newXPos = right;
+      isSnapped = true;
+    }
+
+    if (checkBottom(bottom, yPos)) {
+      newYPos = bottom;
+      isSnapped = true;
+    }
+
+    function checkTop(top, yPos) {
+      if (yPos <= top + snapFactor && yPos >= top) return true
+    }
+    function checkLeft(left, xPos) {
+      if (xPos <= left + snapFactor && xPos >= left) return true
+    }
+    function checkRight(right, xPos) {
+      if (xPos >= right - snapFactor && xPos <= right) return true
+    }
+    function checkBottom(bottom, yPos) {
+      if (yPos >= bottom - snapFactor && yPos <= bottom) return true
+    }
+
+    console.log(isSnapped);
+
+    return {
+      xPos: newXPos,
+      yPos: newYPos,
+      isSnapped: isSnapped
+    };
+  }
+
   export default {
 
     name: 'App',
@@ -65,9 +117,13 @@
     watch: {
       eventData: function (eventObj) {
         const currElement = eventObj.path[0] || undefined;
+        let snapObj = checkSnap(currElement, eventObj.pageX, eventObj.pageY);
 
-        this.xPos = eventObj.pageX;
-        this.yPos = eventObj.pageY;
+        // console.log(eventObj.path);
+
+        this.xPos = snapObj.xPos;
+        this.yPos = snapObj.yPos;
+
         this.elem = {
           top: currElement.offsetTop + 'px',
           left: currElement.offsetLeft + 'px',
