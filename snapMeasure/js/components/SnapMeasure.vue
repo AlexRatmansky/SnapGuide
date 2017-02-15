@@ -76,8 +76,8 @@
         }
       },
       eventName: function (eventName) {
-        if (this[eventName]) {
-          this[eventName]()
+        if (this[eventName.name]) {
+          this[eventName.name]()
         }
       }
     }

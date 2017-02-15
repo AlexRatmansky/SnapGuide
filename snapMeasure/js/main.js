@@ -25,12 +25,16 @@ document.onkeypress = function (e) {
   switch (e.keyCode) {
     // v - for vertical
     case 118:
-      App.eventName = 'addVerticalRule';
+      App.eventName = {
+        name: 'addVerticalRule'
+      };
       break;
 
     // h - for horizontal
     case 104:
-      App.eventName = 'addHorizontalRule';
+      App.eventName = {
+        name: 'addHorizontalRule'
+      };
       break;
 
     default:
