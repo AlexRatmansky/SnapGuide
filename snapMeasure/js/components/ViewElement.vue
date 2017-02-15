@@ -1,5 +1,5 @@
 <template>
-  <div class="element"
+  <div :class="$style.element"
        :style="{
       top: elementProps.top,
       left: elementProps.left,
@@ -15,3 +15,15 @@
     props: ['elementProps']
   };
 </script>
+
+<style module>
+  .element {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    background: rgba(255, 0, 0, 0.3);
+    pointer-events: none;
+  }
+</style>

@@ -1,23 +1,49 @@
 import Vue from 'vue'
-import App from './components/App.vue'
+import SnapMeasure from './components/SnapMeasure.vue'
 
-let vv = new Vue({
+let App = new Vue({
+
   el: '#app',
+
   data: {
-    event: ''
+    eventData: '',
+    eventName: ''
   },
-  template: '<App :event=event />',
-  components: { App }
+
+  template: '<SnapMeasure :event-data=eventData :event-name=eventName />',
+
+  components: { SnapMeasure }
 });
 
 document.onmousemove = function (e) {
   passEventData(e);
 };
 
+document.onkeypress = function (e) {
+
+  switch (e.keyCode) {
+    // v - for vertical
+    case 118:
+      App.eventName = 'addVerticalRule';
+      break;
+
+    // h - for horizontal
+    case 104:
+      App.eventName = 'addHorizontalRule';
+      break;
+
+    default:
+      break;
+  }
+
+  console.log(e);
+};
+
+
 passEventData = throttle(passEventData, 20);
 
 function passEventData(eventData) {
-  vv.event = eventData;
+  App.eventData = eventData;
 }
 
 function throttle(func, ms) {

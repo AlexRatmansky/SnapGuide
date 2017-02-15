@@ -2,7 +2,7 @@ let path = require('path');
 let webpack = require('webpack');
 
 module.exports = {
-  entry: './js/vue-script.js',
+  entry: './js/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
@@ -20,14 +20,21 @@ module.exports = {
             // other preprocessors should work out of the box, no loader config like this necessary.
             'scss': 'vue-style-loader!css-loader!sass-loader',
             'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-          }
+          },
           // other vue-loader options go here
+          cssModules: {
+            localIdentName: '[local]__[hash:base64:5]',
+            camelCase: true
+          },
         }
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        query: {
+          presets: ['es2015']
+        }
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
