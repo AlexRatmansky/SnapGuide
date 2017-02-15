@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import SnapMeasure from './components/SnapMeasure.vue'
+import _throttle from 'lodash/throttle'
 
 let App = new Vue({
 
@@ -39,39 +40,8 @@ document.onkeypress = function (e) {
   console.log(e);
 };
 
-
-passEventData = throttle(passEventData, 20);
+passEventData = _throttle(passEventData, 50);
 
 function passEventData(eventData) {
   App.eventData = eventData;
-}
-
-function throttle(func, ms) {
-
-  let isThrottled = false;
-  let savedArgs;
-  let savedThis;
-
-  function wrapper() {
-
-    if (isThrottled) {
-      savedArgs = arguments;
-      savedThis = this;
-      return;
-    }
-
-    func.apply(this, arguments);
-
-    isThrottled = true;
-
-    setTimeout(function () {
-      isThrottled = false;
-      if (savedArgs) {
-        wrapper.apply(savedThis, savedArgs);
-        savedArgs = savedThis = null;
-      }
-    }, ms);
-  }
-
-  return wrapper;
 }
