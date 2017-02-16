@@ -22,16 +22,16 @@ document.onmousemove = function (e) {
 
 document.onkeypress = function (e) {
 
-  switch (e.keyCode) {
+  switch (e.code) {
     // v - for vertical
-    case 118:
+    case 'KeyV':
       App.eventName = {
         name: 'addVerticalRule'
       };
       break;
 
     // h - for horizontal
-    case 104:
+    case 'KeyH':
       App.eventName = {
         name: 'addHorizontalRule'
       };
