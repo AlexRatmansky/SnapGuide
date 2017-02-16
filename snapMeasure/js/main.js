@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import SnapMeasure from './components/SnapMeasure.vue'
+import _ from 'lodash';
 
 let App = new Vue({
 
@@ -21,15 +22,19 @@ document.onmousemove = function (e) {
 
 document.onkeypress = function (e) {
 
-  switch (e.keyCode) {
+  switch (e.code) {
     // v - for vertical
-    case 118:
-      App.eventName = 'addVerticalRule';
+    case 'KeyV':
+      App.eventName = {
+        name: 'addVerticalRule'
+      };
       break;
 
     // h - for horizontal
-    case 104:
-      App.eventName = 'addHorizontalRule';
+    case 'KeyH':
+      App.eventName = {
+        name: 'addHorizontalRule'
+      };
       break;
 
     default:
@@ -39,39 +44,8 @@ document.onkeypress = function (e) {
   console.log(e);
 };
 
-
-passEventData = throttle(passEventData, 20);
+passEventData = _.throttle(passEventData, 50);
 
 function passEventData(eventData) {
   App.eventData = eventData;
-}
-
-function throttle(func, ms) {
-
-  let isThrottled = false;
-  let savedArgs;
-  let savedThis;
-
-  function wrapper() {
-
-    if (isThrottled) {
-      savedArgs = arguments;
-      savedThis = this;
-      return;
-    }
-
-    func.apply(this, arguments);
-
-    isThrottled = true;
-
-    setTimeout(function () {
-      isThrottled = false;
-      if (savedArgs) {
-        wrapper.apply(savedThis, savedArgs);
-        savedArgs = savedThis = null;
-      }
-    }, ms);
-  }
-
-  return wrapper;
 }
