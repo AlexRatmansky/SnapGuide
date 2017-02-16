@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import SnapMeasure from './components/SnapMeasure.vue'
-import _throttle from 'lodash/throttle'
+import _ from 'lodash';
 
 let App = new Vue({
 
@@ -44,7 +44,7 @@ document.onkeypress = function (e) {
   console.log(e);
 };
 
-passEventData = _throttle(passEventData, 50);
+passEventData = _.throttle(passEventData, 50);
 
 function passEventData(eventData) {
   App.eventData = eventData;
