@@ -5,9 +5,12 @@
       <GuideItem v-else :is-vertical=false :y-pos=yPos></GuideItem>
     </div>
 
-    <div v-for="guide in guides">
-      <GuideItem v-if=guide.isVertical :is-vertical=true :x-pos=guide.xPos></GuideItem>
-      <GuideItem v-else :is-vertical=false :y-pos=guide.yPos></GuideItem>
+    <div v-for="guidePos in verticalGuides">
+      <GuideItem :is-vertical=true :x-pos=guidePos></GuideItem>
+    </div>
+
+    <div v-for="guidePos in horizontalGuides">
+      <GuideItem :is-vertical=false :y-pos=guidePos></GuideItem>
     </div>
 
 
@@ -91,7 +94,8 @@
           {isVertical: false,},
           {isVertical: true,}
         ],
-        guides: []
+        verticalGuides: [],
+        horizontalGuides: []
       }
     },
 
@@ -101,16 +105,10 @@
 
     methods: {
       addVerticalRule: function () {
-        this.guides.push({
-          isVertical: true,
-          xPos: this.xPos
-        })
+        this.verticalGuides.push(this.xPos)
       },
       addHorizontalRule: function () {
-        this.guides.push({
-          isVertical: false,
-          yPos: this.yPos
-        })
+        this.horizontalGuides.push(this.yPos)
       }
     },
 
