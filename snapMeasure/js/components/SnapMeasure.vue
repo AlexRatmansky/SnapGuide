@@ -28,6 +28,7 @@
 <script>
   import GuideItem from './GuideItem.vue';
   import ViewElement from './ViewElement.vue';
+  import _ from 'lodash';
 
   function checkSnap(obj, xPos, yPos) {
     let top = obj.offsetTop;
@@ -60,19 +61,17 @@
     }
 
     function checkTop(top, yPos) {
-      if (yPos <= top + snapFactor && yPos >= top) return true
+      return yPos <= top + snapFactor && yPos >= top
     }
     function checkLeft(left, xPos) {
-      if (xPos <= left + snapFactor && xPos >= left) return true
+      return xPos <= left + snapFactor && xPos >= left
     }
     function checkRight(right, xPos) {
-      if (xPos >= right - snapFactor && xPos <= right) return true
+      return xPos >= right - snapFactor && xPos <= right
     }
     function checkBottom(bottom, yPos) {
-      if (yPos >= bottom - snapFactor && yPos <= bottom) return true
+      return yPos >= bottom - snapFactor && yPos <= bottom
     }
-
-    console.log(isSnapped);
 
     return {
       xPos: newXPos,
@@ -104,11 +103,41 @@
     props: ['eventData', 'eventName'],
 
     methods: {
-      addVerticalRule: function () {
-        this.verticalGuides.push(this.xPos)
+      toggleRule: function (direction) {
+        let guidesArr;
+        let currGuide;
+
+        switch (direction){
+          case 'vertical':
+            guidesArr = this.verticalGuides;
+            currGuide = this.xPos;
+            break;
+          case 'horizontal':
+            guidesArr = this.horizontalGuides;
+            currGuide = this.yPos;
+            break;
+        }
+
+        if (guidesArr.indexOf(currGuide) >= 0) {
+          _.pull(guidesArr, currGuide)
+
+        } else {
+          guidesArr.push(currGuide);
+
+          guidesArr.sort(function(a, b) {
+            return a - b;
+          });
+        }
+
+
       },
-      addHorizontalRule: function () {
-        this.horizontalGuides.push(this.yPos)
+
+      toggleVerticalRule: function () {
+        this.toggleRule('vertical');
+      },
+
+      toggleHorizontalRule: function () {
+        this.toggleRule('horizontal');
       }
     },
 

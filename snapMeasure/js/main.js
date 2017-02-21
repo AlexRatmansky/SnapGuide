@@ -26,14 +26,14 @@ document.onkeypress = function (e) {
     // v - for vertical
     case 'KeyV':
       App.eventName = {
-        name: 'addVerticalRule'
+        name: 'toggleVerticalRule'
       };
       break;
 
     // h - for horizontal
     case 'KeyH':
       App.eventName = {
-        name: 'addHorizontalRule'
+        name: 'toggleHorizontalRule'
       };
       break;
 
