@@ -60,19 +60,17 @@
     }
 
     function checkTop(top, yPos) {
-      if (yPos <= top + snapFactor && yPos >= top) return true
+      return yPos <= top + snapFactor && yPos >= top
     }
     function checkLeft(left, xPos) {
-      if (xPos <= left + snapFactor && xPos >= left) return true
+      return xPos <= left + snapFactor && xPos >= left
     }
     function checkRight(right, xPos) {
-      if (xPos >= right - snapFactor && xPos <= right) return true
+      return xPos >= right - snapFactor && xPos <= right
     }
     function checkBottom(bottom, yPos) {
-      if (yPos >= bottom - snapFactor && yPos <= bottom) return true
+      return yPos >= bottom - snapFactor && yPos <= bottom
     }
-
-    console.log(isSnapped);
 
     return {
       xPos: newXPos,
@@ -104,10 +102,10 @@
     props: ['eventData', 'eventName'],
 
     methods: {
-      addVerticalRule: function () {
+      toggleVerticalRule: function () {
         this.verticalGuides.push(this.xPos)
       },
-      addHorizontalRule: function () {
+      toggleHorizontalRule: function () {
         this.horizontalGuides.push(this.yPos)
       }
     },
