@@ -28,6 +28,7 @@
 <script>
   import GuideItem from './GuideItem.vue';
   import ViewElement from './ViewElement.vue';
+  import _ from 'lodash';
 
   function checkSnap(obj, xPos, yPos) {
     let top = obj.offsetTop;
@@ -102,11 +103,41 @@
     props: ['eventData', 'eventName'],
 
     methods: {
-      toggleVerticalRule: function () {
-        this.verticalGuides.push(this.xPos)
+      toggleRule: function (direction) {
+        let guidesArr;
+        let currGuide;
+
+        switch (direction){
+          case 'vertical':
+            guidesArr = this.verticalGuides;
+            currGuide = this.xPos;
+            break;
+          case 'horizontal':
+            guidesArr = this.horizontalGuides;
+            currGuide = this.yPos;
+            break;
+        }
+
+        if (guidesArr.indexOf(currGuide) >= 0) {
+          _.pull(guidesArr, currGuide)
+
+        } else {
+          guidesArr.push(currGuide);
+
+          guidesArr.sort(function(a, b) {
+            return a - b;
+          });
+        }
+
+
       },
+
+      toggleVerticalRule: function () {
+        this.toggleRule('vertical');
+      },
+
       toggleHorizontalRule: function () {
-        this.horizontalGuides.push(this.yPos)
+        this.toggleRule('horizontal');
       }
     },
 
