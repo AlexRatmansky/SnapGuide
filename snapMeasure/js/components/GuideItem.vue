@@ -20,7 +20,7 @@
   .guide {
     display: block;
     position: absolute;
-    background-color: green;
+    background-color: #e62ee6;
     top: 50%;
     left: 50%;
     z-index: 100;
@@ -29,9 +29,10 @@
 
   .label {
     position: absolute;
-    background: green;
+    background: #BD10E0 linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
+    color: #fff;
+    border-radius: 2px;
     padding: 5px;
-    color: yellow;
   }
 
   .guide.vertical {
@@ -41,8 +42,11 @@
   }
 
   .vertical .label {
-    top: 0;
-    left: 1px;
+    position: sticky;
+    display: inline-block;
+    top: 5px;
+    left: 0;
+    transform: translateX(-50%);
   }
 
   .guide.horizontal {
@@ -52,7 +56,8 @@
   }
 
   .horizontal .label {
-    left: 0;
-    top: 1px;
+    left: 5px;
+    top: 0;
+    transform: translateY(-50%);
   }
 </style>
