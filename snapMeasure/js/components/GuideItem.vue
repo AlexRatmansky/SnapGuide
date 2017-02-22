@@ -23,7 +23,7 @@
     background-color: #e62ee6;
     top: 50%;
     left: 50%;
-    z-index: 100;
+    z-index: 9998;
     pointer-events: none;
   }
 
