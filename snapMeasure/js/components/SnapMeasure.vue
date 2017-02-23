@@ -31,14 +31,20 @@
   import _ from 'lodash';
 
   function checkSnap(obj, xPos, yPos) {
-    let top = obj.offsetTop;
-    let left = obj.offsetLeft;
-    let right = left + obj.offsetWidth;
-    let bottom = top + obj.offsetHeight;
+
+    let bodyRect = document.body.getBoundingClientRect();
+    let elemRect = obj.getBoundingClientRect();
+
+    let top = Math.round(elemRect.top - bodyRect.top);
+    let left = Math.round(elemRect.left - bodyRect.left);
+    let right = left + elemRect.width;
+    let bottom = top + elemRect.height;
+
     let newXPos = xPos;
     let newYPos = yPos;
+
     let isSnapped = false;
-    let snapFactor = 25;
+    let snapFactor = 10;
 
     if (checkTop(top, yPos)) {
       newYPos = top;
@@ -146,17 +152,32 @@
         const currElement = eventObj.path[0] || undefined;
         let snapObj = checkSnap(currElement, eventObj.pageX, eventObj.pageY);
 
+        const bodyRect = document.body.getBoundingClientRect();
+        const elemRect = currElement.getBoundingClientRect();
+
         // console.log(eventObj.path);
 
         this.xPos = snapObj.xPos;
         this.yPos = snapObj.yPos;
 
+
+
+        let top = Math.round(elemRect.top - bodyRect.top);
+        let left = Math.round(elemRect.left - bodyRect.left);
+        let right = left + elemRect.width;
+        let bottom = top + elemRect.height;
+
+
         this.elem = {
-          top: currElement.offsetTop + 'px',
-          left: currElement.offsetLeft + 'px',
-          width: currElement.offsetWidth + 'px',
-          height: currElement.offsetHeight + 'px'
+          top: Math.round(elemRect.top - bodyRect.top),
+          left: Math.round(elemRect.left - bodyRect.left),
+          right: left + elemRect.width,
+          bottom: top + elemRect.height,
+          width: elemRect.width,
+          height: elemRect.height
         }
+        ;
+
       },
       eventName: function (eventName) {
         if (this[eventName.name]) {
