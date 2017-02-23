@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class=$style.snapMeasure>
     <div v-for="guide in crossGuides">
       <GuideItem v-if=guide.isVertical :is-vertical=true :x-pos=xPos></GuideItem>
       <GuideItem v-else :is-vertical=false :y-pos=yPos></GuideItem>
@@ -14,11 +14,11 @@
     </div>
 
 
-    <div :class="$style.counter"
+    <div :class=$style.counter
          :style="{ left: xPos + 10 + 'px', top: yPos + 10 + 'px'}"
     >
-      <div>&nbsp;x: {{ xPos }}</div>
-      <div>&nbsp;y: {{ yPos }}</div>
+      <div>x: {{ xPos }}</div>
+      <div>y: {{ yPos }}</div>
     </div>
 
     <ViewElement :element-props=elem></ViewElement>
@@ -168,13 +168,22 @@
 </script>
 
 <style module>
+  .snapMeasure {
+    font-family: Menlo, Consolas, Courier, monospace;
+    font-size: 12px;
+  }
   .counter {
     position: absolute;
-    background-color: green;
-    color: yellow;
+    background: #BD10E0 linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
+    color: #fff;
     padding: 5px 10px;
-    transition: all 0.25s cubic-bezier(0, 1.5, 1, 1);
+    border-radius: 2px;
     pointer-events: none;
-    z-index: 101;
+    z-index: 9999;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  }
+
+  .counter {
+
   }
 </style>
