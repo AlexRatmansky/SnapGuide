@@ -1,12 +1,13 @@
 let path = require('path');
 let webpack = require('webpack');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './js/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'build.js'
+    filename: 'inpage.js'
   },
   module: {
     rules: [
@@ -46,6 +47,13 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new CopyWebpackPlugin([
+        {from: 'manifest.json'},
+        {from: 'background.js'}
+      ]
+    )
+  ],
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.common.js'
