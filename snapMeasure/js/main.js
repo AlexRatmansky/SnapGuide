@@ -2,6 +2,10 @@ import Vue from 'vue'
 import SnapMeasure from './components/SnapMeasure.vue'
 import _ from 'lodash';
 
+let rootEl = document.createElement('div');
+rootEl.id = 'app';
+document.body.appendChild(rootEl);
+
 let App = new Vue({
 
   el: '#app',
