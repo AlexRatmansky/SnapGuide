@@ -1,4 +1,4 @@
-var isRunning = false;
+let isRunning = false;
 
 chrome.browserAction.onClicked.addListener(function (tab) {
   if (!isRunning) {
