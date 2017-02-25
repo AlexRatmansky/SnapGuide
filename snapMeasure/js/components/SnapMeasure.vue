@@ -1,8 +1,8 @@
 <template>
   <div :class=$style.snapMeasure>
     <div v-for="guide in crossGuides">
-      <GuideItem v-if=guide.isVertical :is-vertical=true :x-pos=xPos></GuideItem>
-      <GuideItem v-else :is-vertical=false :y-pos=yPos></GuideItem>
+      <GuideItem v-if=guide.isVertical :is-vertical=true :x-pos=crossPos.x></GuideItem>
+      <GuideItem v-else :is-vertical=false :y-pos=crossPos.y></GuideItem>
     </div>
 
     <div v-for="guidePos in verticalGuides">
@@ -15,10 +15,10 @@
 
 
     <div :class=$style.counter
-         :style="{ left: xPos + 10 + 'px', top: yPos + 10 + 'px'}"
+         :style="{ left: cursorPos.x + 10 + 'px', top: cursorPos.y + 10 + 'px'}"
     >
-      <div>x: {{ xPos }}</div>
-      <div>y: {{ yPos }}</div>
+      <div>x: {{ cursorPos.x }}</div>
+      <div>y: {{ cursorPos.y }}</div>
     </div>
 
     <ViewElement :element-props=elem></ViewElement>
@@ -66,17 +66,17 @@
       isSnapped = true;
     }
 
-    function checkTop(top, yPos) {
-      return yPos <= top + snapFactor && yPos >= top
+    function checkTop(top, y) {
+      return y <= top + snapFactor && y >= top
     }
-    function checkLeft(left, xPos) {
-      return xPos <= left + snapFactor && xPos >= left
+    function checkLeft(left, x) {
+      return x <= left + snapFactor && x >= left
     }
-    function checkRight(right, xPos) {
-      return xPos >= right - snapFactor && xPos <= right
+    function checkRight(right, x) {
+      return x >= right - snapFactor && x <= right
     }
-    function checkBottom(bottom, yPos) {
-      return yPos >= bottom - snapFactor && yPos <= bottom
+    function checkBottom(bottom, y) {
+      return y >= bottom - snapFactor && y <= bottom
     }
 
     return {
@@ -92,8 +92,14 @@
 
     data: function () {
       return {
-        xPos: '',
-        yPos: '',
+        cursorPos: {
+          x: '',
+          y: ''
+        },
+        crossPos: {
+          x: '',
+          y: ''
+        },
         elem: '',
         crossGuides: [
           {isVertical: false,},
@@ -116,11 +122,11 @@
         switch (direction){
           case 'vertical':
             guidesArr = this.verticalGuides;
-            currGuide = this.xPos;
+            currGuide = this.cursorPos.x;
             break;
           case 'horizontal':
             guidesArr = this.horizontalGuides;
-            currGuide = this.yPos;
+            currGuide = this.cursorPos.y;
             break;
         }
 
@@ -150,35 +156,35 @@
     watch: {
       eventData: function (eventObj) {
         const currElement = eventObj.path[0] || undefined;
-        let snapObj = checkSnap(currElement, eventObj.pageX, eventObj.pageY);
+        const snapObj = checkSnap(currElement, eventObj.pageX, eventObj.pageY);
 
         const bodyRect = document.body.getBoundingClientRect();
         const elemRect = currElement.getBoundingClientRect();
 
-        // console.log(eventObj.path);
+        this.cursorPos = {
+          x: snapObj.xPos,
+          y: snapObj.yPos
+        };
 
-        this.xPos = snapObj.xPos;
-        this.yPos = snapObj.yPos;
-
-
+        this.crossPos = {
+          x: Math.round(this.cursorPos.x + bodyRect.left),
+          y: this.cursorPos.y
+        };
 
         let top = Math.round(elemRect.top - bodyRect.top);
         let left = Math.round(elemRect.left - bodyRect.left);
-        let right = left + elemRect.width;
-        let bottom = top + elemRect.height;
-
 
         this.elem = {
-          top: Math.round(elemRect.top - bodyRect.top),
-          left: Math.round(elemRect.left - bodyRect.left),
+          top: top,
+          left: left,
           right: left + elemRect.width,
           bottom: top + elemRect.height,
           width: elemRect.width,
           height: elemRect.height
-        }
-        ;
+        };
 
       },
+
       eventName: function (eventName) {
         if (this[eventName.name]) {
           this[eventName.name]()

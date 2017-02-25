@@ -19,10 +19,9 @@
 <style module>
   .guide {
     display: block;
-    position: absolute;
-    background-color: #e62ee6;
     top: 50%;
     left: 50%;
+    background-color: #e62ee6;
     z-index: 9998;
     pointer-events: none;
   }
@@ -36,13 +35,14 @@
   }
 
   .guide.vertical {
+    position: fixed;
     width: 1px;
     top: 0;
     height: 100%;
   }
 
   .vertical .label {
-    position: sticky;
+    position: absolute;
     display: inline-block;
     top: 5px;
     left: 0;
@@ -50,6 +50,7 @@
   }
 
   .guide.horizontal {
+    position: absolute;
     left: 0;
     height: 1px;
     width: 100%;

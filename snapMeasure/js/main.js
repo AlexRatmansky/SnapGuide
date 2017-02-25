@@ -25,6 +25,7 @@ document.onmousemove = function (e) {
 };
 
 document.onkeypress = function (e) {
+  e.preventDefault();
 
   switch (e.code) {
     // v - for vertical
@@ -44,8 +45,6 @@ document.onkeypress = function (e) {
     default:
       break;
   }
-
-  console.log(e);
 };
 
 passEventData = _.throttle(passEventData, 50);
