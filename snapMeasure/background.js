@@ -1,8 +1,8 @@
-var a = true;
+var isRunning = false;
 
 chrome.browserAction.onClicked.addListener(function (tab) {
-  if (a) {
+  if (!isRunning) {
     chrome.tabs.executeScript(tab.id, {file: 'inpage.js'});
-    a = false;
+    isRunning = true;
   }
 });
