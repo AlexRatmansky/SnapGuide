@@ -13,8 +13,14 @@ let App = new Vue({
   data: {
     eventData: {},
     eventName: '',
-    scrollPosition: {},
-    windowSize: {}
+    scrollPosition: {
+      scrollTop: window.pageYOffset,
+      scrollLeft: window.pageXOffset
+    },
+    windowSize: {
+      width: window.innerWidth,
+      height: window.innerHeight
+    }
   },
 
   template: '<SnapMeasure :event-data=eventData :event-name=eventName :scroll-position=scrollPosition :window-size=windowSize />',

@@ -1,18 +1,16 @@
 <template>
   <div :class=$style.snapMeasure>
-    <div v-for="guide in crossGuides">
-      <GuideItem :is-vertical=true :x-pos=crossPos.x></GuideItem>
-      <GuideItem :is-vertical=false :y-pos=crossPos.y></GuideItem>
-    </div>
 
-    <div v-for="guidePos in verticalGuides">
-      <GuideItem :is-vertical=true :x-pos=guidePos></GuideItem>
-    </div>
+    <GuideItem :is-vertical=true :x-pos=crossPos.x />
+    <GuideItem :is-vertical=false :y-pos=crossPos.y />
 
-    <div v-for="guidePos in horizontalGuides">
-      <GuideItem :is-vertical=false :y-pos=guidePos></GuideItem>
-    </div>
+    <template v-for="guidePos in verticalGuides">
+      <GuideItem :is-vertical=true :x-pos=guidePos-scrollPosition.scrollLeft />
+    </template>
 
+    <template v-for="guidePos in horizontalGuides">
+      <GuideItem :is-vertical=false :y-pos=guidePos-scrollPosition.scrollTop />
+    </template>
 
     <div :class=$style.counter
          :style="{ left: cursorPos.x + 10 + 'px', top: cursorPos.y + 10 + 'px'}"
@@ -169,11 +167,11 @@
 
           this.crossPos = {
             x: Math.round(this.cursorPos.x + bodyRect.left),
-            y: this.cursorPos.y
+            y: Math.round(this.cursorPos.y + bodyRect.top),
           };
 
-          let top = Math.round(elemRect.top - bodyRect.top);
           let left = Math.round(elemRect.left - bodyRect.left);
+          let top = Math.round(elemRect.top - bodyRect.top);
 
           this.elem = {
             top: top,

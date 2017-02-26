@@ -1,6 +1,13 @@
 <template>
-  <div :class="{[$style.guide]: true, [$style.vertical]: isVertical, [$style.horizontal]: !isVertical }"
-       :style="{ left: screenPosition.x + 'px', top: screenPosition.y + 'px'}"
+  <div :class="{
+          [$style.guide]: true,
+          [$style.vertical]: isVertical,
+          [$style.horizontal]: !isVertical
+       }"
+       :style="{
+          left: xPos + 'px',
+          top: yPos + 'px'
+       }"
   >
     <div :class=$style.label>
       <template v-if=isVertical>{{xPos}}</template>
