@@ -89,7 +89,8 @@ if (process.env.NODE_ENV === 'production') {
     ),
     new ZipPlugin({
       path: 'zip',
-      filename: 'pack.zip'
+      filename: 'pack.zip',
+      exclude: [/\.map$/]
     })
   ])
 }
