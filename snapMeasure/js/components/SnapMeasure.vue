@@ -1,8 +1,8 @@
 <template>
   <div :class=$style.snapMeasure>
     <div v-for="guide in crossGuides">
-      <GuideItem v-if=guide.isVertical :is-vertical=true :x-pos=crossPos.x></GuideItem>
-      <GuideItem v-else :is-vertical=false :y-pos=crossPos.y></GuideItem>
+      <GuideItem :is-vertical=true :x-pos=crossPos.x></GuideItem>
+      <GuideItem :is-vertical=false :y-pos=crossPos.y></GuideItem>
     </div>
 
     <div v-for="guidePos in verticalGuides">
@@ -112,7 +112,7 @@
 
     components: {GuideItem, ViewElement},
 
-    props: ['eventData', 'eventName'],
+    props: ['eventData', 'eventName', 'scrollPosition', 'windowSize'],
 
     methods: {
       toggleRule: function (direction) {
@@ -154,10 +154,10 @@
     },
 
     watch: {
-      eventData: function (eventObj) {
-        if (eventObj !== undefined) {
-          const currElement = eventObj.path[0] || undefined;
-          const snapObj = checkSnap(currElement, eventObj.pageX, eventObj.pageY);
+      eventData: function (data) {
+        if (data !== undefined) {
+          const currElement = data.path[0] || undefined;
+          const snapObj = checkSnap(currElement, data.pageX, data.pageY);
 
           const bodyRect = document.body.getBoundingClientRect();
           const elemRect = currElement.getBoundingClientRect();
@@ -186,9 +186,17 @@
         }
       },
 
-      eventName: function (eventName) {
-        if (this[eventName.name]) {
-          this[eventName.name]()
+      scrollPosition: function (data) {
+        console.log('scroll', data);
+      },
+
+      windowSize: function (data) {
+        console.log('resize', data);
+      },
+
+      eventName: function (data) {
+        if (this[data.name]) {
+          this[data.name]()
         }
       }
     }

@@ -17,7 +17,7 @@ let App = new Vue({
     windowSize: {}
   },
 
-  template: '<SnapMeasure :event-data=eventData :event-name=eventName />',
+  template: '<SnapMeasure :event-data=eventData :event-name=eventName :scroll-position=scrollPosition :window-size=windowSize />',
 
   components: {SnapMeasure}
 });
@@ -57,9 +57,9 @@ document.onkeypress = function (e) {
   }
 };
 
-passMousePosition = _.throttle(passMousePosition, 50);
-passScrollPosition = _.throttle(passMousePosition, 100);
-passUpdatedWindowSize = _.throttle(passUpdatedWindowSize, 100);
+passMousePosition = _.throttle(passMousePosition, 100);
+passScrollPosition = _.throttle(passScrollPosition, 200);
+passUpdatedWindowSize = _.throttle(passUpdatedWindowSize, 200);
 
 function passMousePosition(eventData) {
   App.eventData = eventData;
@@ -68,7 +68,6 @@ function passMousePosition(eventData) {
 function passScrollPosition() {
   App.scrollPosition = {
     scrollTop: window.pageYOffset,
-    scrollLeft: window.pageXOffset,
     scrollLeft: window.pageXOffset
   }
 }
