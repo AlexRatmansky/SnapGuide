@@ -1,6 +1,8 @@
 let path = require('path');
 let webpack = require('webpack');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+let CopyWebpackPlugin = require('copy-webpack-plugin');
+let ZipPlugin = require('zip-webpack-plugin');
+
 
 module.exports = {
   entry: './js/main.js',
@@ -47,13 +49,6 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new CopyWebpackPlugin([
-        {from: 'manifest.json'},
-        {from: 'background.js'}
-      ]
-    )
-  ],
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.common.js'
@@ -75,7 +70,7 @@ if (process.env.NODE_ENV === 'production') {
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"production"'
+        NODE_ENV: 'production'
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
@@ -86,6 +81,16 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
+    }),
+    new CopyWebpackPlugin([
+        {from: 'manifest.json'},
+        {from: 'background.js'}
+      ]
+    ),
+    new ZipPlugin({
+      path: 'zip',
+      filename: 'pack.zip',
+      exclude: [/\.map$/]
     })
   ])
 }
