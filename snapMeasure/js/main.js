@@ -11,17 +11,27 @@ let App = new Vue({
   el: '#app',
 
   data: {
-    eventData: '',
-    eventName: ''
+    eventData: {},
+    eventName: '',
+    scrollPosition: {},
+    windowSize: {}
   },
 
   template: '<SnapMeasure :event-data=eventData :event-name=eventName />',
 
-  components: { SnapMeasure }
+  components: {SnapMeasure}
 });
 
 document.onmousemove = function (e) {
-  passEventData(e);
+  passMousePosition(e);
+};
+
+window.onscroll = function () {
+  passScrollPosition();
+};
+
+window.onresize = function () {
+  passUpdatedWindowSize();
 };
 
 document.onkeypress = function (e) {
@@ -47,8 +57,25 @@ document.onkeypress = function (e) {
   }
 };
 
-passEventData = _.throttle(passEventData, 50);
+passMousePosition = _.throttle(passMousePosition, 50);
+passScrollPosition = _.throttle(passMousePosition, 100);
+passUpdatedWindowSize = _.throttle(passUpdatedWindowSize, 100);
 
-function passEventData(eventData) {
+function passMousePosition(eventData) {
   App.eventData = eventData;
+}
+
+function passScrollPosition() {
+  App.scrollPosition = {
+    scrollTop: window.pageYOffset,
+    scrollLeft: window.pageXOffset,
+    scrollLeft: window.pageXOffset
+  }
+}
+
+function passUpdatedWindowSize() {
+  App.windowSize = {
+    width: window.innerWidth,
+    height: window.innerHeight
+  }
 }

@@ -155,34 +155,35 @@
 
     watch: {
       eventData: function (eventObj) {
-        const currElement = eventObj.path[0] || undefined;
-        const snapObj = checkSnap(currElement, eventObj.pageX, eventObj.pageY);
+        if (eventObj !== undefined) {
+          const currElement = eventObj.path[0] || undefined;
+          const snapObj = checkSnap(currElement, eventObj.pageX, eventObj.pageY);
 
-        const bodyRect = document.body.getBoundingClientRect();
-        const elemRect = currElement.getBoundingClientRect();
+          const bodyRect = document.body.getBoundingClientRect();
+          const elemRect = currElement.getBoundingClientRect();
 
-        this.cursorPos = {
-          x: snapObj.xPos,
-          y: snapObj.yPos
-        };
+          this.cursorPos = {
+            x: snapObj.xPos,
+            y: snapObj.yPos
+          };
 
-        this.crossPos = {
-          x: Math.round(this.cursorPos.x + bodyRect.left),
-          y: this.cursorPos.y
-        };
+          this.crossPos = {
+            x: Math.round(this.cursorPos.x + bodyRect.left),
+            y: this.cursorPos.y
+          };
 
-        let top = Math.round(elemRect.top - bodyRect.top);
-        let left = Math.round(elemRect.left - bodyRect.left);
+          let top = Math.round(elemRect.top - bodyRect.top);
+          let left = Math.round(elemRect.left - bodyRect.left);
 
-        this.elem = {
-          top: top,
-          left: left,
-          right: left + elemRect.width,
-          bottom: top + elemRect.height,
-          width: elemRect.width,
-          height: elemRect.height
-        };
-
+          this.elem = {
+            top: top,
+            left: left,
+            right: left + elemRect.width,
+            bottom: top + elemRect.height,
+            width: elemRect.width,
+            height: elemRect.height
+          };
+        }
       },
 
       eventName: function (eventName) {
