@@ -1,19 +1,28 @@
 <template>
   <div :class=$style.snapMeasure>
 
-    <GuideItem :is-vertical=true :x-pos=crossPos.x />
-    <GuideItem :is-vertical=false :y-pos=crossPos.y />
+    <GuideItem :is-vertical=true :x-pos=crossPos.x/>
+    <GuideItem :is-vertical=false :y-pos=crossPos.y/>
 
     <template v-for="guidePos in verticalGuides">
-      <GuideItem :is-vertical=true :x-pos=guidePos-scrollPosition.scrollLeft />
+      <GuideItem
+        :is-vertical=true
+        :x-pos=guidePos-scrollPosition.scrollLeft
+      />
     </template>
 
     <template v-for="guidePos in horizontalGuides">
-      <GuideItem :is-vertical=false :y-pos=guidePos-scrollPosition.scrollTop />
+      <GuideItem
+        :is-vertical=false
+        :y-pos=guidePos-scrollPosition.scrollTop
+      />
     </template>
 
     <div :class=$style.counter
-         :style="{ left: cursorPos.x + 10 + 'px', top: cursorPos.y + 10 + 'px'}"
+         :style="{
+           left: cursorPos.x + 10 + 'px',
+           top: cursorPos.y + 10 + 'px'
+         }"
     >
       <div>x: {{ cursorPos.x }}</div>
       <div>y: {{ cursorPos.y }}</div>
@@ -67,12 +76,15 @@
     function checkTop(top, y) {
       return y <= top + snapFactor && y >= top
     }
+
     function checkLeft(left, x) {
       return x <= left + snapFactor && x >= left
     }
+
     function checkRight(right, x) {
       return x >= right - snapFactor && x <= right
     }
+
     function checkBottom(bottom, y) {
       return y >= bottom - snapFactor && y <= bottom
     }
@@ -117,7 +129,7 @@
         let guidesArr;
         let currGuide;
 
-        switch (direction){
+        switch (direction) {
           case 'vertical':
             guidesArr = this.verticalGuides;
             currGuide = this.cursorPos.x;
@@ -134,7 +146,7 @@
         } else {
           guidesArr.push(currGuide);
 
-          guidesArr.sort(function(a, b) {
+          guidesArr.sort(function (a, b) {
             return a - b;
           });
         }
@@ -206,6 +218,7 @@
     font-family: Menlo, Consolas, Courier, monospace;
     font-size: 12px;
   }
+
   .counter {
     position: absolute;
     background: #BD10E0 linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
