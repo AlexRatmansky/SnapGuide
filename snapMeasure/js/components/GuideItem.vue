@@ -5,8 +5,8 @@
           [$style.horizontal]: !isVertical
        }"
        :style="{
-          left: xPos + 'px',
-          top: yPos + 'px'
+          left: xPos - scrollPosition.scrollLeft + 'px',
+          top: yPos - scrollPosition.scrollTop + 'px'
        }"
   >
     <div :class=$style.label>
@@ -19,18 +19,20 @@
 <script>
   export default {
     name: 'GuideItem',
-    props: ['isVertical', 'yPos', 'xPos'],
-    computed: {
-      screenPosition: function () {
-        let top  = window.pageYOffset || document.documentElement.scrollTop;
-        let left = window.pageXOffset || document.documentElement.scrollLeft;
-
-        return {
-          x: this.xPos - left,
-          y: this.yPos - top
-        }
+    props: {
+      isVertical: Boolean,
+      yPos: Number,
+      xPos: Number,
+      scrollPosition: {
+        type: Object,
+        default: function () {
+          return {
+            scrollTop: 0,
+            scrollLeft: 0
+          }
+        },
       }
-    }
+    },
   };
 </script>
 

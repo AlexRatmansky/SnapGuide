@@ -1,20 +1,22 @@
 <template>
   <div :class=$style.snapMeasure>
 
-    <GuideItem :is-vertical=true :x-pos=crossPos.x/>
-    <GuideItem :is-vertical=false :y-pos=crossPos.y/>
+    <GuideItem :is-vertical=true :x-pos=crossPos.x />
+    <GuideItem :is-vertical=false :y-pos=crossPos.y />
 
     <template v-for="guidePos in verticalGuides">
       <GuideItem
         :is-vertical=true
-        :x-pos=guidePos-scrollPosition.scrollLeft
+        :x-pos=guidePos
+        :scroll-position=scrollPosition
       />
     </template>
 
     <template v-for="guidePos in horizontalGuides">
       <GuideItem
         :is-vertical=false
-        :y-pos=guidePos-scrollPosition.scrollTop
+        :y-pos=guidePos
+        :scroll-position=scrollPosition
       />
     </template>
 
@@ -103,12 +105,12 @@
     data: function () {
       return {
         cursorPos: {
-          x: '',
-          y: ''
+          x: 0,
+          y: 0
         },
         crossPos: {
-          x: '',
-          y: ''
+          x: 0,
+          y: 0
         },
         elem: '',
         crossGuides: [

@@ -63,9 +63,9 @@ document.onkeypress = function (e) {
   }
 };
 
-passMousePosition = _.throttle(passMousePosition, 100);
-passScrollPosition = _.throttle(passScrollPosition, 200);
-passUpdatedWindowSize = _.throttle(passUpdatedWindowSize, 200);
+passMousePosition = _.throttle(passMousePosition, 1);
+passScrollPosition = _.throttle(passScrollPosition, 1);
+passUpdatedWindowSize = _.throttle(passUpdatedWindowSize, 1);
 
 function passMousePosition(eventData) {
   App.eventData = eventData;
