@@ -1,33 +1,36 @@
 <template>
   <div :class=$style.snapMeasure>
-    <div v-for="guide in crossGuides">
-      <GuideItem v-if=guide.isVertical :is-vertical=true :x-pos=xPos></GuideItem>
-      <GuideItem v-else :is-vertical=false :y-pos=yPos></GuideItem>
-    </div>
 
-    <div v-for="guidePos in verticalGuides">
-      <GuideItem :is-vertical=true :x-pos=guidePos></GuideItem>
-    </div>
+    <GuideItem :is-vertical=true :x-pos=crossPos.x />
+    <GuideItem :is-vertical=false :y-pos=crossPos.y />
 
-    <div v-for="guidePos in horizontalGuides">
-      <GuideItem :is-vertical=false :y-pos=guidePos></GuideItem>
-    </div>
+    <template v-for="guidePos in verticalGuides">
+      <GuideItem
+        :is-vertical=true
+        :x-pos=guidePos
+        :scroll-position=scrollPosition
+      />
+    </template>
 
+    <template v-for="guidePos in horizontalGuides">
+      <GuideItem
+        :is-vertical=false
+        :y-pos=guidePos
+        :scroll-position=scrollPosition
+      />
+    </template>
 
-    <div :class=$style.counter
-         :style="{ left: xPos + 10 + 'px', top: yPos + 10 + 'px'}"
-    >
-      <div>x: {{ xPos }}</div>
-      <div>y: {{ yPos }}</div>
-    </div>
+    <CoordinatesItem :cursor-pos=cursorPos></CoordinatesItem>
 
     <ViewElement :element-props=elem></ViewElement>
+
   </div>
 </template>
 
 <script>
   import GuideItem from './GuideItem.vue';
   import ViewElement from './ViewElement.vue';
+  import CoordinatesItem from './CoordinatesItem.vue';
   import _ from 'lodash';
 
   function checkSnap(obj, xPos, yPos) {
@@ -66,17 +69,20 @@
       isSnapped = true;
     }
 
-    function checkTop(top, yPos) {
-      return yPos <= top + snapFactor && yPos >= top
+    function checkTop(top, y) {
+      return y <= top + snapFactor && y >= top
     }
-    function checkLeft(left, xPos) {
-      return xPos <= left + snapFactor && xPos >= left
+
+    function checkLeft(left, x) {
+      return x <= left + snapFactor && x >= left
     }
-    function checkRight(right, xPos) {
-      return xPos >= right - snapFactor && xPos <= right
+
+    function checkRight(right, x) {
+      return x >= right - snapFactor && x <= right
     }
-    function checkBottom(bottom, yPos) {
-      return yPos >= bottom - snapFactor && yPos <= bottom
+
+    function checkBottom(bottom, y) {
+      return y >= bottom - snapFactor && y <= bottom
     }
 
     return {
@@ -92,8 +98,14 @@
 
     data: function () {
       return {
-        xPos: '',
-        yPos: '',
+        cursorPos: {
+          x: 0,
+          y: 0
+        },
+        crossPos: {
+          x: 0,
+          y: 0
+        },
         elem: '',
         crossGuides: [
           {isVertical: false,},
@@ -104,23 +116,23 @@
       }
     },
 
-    components: {GuideItem, ViewElement},
+    components: {GuideItem, ViewElement, CoordinatesItem},
 
-    props: ['eventData', 'eventName'],
+    props: ['eventData', 'eventName', 'scrollPosition', 'windowSize'],
 
     methods: {
       toggleRule: function (direction) {
         let guidesArr;
         let currGuide;
 
-        switch (direction){
+        switch (direction) {
           case 'vertical':
             guidesArr = this.verticalGuides;
-            currGuide = this.xPos;
+            currGuide = this.cursorPos.x;
             break;
           case 'horizontal':
             guidesArr = this.horizontalGuides;
-            currGuide = this.yPos;
+            currGuide = this.cursorPos.y;
             break;
         }
 
@@ -130,7 +142,7 @@
         } else {
           guidesArr.push(currGuide);
 
-          guidesArr.sort(function(a, b) {
+          guidesArr.sort(function (a, b) {
             return a - b;
           });
         }
@@ -148,40 +160,49 @@
     },
 
     watch: {
-      eventData: function (eventObj) {
-        const currElement = eventObj.path[0] || undefined;
-        let snapObj = checkSnap(currElement, eventObj.pageX, eventObj.pageY);
+      eventData: function (data) {
+        if (data !== undefined) {
+          const currElement = data.path[0] || undefined;
+          const snapObj = checkSnap(currElement, data.pageX, data.pageY);
 
-        const bodyRect = document.body.getBoundingClientRect();
-        const elemRect = currElement.getBoundingClientRect();
+          const bodyRect = document.body.getBoundingClientRect();
+          const elemRect = currElement.getBoundingClientRect();
 
-        // console.log(eventObj.path);
+          this.cursorPos = {
+            x: snapObj.xPos,
+            y: snapObj.yPos
+          };
 
-        this.xPos = snapObj.xPos;
-        this.yPos = snapObj.yPos;
+          this.crossPos = {
+            x: Math.round(this.cursorPos.x + bodyRect.left),
+            y: Math.round(this.cursorPos.y + bodyRect.top),
+          };
 
+          let left = Math.round(elemRect.left - bodyRect.left);
+          let top = Math.round(elemRect.top - bodyRect.top);
 
-
-        let top = Math.round(elemRect.top - bodyRect.top);
-        let left = Math.round(elemRect.left - bodyRect.left);
-        let right = left + elemRect.width;
-        let bottom = top + elemRect.height;
-
-
-        this.elem = {
-          top: Math.round(elemRect.top - bodyRect.top),
-          left: Math.round(elemRect.left - bodyRect.left),
-          right: left + elemRect.width,
-          bottom: top + elemRect.height,
-          width: elemRect.width,
-          height: elemRect.height
+          this.elem = {
+            top: top,
+            left: left,
+            right: left + elemRect.width,
+            bottom: top + elemRect.height,
+            width: elemRect.width,
+            height: elemRect.height
+          };
         }
-        ;
-
       },
-      eventName: function (eventName) {
-        if (this[eventName.name]) {
-          this[eventName.name]()
+
+      scrollPosition: function (data) {
+        console.log('scroll', data);
+      },
+
+      windowSize: function (data) {
+        console.log('resize', data);
+      },
+
+      eventName: function (data) {
+        if (this[data.name]) {
+          this[data.name]()
         }
       }
     }
@@ -192,19 +213,5 @@
   .snapMeasure {
     font-family: Menlo, Consolas, Courier, monospace;
     font-size: 12px;
-  }
-  .counter {
-    position: absolute;
-    background: #BD10E0 linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 2px;
-    pointer-events: none;
-    z-index: 9999;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-  }
-
-  .counter {
-
   }
 </style>
