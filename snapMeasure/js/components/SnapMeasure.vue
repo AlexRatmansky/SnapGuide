@@ -20,23 +20,17 @@
       />
     </template>
 
-    <div :class=$style.counter
-         :style="{
-           left: cursorPos.x + 10 + 'px',
-           top: cursorPos.y + 10 + 'px'
-         }"
-    >
-      <div>x: {{ cursorPos.x }}</div>
-      <div>y: {{ cursorPos.y }}</div>
-    </div>
+    <CoordinatesItem :cursor-pos=cursorPos></CoordinatesItem>
 
     <ViewElement :element-props=elem></ViewElement>
+
   </div>
 </template>
 
 <script>
   import GuideItem from './GuideItem.vue';
   import ViewElement from './ViewElement.vue';
+  import CoordinatesItem from './CoordinatesItem.vue';
   import _ from 'lodash';
 
   function checkSnap(obj, xPos, yPos) {
@@ -122,7 +116,7 @@
       }
     },
 
-    components: {GuideItem, ViewElement},
+    components: {GuideItem, ViewElement, CoordinatesItem},
 
     props: ['eventData', 'eventName', 'scrollPosition', 'windowSize'],
 
@@ -219,20 +213,5 @@
   .snapMeasure {
     font-family: Menlo, Consolas, Courier, monospace;
     font-size: 12px;
-  }
-
-  .counter {
-    position: absolute;
-    background: #BD10E0 linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 2px;
-    pointer-events: none;
-    z-index: 9999;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-  }
-
-  .counter {
-
   }
 </style>
