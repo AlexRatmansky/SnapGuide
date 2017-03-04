@@ -1,4 +1,4 @@
-# SnapMeasure
+# SnapGuide
 
 > ___
 

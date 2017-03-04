@@ -1,11 +1,13 @@
 <template>
-  <div :class=$style.snapMeasure>
+  <div :class=$style.snapGuide>
 
-    <GuideItem :is-vertical=true :x-pos=crossPos.x />
-    <GuideItem :is-vertical=false :y-pos=crossPos.y />
+
+
+    <SnapGuide :is-vertical=true :x-pos=crossPos.x />
+    <SnapGuide :is-vertical=false :y-pos=crossPos.y />
 
     <template v-for="(guidePos, index) in verticalGuides">
-      <GuideItem
+      <SnapGuide
         :is-vertical=true
         :x-pos=guidePos
         :previous-guide=verticalGuides[index-1]
@@ -14,7 +16,7 @@
     </template>
 
     <template v-for="(guidePos, index) in horizontalGuides">
-      <GuideItem
+      <SnapGuide
         :is-vertical=false
         :y-pos=guidePos
         :previous-guide=horizontalGuides[index-1]
@@ -30,7 +32,7 @@
 </template>
 
 <script>
-  import GuideItem from './GuideItem.vue';
+  import SnapGuide from './SnapGuide.vue';
   import ViewElement from './ViewElement.vue';
   import CoordinatesItem from './CoordinatesItem.vue';
   import _ from 'lodash';
@@ -118,7 +120,7 @@
       }
     },
 
-    components: {GuideItem, ViewElement, CoordinatesItem},
+    components: {SnapGuide, ViewElement, CoordinatesItem},
 
     props: ['eventData', 'eventName', 'scrollPosition', 'windowSize'],
 
@@ -212,7 +214,7 @@
 </script>
 
 <style module>
-  .snapMeasure {
+  .snapGuide {
     font-family: Menlo, Consolas, Courier, monospace;
     font-size: 12px;
   }

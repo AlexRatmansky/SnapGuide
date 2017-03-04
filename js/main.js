@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import SnapMeasure from './components/SnapMeasure.vue'
+import SnapGuide from './components/SnapGuide.vue'
 import _ from 'lodash';
 
 let rootEl = document.createElement('div');
@@ -23,9 +23,9 @@ let App = new Vue({
     }
   },
 
-  template: '<SnapMeasure :event-data=eventData :event-name=eventName :scroll-position=scrollPosition :window-size=windowSize />',
+  template: '<SnapGuide :event-data=eventData :event-name=eventName :scroll-position=scrollPosition :window-size=windowSize />',
 
-  components: {SnapMeasure}
+  components: {SnapGuide}
 });
 
 document.onmousemove = function (e) {
