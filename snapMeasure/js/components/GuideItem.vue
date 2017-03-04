@@ -10,6 +10,9 @@
        }"
   >
     <div :class=$style.label>
+      <template v-if="previousGuide > 0">
+        +{{fromPrevious}}
+      </template>
       <template v-if=isVertical>{{xPos}}</template>
       <template v-else>{{yPos}}</template>
     </div>
@@ -23,6 +26,10 @@
       isVertical: Boolean,
       yPos: Number,
       xPos: Number,
+      previousGuide: {
+        type: Number,
+        default: -1,
+      },
       scrollPosition: {
         type: Object,
         default: function () {
@@ -33,6 +40,15 @@
         },
       }
     },
+    computed: {
+      fromPrevious: function () {
+        if (this.isVertical) {
+          return this.xPos - this.previousGuide;
+        } else {
+          return this.yPos - this.previousGuide;
+        }
+      }
+    }
   };
 </script>
 

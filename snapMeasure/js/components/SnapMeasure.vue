@@ -4,18 +4,20 @@
     <GuideItem :is-vertical=true :x-pos=crossPos.x />
     <GuideItem :is-vertical=false :y-pos=crossPos.y />
 
-    <template v-for="guidePos in verticalGuides">
+    <template v-for="(guidePos, index) in verticalGuides">
       <GuideItem
         :is-vertical=true
         :x-pos=guidePos
+        :previous-guide=verticalGuides[index-1]
         :scroll-position=scrollPosition
       />
     </template>
 
-    <template v-for="guidePos in horizontalGuides">
+    <template v-for="(guidePos, index) in horizontalGuides">
       <GuideItem
         :is-vertical=false
         :y-pos=guidePos
+        :previous-guide=horizontalGuides[index-1]
         :scroll-position=scrollPosition
       />
     </template>
