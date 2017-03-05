@@ -37,56 +37,77 @@
   import CoordinatesItem from './CoordinatesItem.vue';
   import _ from 'lodash';
 
-  function checkSnap(obj, xPos, yPos) {
+  function checkSnap(element, xPos, yPos) {
 
-    let bodyRect = document.body.getBoundingClientRect();
-    let elemRect = obj.getBoundingClientRect();
+    const bodyRect = document.body.getBoundingClientRect();
+    const elemRect = element.getBoundingClientRect();
+    const elemStyles = window.getComputedStyle(element);
 
-    let top = Math.round(elemRect.top - bodyRect.top);
-    let left = Math.round(elemRect.left - bodyRect.left);
-    let right = left + elemRect.width;
-    let bottom = top + elemRect.height;
+    const paddingTop = parseInt(elemStyles.paddingTop);
+    const paddingLeft = parseInt(elemStyles.paddingLeft);
+    const paddingRight = parseInt(elemStyles.paddingRight);
+    const paddingBottom = parseInt(elemStyles.paddingBottom);
+
+
+
+    const top = Math.round(elemRect.top - bodyRect.top);
+    const left = Math.round(elemRect.left - bodyRect.left);
+    const right = left + elemRect.width;
+    const bottom = top + elemRect.height;
 
     let newXPos = xPos;
     let newYPos = yPos;
 
     let isSnapped = false;
-    let snapFactor = 10;
+    const snapFactor = 5;
 
     if (checkTop(top, yPos)) {
       newYPos = top;
       isSnapped = true;
     }
-
     if (checkLeft(left, xPos)) {
       newXPos = left;
       isSnapped = true;
     }
-
     if (checkRight(right, xPos)) {
       newXPos = right;
       isSnapped = true;
     }
-
     if (checkBottom(bottom, yPos)) {
       newYPos = bottom;
       isSnapped = true;
     }
+    if (checkTop(top + paddingTop, yPos)) {
+      newYPos = top + paddingTop;
+      isSnapped = true;
+    }
+    if (checkLeft(left + paddingLeft, xPos)) {
+      newXPos = left + paddingLeft;
+      isSnapped = true;
+    }
+    if (checkRight(right - paddingRight, xPos)) {
+      newXPos = right - paddingRight;
+      isSnapped = true;
+    }
+    if (checkBottom(bottom - paddingBottom, yPos)) {
+      newYPos = bottom - paddingBottom;
+      isSnapped = true;
+    }
 
     function checkTop(top, y) {
-      return y <= top + snapFactor && y >= top
+      return y <= top + snapFactor && y >= top - snapFactor
     }
 
     function checkLeft(left, x) {
-      return x <= left + snapFactor && x >= left
+      return x <= left + snapFactor && x >= left - snapFactor
     }
 
     function checkRight(right, x) {
-      return x >= right - snapFactor && x <= right
+      return x >= right - snapFactor && x <= right + snapFactor
     }
 
     function checkBottom(bottom, y) {
-      return y >= bottom - snapFactor && y <= bottom
+      return y >= bottom - snapFactor && y <= bottom + snapFactor
     }
 
     return {
@@ -172,6 +193,8 @@
           const bodyRect = document.body.getBoundingClientRect();
           const elemRect = currElement.getBoundingClientRect();
 
+          const elemStyles = window.getComputedStyle(currElement);
+
           this.cursorPos = {
             x: snapObj.xPos,
             y: snapObj.yPos
@@ -191,7 +214,13 @@
             right: left + elemRect.width,
             bottom: top + elemRect.height,
             width: elemRect.width,
-            height: elemRect.height
+            height: elemRect.height,
+            style: {
+              paddingTop: elemStyles.paddingTop,
+              paddingLeft: elemStyles.paddingLeft,
+              paddingRight: elemStyles.paddingRight,
+              paddingBottom: elemStyles.paddingBottom
+            }
           };
         }
       },
