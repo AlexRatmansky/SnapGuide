@@ -3,11 +3,11 @@
 
 
 
-    <SnapGuide :is-vertical=true :x-pos=crossPos.x />
-    <SnapGuide :is-vertical=false :y-pos=crossPos.y />
+    <GuideItem :is-vertical=true :x-pos=crossPos.x />
+    <GuideItem :is-vertical=false :y-pos=crossPos.y />
 
     <template v-for="(guidePos, index) in verticalGuides">
-      <SnapGuide
+      <GuideItem
         :is-vertical=true
         :x-pos=guidePos
         :previous-guide=verticalGuides[index-1]
@@ -16,7 +16,7 @@
     </template>
 
     <template v-for="(guidePos, index) in horizontalGuides">
-      <SnapGuide
+      <GuideItem
         :is-vertical=false
         :y-pos=guidePos
         :previous-guide=horizontalGuides[index-1]
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-  import SnapGuide from './SnapGuide.vue';
+  import GuideItem from './GuideItem.vue';
   import ViewElement from './ViewElement.vue';
   import CoordinatesItem from './CoordinatesItem.vue';
   import _ from 'lodash';
@@ -120,7 +120,7 @@
       }
     },
 
-    components: {SnapGuide, ViewElement, CoordinatesItem},
+    components: {GuideItem, ViewElement, CoordinatesItem},
 
     props: ['eventData', 'eventName', 'scrollPosition', 'windowSize'],
 
