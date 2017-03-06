@@ -1,7 +1,7 @@
 {
-  "name": "SnapMeasure",
-  "description": "___",
-  "version": "1.0.0",
+  "name": "SnapGuide",
+  "description": "Chrome extension for measuring elements on page",
+  "version": "0.2.1",
   "author": "AlexRatmansky",
   "private": true,
   "scripts": {

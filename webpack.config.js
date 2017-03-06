@@ -3,7 +3,6 @@ let webpack = require('webpack');
 let CopyWebpackPlugin = require('copy-webpack-plugin');
 let ZipPlugin = require('zip-webpack-plugin');
 
-
 module.exports = {
   entry: './js/main.js',
   output: {
@@ -84,13 +83,14 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new CopyWebpackPlugin([
         {from: 'manifest.json'},
-        {from: 'background.js'}
+        {from: 'background.js'},
+        {from: 'icon/*.png'}
       ]
     ),
     new ZipPlugin({
       path: 'zip',
       filename: 'pack.zip',
-      exclude: [/\.map$/]
+      exclude: [/\.map$/, /\.sketch$/, /\.psd$/]
     })
   ])
 }
