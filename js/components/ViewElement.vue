@@ -11,10 +11,10 @@
     <div
       :class="$style.paddingBox"
       :style="{
-        top: elementProps.style.paddingTop || 0,
-        left: elementProps.style.paddingLeft || 0,
-        right: elementProps.style.paddingRight || 0,
-        bottom: elementProps.style.paddingBottom || 0
+        top: elementProps.style && elementProps.style.paddingTop || 0,
+        left: elementProps.style && elementProps.style.paddingLeft || 0,
+        right: elementProps.style && elementProps.style.paddingRight || 0,
+        bottom: elementProps.style && elementProps.style.paddingBottom || 0
       }"
     ></div>
   </div>

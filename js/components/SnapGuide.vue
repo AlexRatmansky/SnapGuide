@@ -3,8 +3,8 @@
 
 
 
-    <GuideItem :is-vertical=true :x-pos=crossPos.x />
-    <GuideItem :is-vertical=false :y-pos=crossPos.y />
+    <GuideItem :is-vertical=true :x-pos=crossPos.x :cross-guide=true :scroll-position=scrollPosition />
+    <GuideItem :is-vertical=false :y-pos=crossPos.y :cross-guide=true :scroll-position=scrollPosition />
 
     <template v-for="(guidePos, index) in verticalGuides">
       <GuideItem

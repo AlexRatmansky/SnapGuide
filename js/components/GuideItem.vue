@@ -5,16 +5,16 @@
           [$style.horizontal]: !isVertical
        }"
        :style="{
-          left: xPos - scrollPosition.scrollLeft + 'px',
-          top: yPos - scrollPosition.scrollTop + 'px'
+          left: xPos - (!crossGuide && scrollPosition.scrollLeft) + 'px',
+          top: yPos - (!crossGuide && scrollPosition.scrollTop) + 'px'
        }"
   >
     <div :class=$style.label>
       <template v-if="previousGuide > 0">
         +{{fromPrevious}}
       </template>
-      <template v-if=isVertical>{{xPos}}</template>
-      <template v-else>{{yPos}}</template>
+      <template v-if=isVertical>{{xPos + (crossGuide && scrollPosition.scrollLeft)}}</template>
+      <template v-else>{{yPos + (crossGuide && scrollPosition.scrollTop)}}</template>
     </div>
   </div>
 </template>
@@ -29,6 +29,10 @@
       previousGuide: {
         type: Number,
         default: -1,
+      },
+      crossGuide: {
+        type: Boolean,
+        default: false,
       },
       scrollPosition: {
         type: Object,
