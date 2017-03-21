@@ -30,11 +30,12 @@
     position: absolute;
     top: 10px;
     left: 10px;
-    background: #BD10E0 linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 2px;
+    padding: 1px 5px 0;
+    border: 2px solid #BD10E0;
+    background: #fff;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    color: #000;
+    border-radius: 4px;
     z-index: 9999;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
   }
 </style>

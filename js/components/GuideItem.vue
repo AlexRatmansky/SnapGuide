@@ -70,10 +70,11 @@
   .label {
     position: absolute;
     display: inline-block;
-    padding: 5px;
-    border-radius: 2px;
-    background: #BD10E0 linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
-    color: #fff;
+    padding: 1px 5px 0;
+    border: 2px solid #BD10E0;
+    background: #fff;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    color: #000;
   }
 
   .guide.vertical {
@@ -83,12 +84,15 @@
   }
 
   .vertical .label {
-    top: 5px;
+    top: 0;
     left: 0;
+    border-top-width: 0;
+    border-radius: 0 0 4px 4px;
     transform: translateX(-50%);
   }
 
   .guide.horizontal {
+
     left: 0;
     width: 100%;
     height: 1px;
@@ -96,7 +100,9 @@
 
   .horizontal .label {
     top: 0;
-    left: 5px;
+    left: 0;
+    border-left-width: 0;
+    border-radius: 0 4px 4px 0;
     transform: translateY(-50%);
   }
 </style>
