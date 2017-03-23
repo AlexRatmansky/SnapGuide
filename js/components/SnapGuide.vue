@@ -13,6 +13,12 @@
         :previous-guide=verticalGuides[index-1]
         :scroll-position=scrollPosition
       />
+
+      <GuideSizer
+        :position=verticalGuides[index-1]
+        :width=guidePos-verticalGuides[index-1]
+      />
+
     </template>
 
     <template v-for="(guidePos, index) in horizontalGuides">
@@ -35,6 +41,7 @@
   import GuideItem from './GuideItem.vue';
   import ViewElement from './ViewElement.vue';
   import CoordinatesItem from './CoordinatesItem.vue';
+  import GuideSizer from './GuideSizer.vue';
   import _ from 'lodash';
 
   function checkSnap(element, xPos, yPos) {
@@ -47,8 +54,6 @@
     const paddingLeft = parseInt(elemStyles.paddingLeft);
     const paddingRight = parseInt(elemStyles.paddingRight);
     const paddingBottom = parseInt(elemStyles.paddingBottom);
-
-
 
     const top = Math.round(elemRect.top - bodyRect.top);
     const left = Math.round(elemRect.left - bodyRect.left);
@@ -136,12 +141,12 @@
           {isVertical: false,},
           {isVertical: true,}
         ],
-        verticalGuides: [],
+        verticalGuides: [263, 278, 1071, 1103],
         horizontalGuides: []
       }
     },
 
-    components: {GuideItem, ViewElement, CoordinatesItem},
+    components: {GuideItem, ViewElement, CoordinatesItem, GuideSizer},
 
     props: ['eventData', 'eventName', 'scrollPosition', 'windowSize'],
 

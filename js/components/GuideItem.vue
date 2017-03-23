@@ -10,9 +10,6 @@
        }"
   >
     <div :class=$style.label>
-      <template v-if="previousGuide > 0">
-        +{{fromPrevious}}
-      </template>
       <template v-if=isVertical>{{xPos + (crossGuide && scrollPosition.scrollLeft)}}</template>
       <template v-else>{{yPos + (crossGuide && scrollPosition.scrollTop)}}</template>
     </div>
@@ -73,7 +70,7 @@
     padding: 1px 5px 0;
     border: 2px solid #BD10E0;
     background: #fff;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
     color: #000;
   }
 
