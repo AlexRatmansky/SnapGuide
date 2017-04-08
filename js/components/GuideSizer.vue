@@ -1,15 +1,19 @@
 <template>
-  <div :class=$style.GuideSizer
+  <div :class="{
+        [$style.GuideSizer]: true,
+        [$style.vertical]: isVertical,
+        [$style.horizontal]: !isVertical
+       }"
        :style="{
-         left: position + 'px',
-         width: width + 'px'
+        [isVertical ? 'left' : 'top']: position + 'px',
+        [isVertical ? 'width': 'height']: size + 'px'
        }"
   >
 
-    <div :class=$style.GuideSizerBox ></div>
-    <div :class=$style.label>
-      {{width}}
-    </div>
+    <div :class=$style.GuideSizerBox></div>
+
+    <div :class=$style.label>{{size}}</div>
+
   </div>
 </template>
 
@@ -18,7 +22,8 @@
     name: 'GuideSizer',
     props: {
       position: Number,
-      width: Number
+      size: Number,
+      isVertical: Boolean
     }
   };
 </script>
@@ -26,8 +31,16 @@
 <style module>
   .GuideSizer {
     position: absolute;
+  }
+
+  .GuideSizer.horizontal {
+    left: 20px;
+    width: 1px;
+  }
+
+  .GuideSizer.vertical {
+    top: 20px;
     height: 1px;
-    top: 100px;
   }
 
   .GuideSizerBox {
@@ -37,6 +50,9 @@
     background-color: magenta;
     position: relative;
   }
+
+  .horizontal .GuideSizerBox {}
+  .vertical .GuideSizerBox {}
 
   .label {
     position: absolute;
@@ -49,4 +65,9 @@
     padding: 0 5px;
     z-index: 99999;
   }
+
+  .horizontal .label {}
+
+  .vertical .label{}
+
 </style>

@@ -14,10 +14,13 @@
         :scroll-position=scrollPosition
       />
 
-      <GuideSizer
-        :position=verticalGuides[index-1]
-        :width=guidePos-verticalGuides[index-1]
-      />
+      <template v-if="index > 0">
+        <GuideSizer
+          :position=verticalGuides[index-1]
+          :size=guidePos-verticalGuides[index-1]
+          :is-vertical=true
+        />
+      </template>
 
     </template>
 
@@ -28,6 +31,15 @@
         :previous-guide=horizontalGuides[index-1]
         :scroll-position=scrollPosition
       />
+
+      <template v-if="index > 0">
+        <GuideSizer
+          :position=horizontalGuides[index-1]
+          :size=guidePos-horizontalGuides[index-1]
+          :is-vertical=false
+        />
+      </template>
+
     </template>
 
     <CoordinatesItem :cursor-pos=cursorPos></CoordinatesItem>
