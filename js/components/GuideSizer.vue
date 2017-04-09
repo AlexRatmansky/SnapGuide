@@ -58,8 +58,8 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translateX(-50%) translatey(-50%);
-    border: 1px solid red;
+    transform: translateX(-50%) translateY(-50%);
+    border: 1px solid #BD10E0;
     border-radius: 3px;
     background: white;
     padding: 0 5px;
