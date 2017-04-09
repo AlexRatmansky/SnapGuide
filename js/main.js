@@ -40,7 +40,34 @@ window.onresize = function () {
   passUpdatedWindowSize();
 };
 
-document.onkeypress = function (e) {
+document.onkeydown = function (e) {
+  passKeyPressEvent(e)
+};
+
+passMousePosition = _.throttle(passMousePosition, 20);
+passScrollPosition = _.throttle(passScrollPosition, 20);
+passUpdatedWindowSize = _.throttle(passUpdatedWindowSize, 20);
+passKeyPressEvent = _.throttle(passKeyPressEvent, 50);
+
+function passMousePosition(eventData) {
+  App.eventData = eventData;
+}
+
+function passScrollPosition() {
+  App.scrollPosition = {
+    scrollTop: window.pageYOffset,
+    scrollLeft: window.pageXOffset
+  }
+}
+
+function passUpdatedWindowSize() {
+  App.windowSize = {
+    width: window.innerWidth,
+    height: window.innerHeight
+  }
+}
+
+function passKeyPressEvent(e) {
   e.preventDefault();
 
   switch (e.code) {
@@ -58,29 +85,41 @@ document.onkeypress = function (e) {
       };
       break;
 
+
+    // Arrow keys
+    case 'ArrowUp':
+      App.eventName = {
+        name: 'arrowPositioning',
+        direction: 'up',
+        shiftKey: e.shiftKey
+      };
+      break;
+
+    case 'ArrowDown':
+      App.eventName = {
+        name: 'arrowPositioning',
+        direction: 'down',
+        shiftKey: e.shiftKey
+      };
+      break;
+
+    case 'ArrowLeft':
+      App.eventName = {
+        name: 'arrowPositioning',
+        direction: 'left',
+        shiftKey: e.shiftKey
+      };
+      break;
+
+    case 'ArrowRight':
+      App.eventName = {
+        name: 'arrowPositioning',
+        direction: 'right',
+        shiftKey: e.shiftKey
+      };
+      break;
+
     default:
       break;
-  }
-};
-
-passMousePosition = _.throttle(passMousePosition, 20);
-passScrollPosition = _.throttle(passScrollPosition, 20);
-passUpdatedWindowSize = _.throttle(passUpdatedWindowSize, 20);
-
-function passMousePosition(eventData) {
-  App.eventData = eventData;
-}
-
-function passScrollPosition() {
-  App.scrollPosition = {
-    scrollTop: window.pageYOffset,
-    scrollLeft: window.pageXOffset
-  }
-}
-
-function passUpdatedWindowSize() {
-  App.windowSize = {
-    width: window.innerWidth,
-    height: window.innerHeight
   }
 }
