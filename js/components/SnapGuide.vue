@@ -108,8 +108,6 @@
             return a - b;
           });
         }
-
-
       },
 
       toggleVerticalRule: function () {

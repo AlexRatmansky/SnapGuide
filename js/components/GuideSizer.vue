@@ -67,7 +67,6 @@
   }
 
   .horizontal .label {}
-
-  .vertical .label{}
+  .vertical .label {}
 
 </style>
