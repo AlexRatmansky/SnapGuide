@@ -52,7 +52,50 @@
   }
 
   .horizontal .GuideSizerBox {}
+  .horizontal .GuideSizerBox::before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 7px;
+    height: 10px;
+    top: 0;
+    left: -3px;
+    background: url(../../img/sizing-arrow-vert.svg);
+  }
+  .horizontal .GuideSizerBox::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 7px;
+    height: 10px;
+    bottom: 0;
+    left: -3px;
+    background: url(../../img/sizing-arrow-vert.svg);
+    transform: scaleY(-1);
+  }
+
   .vertical .GuideSizerBox {}
+  .vertical .GuideSizerBox::before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 10px;
+    height: 7px;
+    left: 0;
+    top: -3px;
+    background: url(../../img/sizing-arrow-hor.svg);
+  }
+  .vertical .GuideSizerBox::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 10px;
+    height: 7px;
+    right: 0;
+    top: -3px;
+    background: url(../../img/sizing-arrow-hor.svg);
+    transform: scaleX(-1);
+  }
 
   .label {
     position: absolute;
