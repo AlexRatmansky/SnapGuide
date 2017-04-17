@@ -68,10 +68,9 @@
     position: absolute;
     display: inline-block;
     padding: 1px 3px 0;
-    border: 1px solid #BD10E0;
-    background: #fff;
+    background: #BD10E0;
     box-shadow: 0 5px 5px -4px rgba(0, 0, 0, 0.25);
-    color: #000;
+    color: #ffffff;
     font-size: 8px;
     line-height: 11px;
   }
@@ -86,7 +85,7 @@
     top: 0;
     left: 0;
     border-top-width: 0;
-    border-radius: 0 0 3px 3px;
+    border-radius: 0 0 2px 2px;
     transform: translateX(-50%);
   }
 
@@ -98,9 +97,9 @@
 
   .horizontal .label {
     top: 0;
-    left: 0;
+    left: 10px;
     border-left-width: 0;
-    border-radius: 0 3px 3px 0;
-    transform: translateY(-50%);
+    border-radius: 0 2px 2px 0;
+    /*transform: translateY(50%);*/
   }
 </style>

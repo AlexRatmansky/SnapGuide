@@ -21,7 +21,7 @@
     "vue": "^2.2",
     "vue-loader": "^11.1",
     "vue-template-compiler": "^2.2",
-    "webpack": "^2.2.0",
+    "webpack": "^2.4.0",
     "webpack-dev-server": "^2.2.0",
     "zip-webpack-plugin": "^1.0"
   }

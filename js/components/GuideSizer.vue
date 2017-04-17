@@ -34,12 +34,12 @@
   }
 
   .GuideSizer.horizontal {
-    left: 20px;
+    left: 5px;
     width: 1px;
   }
 
   .GuideSizer.vertical {
-    top: 20px;
+    top: 30px;
     height: 1px;
   }
 
@@ -101,7 +101,6 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translateX(-50%) translateY(-50%);
     border: 1px solid #BD10E0;
     border-radius: 3px;
     background: white;
@@ -109,7 +108,13 @@
     z-index: 99999;
   }
 
-  .horizontal .label {}
-  .vertical .label {}
+  .horizontal .label {
+    left: 0;
+    transform: translateY(-50%);
+  }
+  .vertical .label {
+    top: 0;
+    transform: translateX(-50%) translateY(-50%);
+  }
 
 </style>

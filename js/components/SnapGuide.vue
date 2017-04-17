@@ -1,8 +1,8 @@
 <template>
   <div :class=$style.snapGuide>
 
-    <GuideItem :is-vertical=true :x-pos=crossPos.x :cross-guide=true :scroll-position=scrollPosition />
-    <GuideItem :is-vertical=false :y-pos=crossPos.y :cross-guide=true :scroll-position=scrollPosition />
+    <GuideItem :is-vertical=true :x-pos=crossPos.x :cross-guide=true :scroll-position=scrollPosition ></GuideItem>
+    <GuideItem :is-vertical=false :y-pos=crossPos.y :cross-guide=true :scroll-position=scrollPosition ></GuideItem>
 
     <template v-for="(guidePos, index) in verticalGuides">
       <GuideItem
@@ -10,14 +10,14 @@
         :x-pos=guidePos
         :previous-guide=verticalGuides[index-1]
         :scroll-position=scrollPosition
-      />
+      ></GuideItem>
 
       <template v-if="index > 0">
         <GuideSizer
           :position=verticalGuides[index-1]
           :size=guidePos-verticalGuides[index-1]
           :is-vertical=true
-        />
+        ></GuideSizer>
       </template>
 
     </template>
@@ -28,14 +28,14 @@
         :y-pos=guidePos
         :previous-guide=horizontalGuides[index-1]
         :scroll-position=scrollPosition
-      />
+      ></GuideItem>
 
       <template v-if="index > 0">
         <GuideSizer
           :position=horizontalGuides[index-1]
           :size=guidePos-horizontalGuides[index-1]
           :is-vertical=false
-        />
+        ></GuideSizer>
       </template>
 
     </template>
@@ -43,6 +43,8 @@
     <CoordinatesItem :cursor-pos=cursorPos></CoordinatesItem>
 
     <ViewElement :element-props=elem></ViewElement>
+
+    <Legend :is-visible=true></Legend>
 
   </div>
 </template>
@@ -52,6 +54,7 @@
   import ViewElement from './ViewElement.vue';
   import CoordinatesItem from './CoordinatesItem.vue';
   import GuideSizer from './GuideSizer.vue';
+  import Legend from './Legend.vue';
   import {checkSnap} from '../helpers/snapping'
   import _ from 'lodash';
 
@@ -79,7 +82,7 @@
       }
     },
 
-    components: {GuideItem, ViewElement, CoordinatesItem, GuideSizer},
+    components: {GuideItem, ViewElement, CoordinatesItem, GuideSizer, Legend},
 
     props: ['eventData', 'eventName', 'scrollPosition', 'windowSize'],
 
