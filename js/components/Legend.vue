@@ -8,10 +8,7 @@
 
 <script>
   export default {
-    name: 'Legend',
-    props: {
-      isVisible: Boolean,
-    }
+    name: 'Legend'
   };
 </script>
 

@@ -23,7 +23,9 @@
 <script>
   export default {
     name: 'ViewElement',
-    props: ['elementProps']
+    props: {
+      elementProps: Object
+    }
   };
 </script>
 

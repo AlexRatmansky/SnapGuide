@@ -44,7 +44,7 @@
 
     <ViewElement :element-props=elem></ViewElement>
 
-    <Legend :is-visible=true></Legend>
+    <Legend v-if="showLegend"></Legend>
 
   </div>
 </template>
@@ -78,7 +78,8 @@
           {isVertical: true,}
         ],
         verticalGuides: [263, 278, 1071, 1103],
-        horizontalGuides: [64, 244, 409]
+        horizontalGuides: [64, 244, 409],
+        showLegend: true
       }
     },
 
