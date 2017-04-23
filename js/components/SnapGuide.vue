@@ -161,8 +161,8 @@
           const elemStyles = window.getComputedStyle(currElement);
 
           this.cursorPos = {
-            x: snapObj.xPos,
-            y: snapObj.yPos
+            x: Math.round(snapObj.xPos),
+            y: Math.round(snapObj.yPos)
           };
 
           this.crossPos = {
