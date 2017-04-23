@@ -2,6 +2,7 @@
   <div :class=$style.legend>
     <div :class=$style.textLine><code>V</code> - add vertical rule</div>
     <div :class=$style.textLine><code>H</code> - add horisontal rule</div>
+    <div :class=$style.textLine><code>Q</code> - remove all guides</div>
     <div :class=$style.textLine><code>←</code>,<code>↑</code>,<code>→</code>,<code>↓</code> - move cursor 1px direction (+<code>Shift</code> 10px)</div>
   </div>
 </template>

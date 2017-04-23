@@ -123,6 +123,11 @@
         this.toggleRule('horizontal');
       },
 
+      cleanGuides: function () {
+        this.verticalGuides = [];
+        this.horizontalGuides = [];
+      },
+
       arrowPositioning: function (data) {
         let step = data.shiftKey ? 10 : 1;
 

@@ -85,6 +85,13 @@ function passKeyPressEvent(e) {
       };
       break;
 
+    // q - for clean
+    case 'KeyQ':
+      App.eventName = {
+        name: 'cleanGuides'
+      };
+      break;
+
 
     // Arrow keys
     case 'ArrowUp':
