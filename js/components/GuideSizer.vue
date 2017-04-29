@@ -5,7 +5,7 @@
         [$style.horizontal]: !isVertical
        }"
        :style="{
-        [isVertical ? 'left' : 'top']: position + 'px',
+        [isVertical ? 'left' : 'top']: start + 'px',
         [isVertical ? 'width': 'height']: size + 'px'
        }"
   >
@@ -21,9 +21,14 @@
   export default {
     name: 'GuideSizer',
     props: {
-      position: Number,
-      size: Number,
+      start: Number,
+      end: Number,
       isVertical: Boolean
+    },
+    computed: {
+      size: function () {
+        return this.end - this.start
+      }
     }
   };
 </script>

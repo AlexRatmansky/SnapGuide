@@ -23,10 +23,6 @@
       isVertical: Boolean,
       yPos: Number,
       xPos: Number,
-      previousGuide: {
-        type: Number,
-        default: -1,
-      },
       crossGuide: {
         type: Boolean,
         default: false,
@@ -39,15 +35,6 @@
             scrollLeft: 0
           }
         },
-      }
-    },
-    computed: {
-      fromPrevious: function () {
-        if (this.isVertical) {
-          return this.xPos - this.previousGuide;
-        } else {
-          return this.yPos - this.previousGuide;
-        }
       }
     }
   };

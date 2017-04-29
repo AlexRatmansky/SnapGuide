@@ -1,5 +1,5 @@
 <template>
-  <div :class=$style.legend>
+  <div :class=$style.legendBoard>
     <div :class=$style.textLine><code>V</code> - add vertical rule</div>
     <div :class=$style.textLine><code>H</code> - add horisontal rule</div>
     <div :class=$style.textLine><code>Q</code> - remove all guides</div>
@@ -9,12 +9,12 @@
 
 <script>
   export default {
-    name: 'Legend'
+    name: 'LegendBoard'
   };
 </script>
 
 <style module>
-  .legend {
+  .legendBoard {
     pointer-events: none;
     position: fixed;
     bottom: 0;
@@ -30,7 +30,7 @@
     line-height: 2;
   }
 
-  .legend code {
+  .legendBoard code {
     background: #ffffff;
     color: #000000;
     border-radius: 2px;

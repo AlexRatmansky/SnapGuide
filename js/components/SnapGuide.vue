@@ -4,47 +4,41 @@
     <GuideItem :is-vertical=true :x-pos=crossPos.x :cross-guide=true :scroll-position=scrollPosition ></GuideItem>
     <GuideItem :is-vertical=false :y-pos=crossPos.y :cross-guide=true :scroll-position=scrollPosition ></GuideItem>
 
-    <template v-for="(guidePos, index) in verticalGuides">
+    <template v-for="guidePos in verticalGuides">
       <GuideItem
         :is-vertical=true
         :x-pos=guidePos
-        :previous-guide=verticalGuides[index-1]
         :scroll-position=scrollPosition
       ></GuideItem>
-
-      <template v-if="index > 0">
-        <GuideSizer
-          :position=verticalGuides[index-1]
-          :size=guidePos-verticalGuides[index-1]
+    </template>
+    <template v-for="sizer in verticalGuidesSizer">
+      <GuideSizer
+          :start=sizer.start
+          :end=sizer.end
           :is-vertical=true
         ></GuideSizer>
-      </template>
-
     </template>
 
-    <template v-for="(guidePos, index) in horizontalGuides">
+    <template v-for="guidePos in horizontalGuides">
       <GuideItem
         :is-vertical=false
         :y-pos=guidePos
-        :previous-guide=horizontalGuides[index-1]
         :scroll-position=scrollPosition
       ></GuideItem>
-
-      <template v-if="index > 0">
-        <GuideSizer
-          :position=horizontalGuides[index-1]
-          :size=guidePos-horizontalGuides[index-1]
-          :is-vertical=false
-        ></GuideSizer>
-      </template>
-
+    </template>
+    <template v-for="sizer in horizontalGuidesSizer">
+      <GuideSizer
+        :start=sizer.start
+        :end=sizer.end
+        :is-vertical=false
+      ></GuideSizer>
     </template>
 
     <CoordinatesItem :cursor-pos=cursorPos></CoordinatesItem>
 
     <ViewElement :element-props=elem></ViewElement>
 
-    <Legend v-if="showLegend"></Legend>
+    <LegendBoard v-if="showLegend"></LegendBoard>
 
   </div>
 </template>
@@ -54,7 +48,7 @@
   import ViewElement from './ViewElement.vue';
   import CoordinatesItem from './CoordinatesItem.vue';
   import GuideSizer from './GuideSizer.vue';
-  import Legend from './Legend.vue';
+  import LegendBoard from './LegendBoard.vue';
   import {checkSnap} from '../helpers/snapping'
   import _ from 'lodash';
 
@@ -72,18 +66,20 @@
           x: 0,
           y: 0
         },
-        elem: '',
+        elem: {},
         crossGuides: [
-          {isVertical: false,},
-          {isVertical: true,}
+          {isVertical: false},
+          {isVertical: true}
         ],
         verticalGuides: [263, 278, 1071, 1103],
         horizontalGuides: [64, 244, 409],
+        verticalGuidesSizer: [],
+        horizontalGuidesSizer: [],
         showLegend: true
       }
     },
 
-    components: {GuideItem, ViewElement, CoordinatesItem, GuideSizer, Legend},
+    components: {GuideItem, GuideSizer, ViewElement, CoordinatesItem, LegendBoard},
 
     props: ['eventData', 'eventName', 'scrollPosition', 'windowSize'],
 
@@ -105,7 +101,6 @@
 
         if (guidesArr.indexOf(currGuide) >= 0) {
           _.pull(guidesArr, currGuide)
-
         } else {
           guidesArr.push(currGuide);
 
@@ -113,6 +108,9 @@
             return a - b;
           });
         }
+
+        this.generateGuideMeasures(direction);
+
       },
 
       toggleVerticalRule: function () {
@@ -121,6 +119,39 @@
 
       toggleHorizontalRule: function () {
         this.toggleRule('horizontal');
+      },
+
+      generateGuideMeasures: function (direction) {
+        let guidesArr;
+        let guidesMeasuresArr = [];
+        let i = 0;
+
+        switch (direction) {
+          case 'vertical':
+            guidesArr = this.verticalGuides;
+            break;
+          case 'horizontal':
+            guidesArr = this.horizontalGuides;
+            break;
+        }
+
+        while (i + 1 < guidesArr.length) {
+          guidesMeasuresArr.push({
+            start: guidesArr[i],
+            end: guidesArr[i + 1]
+          });
+          i++;
+        }
+
+        switch (direction) {
+          case 'vertical':
+            this.verticalGuidesSizer = guidesMeasuresArr;
+            break;
+          case 'horizontal':
+            this.horizontalGuidesSizer = guidesMeasuresArr;
+            break;
+        }
+
       },
 
       cleanGuides: function () {
