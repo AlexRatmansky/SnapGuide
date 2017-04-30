@@ -6,30 +6,32 @@
 
     <template v-for="guidePos in verticalGuides">
       <GuideItem
-        :is-vertical=true
         :x-pos=guidePos
         :scroll-position=scrollPosition
+        :is-vertical=true
       ></GuideItem>
     </template>
     <template v-for="sizer in verticalGuidesSizer">
       <GuideSizer
           :start=sizer.start
           :end=sizer.end
+          :scroll-position=scrollPosition
           :is-vertical=true
         ></GuideSizer>
     </template>
 
     <template v-for="guidePos in horizontalGuides">
       <GuideItem
-        :is-vertical=false
         :y-pos=guidePos
         :scroll-position=scrollPosition
+        :is-vertical=false
       ></GuideItem>
     </template>
     <template v-for="sizer in horizontalGuidesSizer">
       <GuideSizer
         :start=sizer.start
         :end=sizer.end
+        :scroll-position=scrollPosition
         :is-vertical=false
       ></GuideSizer>
     </template>
@@ -38,7 +40,7 @@
 
     <ViewElement :element-props=elem></ViewElement>
 
-    <LegendBoard v-if="showLegend"></LegendBoard>
+    <LegendBoard v-if=showLegend></LegendBoard>
 
   </div>
 </template>
@@ -73,7 +75,7 @@
         ],
         verticalGuides: [263, 278, 1071, 1103],
         horizontalGuides: [64, 244, 409],
-        verticalGuidesSizer: [],
+        verticalGuidesSizer: [{start: 300, end: 555}],
         horizontalGuidesSizer: [],
         showLegend: true
       }

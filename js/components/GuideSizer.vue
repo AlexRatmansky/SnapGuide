@@ -4,10 +4,7 @@
         [$style.vertical]: isVertical,
         [$style.horizontal]: !isVertical
        }"
-       :style="{
-        [isVertical ? 'left' : 'top']: start + 'px',
-        [isVertical ? 'width': 'height']: size + 'px'
-       }"
+       :style=cssStyle
   >
 
     <div :class=$style.GuideSizerBox></div>
@@ -23,9 +20,33 @@
     props: {
       start: Number,
       end: Number,
-      isVertical: Boolean
+      isVertical: Boolean,
+      scrollPosition: {
+        type: Object,
+        default: function () {
+          return {
+            scrollTop: 0,
+            scrollLeft: 0
+          }
+        },
+      }
     },
     computed: {
+      cssStyle: function () {
+        let styleObject = {};
+        let startPointProperty = this.isVertical ? 'left' : 'top';
+        let sizeProperty = this.isVertical ? 'width': 'height';
+
+        if (this.isVertical) {
+          styleObject[startPointProperty] = this.start - this.scrollPosition.scrollLeft + 'px';
+          styleObject[sizeProperty] = this.end - this.start + 'px';
+        } else {
+          styleObject[startPointProperty] = this.start - this.scrollPosition.scrollTop + 'px';
+          styleObject[sizeProperty] = this.end - this.start + 'px';
+        }
+
+        return styleObject
+      },
       size: function () {
         return this.end - this.start
       }
@@ -35,7 +56,7 @@
 
 <style module>
   .GuideSizer {
-    position: absolute;
+    position: fixed;
   }
 
   .GuideSizer.horizontal {
