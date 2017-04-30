@@ -159,6 +159,8 @@
       cleanGuides: function () {
         this.verticalGuides = [];
         this.horizontalGuides = [];
+        this.verticalGuidesSizer = [];
+        this.horizontalGuidesSizer = [];
       },
 
       arrowPositioning: function (data) {

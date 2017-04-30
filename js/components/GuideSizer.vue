@@ -57,6 +57,8 @@
 <style module>
   .GuideSizer {
     position: fixed;
+    pointer-events: none;
+    z-index: 9998;
   }
 
   .GuideSizer.horizontal {

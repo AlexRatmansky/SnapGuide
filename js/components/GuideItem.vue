@@ -2,7 +2,8 @@
   <div :class="{
           [$style.guide]: true,
           [$style.vertical]: isVertical,
-          [$style.horizontal]: !isVertical
+          [$style.horizontal]: !isVertical,
+          [$style.crossGuide]: crossGuide
        }"
        :style="{
           left: xPos - (!crossGuide && scrollPosition.scrollLeft) + 'px',
@@ -57,6 +58,11 @@
     background-color: #e62ee6;
     pointer-events: none;
     z-index: 9998;
+  }
+
+  .crossGuide {
+    opacity: 0.5;
+    background-color: #00ff00;
   }
 
   .label {
