@@ -76,7 +76,6 @@ export function checkSnap(element, xPos, yPos) {
     return y >= bottom - snapFactor && y <= bottom + snapFactor
   }
 
-
   return {
     xPos: newXPos,
     yPos: newYPos,
