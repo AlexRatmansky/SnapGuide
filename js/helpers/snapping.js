@@ -9,7 +9,7 @@ export function checkSnap(params) {
 
   const bodyRect = params.bodyRect;
   const elemRect = params.elemRect;
-  const elemStyles = window.getComputedStyle(params.elem);
+  const elemStyles = params.elemStyles;
 
   const top = Math.round(elemRect.top - bodyRect.top);
   const left = Math.round(elemRect.left - bodyRect.left);
@@ -60,8 +60,9 @@ export function checkSnap(params) {
     isSnapped = true;
   }
 
-  if (getBaselineY(params.element)) {
-    newYPos = getBaselineY(params.element) - bodyRect.top;
+  const baselinePosition = Math.round(getBaselineY(params.elem) - bodyRect.top);
+  if (params.cursorPosY >= baselinePosition - snapFactor && params.cursorPosY <= baselinePosition + snapFactor) {
+    newYPos = getBaselineY(params.elem) - bodyRect.top;
     isSnapped = true;
   }
 
@@ -117,6 +118,7 @@ function getBaselineY(target) {
   txt.style.setProperty('padding', '0', 'important');
   txt.style.setProperty('margin', '0', 'important');
   txt.style.setProperty('background-color', 'green', 'important');
+  txt.style.setProperty('opacity', '0', 'important');
 
   target.insertBefore(txt, child);
 

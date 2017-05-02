@@ -195,16 +195,17 @@
           const currElement = data.path[0] || undefined;
           const bodyRect = document.body.getBoundingClientRect();
           const elemRect = currElement.getBoundingClientRect();
+          const elemStyles = window.getComputedStyle(currElement);
 
           const snapObj = checkSnap({
             elem: currElement,
             elemRect: elemRect,
             bodyRect: bodyRect,
             cursorPosX: data.pageX,
-            cursorPosY: data.pageY
+            cursorPosY: data.pageY,
+            elemStyles: elemStyles
           });
 
-          const elemStyles = window.getComputedStyle(currElement);
 
           this.cursorPos = {
             x: Math.round(snapObj.xPos),
