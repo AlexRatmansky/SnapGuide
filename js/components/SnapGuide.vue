@@ -193,10 +193,16 @@
 
         if (data !== undefined) {
           const currElement = data.path[0] || undefined;
-          const snapObj = checkSnap(currElement, data.pageX, data.pageY);
-
           const bodyRect = document.body.getBoundingClientRect();
           const elemRect = currElement.getBoundingClientRect();
+
+          const snapObj = checkSnap({
+            elem: currElement,
+            elemRect: elemRect,
+            bodyRect: bodyRect,
+            cursorPosX: data.pageX,
+            cursorPosY: data.pageY
+          });
 
           const elemStyles = window.getComputedStyle(currElement);
 

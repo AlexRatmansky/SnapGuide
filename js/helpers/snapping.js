@@ -1,10 +1,15 @@
 import {CONFIG}from '../config'
 
-export function checkSnap(element, xPos, yPos) {
+// elem
+// elemRect
+// bodyRect
+// cursorPosX
+// cursorPosY
+export function checkSnap(params) {
 
-  const bodyRect = document.body.getBoundingClientRect();
-  const elemRect = element.getBoundingClientRect();
-  const elemStyles = window.getComputedStyle(element);
+  const bodyRect = params.bodyRect;
+  const elemRect = params.elemRect;
+  const elemStyles = window.getComputedStyle(params.elem);
 
   const top = Math.round(elemRect.top - bodyRect.top);
   const left = Math.round(elemRect.left - bodyRect.left);
@@ -16,47 +21,47 @@ export function checkSnap(element, xPos, yPos) {
   const paddingRight = parseInt(elemStyles.paddingRight);
   const paddingBottom = parseInt(elemStyles.paddingBottom);
 
-  let newXPos = xPos;
-  let newYPos = yPos;
+  let newXPos = params.cursorPosX;
+  let newYPos = params.cursorPosY;
 
   let isSnapped = false;
   const snapFactor = CONFIG.SNAP_FACTOR;
 
-  if (checkTop(top, yPos)) {
+  if (checkTop(top, params.cursorPosY)) {
     newYPos = top;
     isSnapped = true;
   }
-  if (checkLeft(left, xPos)) {
+  if (checkLeft(left, params.cursorPosX)) {
     newXPos = left;
     isSnapped = true;
   }
-  if (checkRight(right, xPos)) {
+  if (checkRight(right, params.cursorPosX)) {
     newXPos = right;
     isSnapped = true;
   }
-  if (checkBottom(bottom, yPos)) {
+  if (checkBottom(bottom, params.cursorPosY)) {
     newYPos = bottom;
     isSnapped = true;
   }
-  if (checkTop(top + paddingTop, yPos)) {
+  if (checkTop(top + paddingTop, params.cursorPosY)) {
     newYPos = top + paddingTop;
     isSnapped = true;
   }
-  if (checkLeft(left + paddingLeft, xPos)) {
+  if (checkLeft(left + paddingLeft, params.cursorPosX)) {
     newXPos = left + paddingLeft;
     isSnapped = true;
   }
-  if (checkRight(right - paddingRight, xPos)) {
+  if (checkRight(right - paddingRight, params.cursorPosX)) {
     newXPos = right - paddingRight;
     isSnapped = true;
   }
-  if (checkBottom(bottom - paddingBottom, yPos)) {
+  if (checkBottom(bottom - paddingBottom, params.cursorPosY)) {
     newYPos = bottom - paddingBottom;
     isSnapped = true;
   }
 
-  if (getBaselineY(element)) {
-    newYPos = getBaselineY(element) - bodyRect.top;
+  if (getBaselineY(params.element)) {
+    newYPos = getBaselineY(params.element) - bodyRect.top;
     isSnapped = true;
   }
 
