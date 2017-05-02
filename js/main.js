@@ -44,9 +44,9 @@ document.onkeydown = function (e) {
   passKeyPressEvent(e)
 };
 
-passMousePosition = _.throttle(passMousePosition, 20);
-passScrollPosition = _.throttle(passScrollPosition, 20);
-passUpdatedWindowSize = _.throttle(passUpdatedWindowSize, 20);
+passMousePosition = _.throttle(passMousePosition, 30);
+passScrollPosition = _.throttle(passScrollPosition, 30);
+passUpdatedWindowSize = _.throttle(passUpdatedWindowSize, 30);
 passKeyPressEvent = _.throttle(passKeyPressEvent, 50);
 
 function passMousePosition(eventData) {
