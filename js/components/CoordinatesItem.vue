@@ -22,7 +22,6 @@
 <style module>
   .coordinatesContainer {
     position: absolute;
-    pointer-events: none;
   }
 
   .coordinatesBox {

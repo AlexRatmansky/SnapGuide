@@ -51,12 +51,11 @@
 
 <style module>
   .guide {
-    position: fixed;
+    position: absolute;
     display: block;
     top: 50%;
     left: 50%;
     background-color: #e62ee6;
-    pointer-events: none;
     z-index: 9998;
   }
 

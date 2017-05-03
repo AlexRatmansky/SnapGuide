@@ -56,8 +56,7 @@
 
 <style module>
   .GuideSizer {
-    position: fixed;
-    pointer-events: none;
+    position: absolute;
     z-index: 9998;
   }
 

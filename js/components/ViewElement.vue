@@ -37,13 +37,11 @@
     width: 0;
     height: 0;
     background: rgba(255, 0, 0, 0.1);
-    pointer-events: none;
   }
 
   .paddingBox {
     position: absolute;
     background: green;
     opacity: 0.3;
-    pointer-events: none;
   }
 </style>

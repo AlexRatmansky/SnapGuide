@@ -15,7 +15,6 @@
 
 <style module>
   .legendBoard {
-    pointer-events: none;
     position: fixed;
     bottom: 0;
     right: 0;

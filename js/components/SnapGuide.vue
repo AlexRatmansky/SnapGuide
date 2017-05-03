@@ -256,7 +256,17 @@
 
 <style module>
   .snapGuide {
+    pointer-events: none;
     font-family: Menlo, Consolas, Courier, monospace;
     font-size: 12px;
+    will-change: transform;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+  .snapGuide * {
+    pointer-events: none;
   }
 </style>
