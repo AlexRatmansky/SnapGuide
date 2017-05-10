@@ -1,14 +1,17 @@
 <template>
-  <div :class="{
+  <transition name="slide-fade">
+    <div :class="{
           [$style.guide]: true,
           [$style.vertical]: isVertical,
           [$style.horizontal]: !isVertical,
           [$style.crossGuide]: crossGuide
        }"
-       :style=cssObject
-  >
-    <div :class=$style.label>{{text}}</div>
-  </div>
+         :style=cssObject
+    >
+      <p v-if="isVertical">hello</p>
+      <div :class=$style.label>{{text}}</div>
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -17,6 +20,10 @@
     props: {
       isVertical: Boolean,
       position: Number,
+      guideAction: {
+        type: String,
+        default: ''
+      },
       crossGuide: {
         type: Boolean,
         default: false,
