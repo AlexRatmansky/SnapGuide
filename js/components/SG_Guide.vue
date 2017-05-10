@@ -5,12 +5,9 @@
           [$style.horizontal]: !isVertical,
           [$style.crossGuide]: crossGuide
        }"
-       :style=styleObj
+       :style=cssObject
   >
-    <div :class=$style.label>
-      <template v-if=isVertical>{{position + (crossGuide && scrollPosition.scrollLeft)}}</template>
-      <template v-else>{{position + (crossGuide && scrollPosition.scrollTop)}}</template>
-    </div>
+    <div :class=$style.label>{{text}}</div>
   </div>
 </template>
 
@@ -35,17 +32,19 @@
       }
     },
     computed: {
-      styleObj: function () {
-        let styleObject = {};
-
+      cssObject: function () {
         if (this.isVertical) {
-          styleObject.left = this.position - (!this.crossGuide && this.scrollPosition.scrollLeft) + 'px';
-
+          return {left: this.position - (!this.crossGuide && this.scrollPosition.scrollLeft) + 'px'};
         } else {
-          styleObject.top = this.position - (!this.crossGuide && this.scrollPosition.scrollTop) + 'px';
+          return {top: this.position - (!this.crossGuide && this.scrollPosition.scrollTop) + 'px'};
         }
-
-        return styleObject;
+      },
+      text: function () {
+        if (this.isVertical) {
+          return this.position + (this.crossGuide && this.scrollPosition.scrollLeft);
+        } else {
+          return this.position + (this.crossGuide && this.scrollPosition.scrollTop);
+        }
       }
     }
 
