@@ -76,7 +76,7 @@
         verticalGuides: [263, 278, 1071, 1103],
         horizontalGuides: [64, 244, 409],
         verticalGuidesSizer: [{start: 300, end: 555}],
-        horizontalGuidesSizer: [],
+        horizontalGuidesSizer: [{start: 300, end: 555}],
         showLegend: true
       }
     },
@@ -265,6 +265,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
+    z-index: 9999;
   }
   .snapGuide * {
     pointer-events: none;
