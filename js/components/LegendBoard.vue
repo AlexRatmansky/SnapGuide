@@ -13,7 +13,7 @@
   };
 </script>
 
-<style module>
+<style lang="stylus" module>
   .legendBoard {
     position: fixed;
     bottom: 0;

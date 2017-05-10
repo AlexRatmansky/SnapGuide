@@ -49,7 +49,7 @@
   };
 </script>
 
-<style module>
+<style lang="stylus" module>
   .guide {
     position: absolute;
     display: block;

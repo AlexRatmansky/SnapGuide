@@ -29,7 +29,7 @@
   };
 </script>
 
-<style module>
+<style lang="stylus" module>
   .element {
     position: absolute;
     top: 0;

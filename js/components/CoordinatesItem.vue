@@ -19,7 +19,7 @@
   };
 </script>
 
-<style module>
+<style lang="stylus" module>
   .coordinatesContainer {
     position: absolute;
   }

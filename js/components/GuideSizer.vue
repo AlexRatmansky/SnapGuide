@@ -54,7 +54,7 @@
   };
 </script>
 
-<style module>
+<style lang="stylus" module>
   .GuideSizer {
     position: absolute;
     z-index: 9998;
