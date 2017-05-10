@@ -1,12 +1,12 @@
 <template>
   <div :class=$style.snapGuide>
 
-    <SG_Guide :is-vertical=true :x-pos=crossPos.x :cross-guide=true :scroll-position=scrollPosition ></SG_Guide>
-    <SG_Guide :is-vertical=false :y-pos=crossPos.y :cross-guide=true :scroll-position=scrollPosition ></SG_Guide>
+    <SG_Guide :is-vertical=true :position=crossPos.x :cross-guide=true :scroll-position=scrollPosition ></SG_Guide>
+    <SG_Guide :is-vertical=false :position=crossPos.y :cross-guide=true :scroll-position=scrollPosition ></SG_Guide>
 
     <template v-for="guidePos in verticalGuides">
       <SG_Guide
-        :x-pos=guidePos
+        :position=guidePos
         :scroll-position=scrollPosition
         :is-vertical=true
       ></SG_Guide>
@@ -22,7 +22,7 @@
 
     <template v-for="guidePos in horizontalGuides">
       <SG_Guide
-        :y-pos=guidePos
+        :position=guidePos
         :scroll-position=scrollPosition
         :is-vertical=false
       ></SG_Guide>
@@ -38,7 +38,7 @@
 
     <SG_CoordinatesBox :cursor-pos=cursorPos></SG_CoordinatesBox>
 
-    <SG_ElementHighlighter :element-props=elem></SG_ElementHighlighter>
+    <SG_ElementHighlighter :element-props=elem :scroll-position=scrollPosition></SG_ElementHighlighter>
 
     <SG_Legend v-if=showLegend></SG_Legend>
 

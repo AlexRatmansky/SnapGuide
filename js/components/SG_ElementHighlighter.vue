@@ -2,8 +2,8 @@
   <div
     :class="$style.element"
     :style="{
-      top: elementProps.top + 'px',
-      left: elementProps.left + 'px',
+      top: elementProps.top - this.scrollPosition.scrollTop + 'px',
+      left: elementProps.left - this.scrollPosition.scrollLeft + 'px',
       width: elementProps.width + 'px',
       height: elementProps.height + 'px'
     }"
@@ -24,7 +24,8 @@
   export default {
     name: 'SG_ElementHighlighter',
     props: {
-      elementProps: Object
+      elementProps: Object,
+      scrollPosition: Object
     }
   };
 </script>

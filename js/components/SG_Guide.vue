@@ -5,14 +5,11 @@
           [$style.horizontal]: !isVertical,
           [$style.crossGuide]: crossGuide
        }"
-       :style="{
-          left: xPos - (!crossGuide && scrollPosition.scrollLeft) + 'px',
-          top: yPos - (!crossGuide && scrollPosition.scrollTop) + 'px'
-       }"
+       :style=styleObj
   >
     <div :class=$style.label>
-      <template v-if=isVertical>{{xPos + (crossGuide && scrollPosition.scrollLeft)}}</template>
-      <template v-else>{{yPos + (crossGuide && scrollPosition.scrollTop)}}</template>
+      <template v-if=isVertical>{{position + (crossGuide && scrollPosition.scrollLeft)}}</template>
+      <template v-else>{{position + (crossGuide && scrollPosition.scrollTop)}}</template>
     </div>
   </div>
 </template>
@@ -22,8 +19,7 @@
     name: 'SG_Guide',
     props: {
       isVertical: Boolean,
-      yPos: Number,
-      xPos: Number,
+      position: Number,
       crossGuide: {
         type: Boolean,
         default: false,
@@ -39,10 +35,17 @@
       }
     },
     computed: {
-      position: function () {
+      styleObj: function () {
+        let styleObject = {};
 
+        if (this.isVertical) {
+          styleObject.left = this.position - (!this.crossGuide && this.scrollPosition.scrollLeft) + 'px';
 
-        return true
+        } else {
+          styleObject.top = this.position - (!this.crossGuide && this.scrollPosition.scrollTop) + 'px';
+        }
+
+        return styleObject;
       }
     }
 
