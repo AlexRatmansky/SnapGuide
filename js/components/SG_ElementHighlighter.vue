@@ -22,7 +22,7 @@
 
 <script>
   export default {
-    name: 'ViewElement',
+    name: 'SG_ElementHighlighter',
     props: {
       elementProps: Object
     }

@@ -16,7 +16,7 @@
 
 <script>
   export default {
-    name: 'GuideSizer',
+    name: 'SG_GuideSizer',
     props: {
       start: Number,
       end: Number,

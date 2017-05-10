@@ -1,5 +1,5 @@
 <template>
-  <div :class=$style.coordinatesContainer
+  <div :class=$style.coordinatesBoxContainer
        :style="{
            left: cursorPos.x + 10 + 'px',
            top: cursorPos.y + 10 + 'px'
@@ -14,13 +14,13 @@
 
 <script>
   export default {
-    name: 'CoordinatesItem',
+    name: 'SG_CoordinatesBox',
     props: ['cursorPos']
   };
 </script>
 
 <style lang="stylus" module>
-  .coordinatesContainer {
+  .coordinatesBoxContainer {
     position: absolute;
   }
 

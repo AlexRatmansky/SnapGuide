@@ -9,7 +9,7 @@
 
 <script>
   export default {
-    name: 'LegendBoard'
+    name: 'SG_Legend'
   };
 </script>
 

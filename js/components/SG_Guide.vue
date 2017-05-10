@@ -19,7 +19,7 @@
 
 <script>
   export default {
-    name: 'GuideItem',
+    name: 'SG_Guide',
     props: {
       isVertical: Boolean,
       yPos: Number,

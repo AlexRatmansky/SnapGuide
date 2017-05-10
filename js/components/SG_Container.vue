@@ -1,56 +1,56 @@
 <template>
   <div :class=$style.snapGuide>
 
-    <GuideItem :is-vertical=true :x-pos=crossPos.x :cross-guide=true :scroll-position=scrollPosition ></GuideItem>
-    <GuideItem :is-vertical=false :y-pos=crossPos.y :cross-guide=true :scroll-position=scrollPosition ></GuideItem>
+    <SG_Guide :is-vertical=true :x-pos=crossPos.x :cross-guide=true :scroll-position=scrollPosition ></SG_Guide>
+    <SG_Guide :is-vertical=false :y-pos=crossPos.y :cross-guide=true :scroll-position=scrollPosition ></SG_Guide>
 
     <template v-for="guidePos in verticalGuides">
-      <GuideItem
+      <SG_Guide
         :x-pos=guidePos
         :scroll-position=scrollPosition
         :is-vertical=true
-      ></GuideItem>
+      ></SG_Guide>
     </template>
     <template v-for="sizer in verticalGuidesSizer">
-      <GuideSizer
+      <SG_GuideSizer
           :start=sizer.start
           :end=sizer.end
           :scroll-position=scrollPosition
           :is-vertical=true
-        ></GuideSizer>
+        ></SG_GuideSizer>
     </template>
 
     <template v-for="guidePos in horizontalGuides">
-      <GuideItem
+      <SG_Guide
         :y-pos=guidePos
         :scroll-position=scrollPosition
         :is-vertical=false
-      ></GuideItem>
+      ></SG_Guide>
     </template>
     <template v-for="sizer in horizontalGuidesSizer">
-      <GuideSizer
+      <SG_GuideSizer
         :start=sizer.start
         :end=sizer.end
         :scroll-position=scrollPosition
         :is-vertical=false
-      ></GuideSizer>
+      ></SG_GuideSizer>
     </template>
 
-    <CoordinatesItem :cursor-pos=cursorPos></CoordinatesItem>
+    <SG_CoordinatesBox :cursor-pos=cursorPos></SG_CoordinatesBox>
 
-    <ViewElement :element-props=elem></ViewElement>
+    <SG_ElementHighlighter :element-props=elem></SG_ElementHighlighter>
 
-    <LegendBoard v-if=showLegend></LegendBoard>
+    <SG_Legend v-if=showLegend></SG_Legend>
 
   </div>
 </template>
 
 <script>
-  import GuideItem from './GuideItem.vue';
-  import ViewElement from './ViewElement.vue';
-  import CoordinatesItem from './CoordinatesItem.vue';
-  import GuideSizer from './GuideSizer.vue';
-  import LegendBoard from './LegendBoard.vue';
+  import SG_Guide from './SG_Guide.vue';
+  import SG_ElementHighlighter from './SG_ElementHighlighter.vue';
+  import SG_CoordinatesBox from './SG_CoordinatesBox.vue';
+  import SG_GuideSizer from './SG_GuideSizer.vue';
+  import SG_Legend from './SG_Legend.vue';
   import {checkSnap} from '../helpers/snapping'
   import _ from 'lodash';
 
@@ -81,7 +81,7 @@
       }
     },
 
-    components: {GuideItem, GuideSizer, ViewElement, CoordinatesItem, LegendBoard},
+    components: {SG_Guide, SG_GuideSizer, SG_ElementHighlighter, SG_CoordinatesBox, SG_Legend},
 
     props: ['eventData', 'eventName', 'scrollPosition', 'windowSize'],
 

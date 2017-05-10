@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import SnapGuide from './components/SnapGuide.vue'
+import SG_Container from './components/SG_Container.vue'
 import _ from 'lodash';
 
 let rootEl = document.createElement('div');
@@ -23,9 +23,9 @@ let App = new Vue({
     }
   },
 
-  template: '<SnapGuide :event-data=eventData :event-name=eventName :scroll-position=scrollPosition :window-size=windowSize />',
+  template: '<SG_Container :event-data=eventData :event-name=eventName :scroll-position=scrollPosition :window-size=windowSize />',
 
-  components: {SnapGuide}
+  components: {SG_Container}
 });
 
 document.onmousemove = function (e) {
