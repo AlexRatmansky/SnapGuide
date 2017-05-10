@@ -1,21 +1,10 @@
 <template>
   <div
-    :class="$style.element"
-    :style="{
-      top: elementProps.top - this.scrollPosition.scrollTop + 'px',
-      left: elementProps.left - this.scrollPosition.scrollLeft + 'px',
-      width: elementProps.width + 'px',
-      height: elementProps.height + 'px'
-    }"
-  >
+    :class='$style.element'
+    :style=borderBox >
     <div
-      :class="$style.paddingBox"
-      :style="{
-        top: elementProps.style && elementProps.style.paddingTop || 0,
-        left: elementProps.style && elementProps.style.paddingLeft || 0,
-        right: elementProps.style && elementProps.style.paddingRight || 0,
-        bottom: elementProps.style && elementProps.style.paddingBottom || 0
-      }"
+      :class='$style.paddingBox'
+      :style=paddingBox
     ></div>
   </div>
 </template>
@@ -26,7 +15,26 @@
     props: {
       elementProps: Object,
       scrollPosition: Object
+    },
+    computed: {
+      borderBox: function () {
+        return {
+          top: this.elementProps.top - this.scrollPosition.scrollTop + 'px',
+          left: this.elementProps.left - this.scrollPosition.scrollLeft + 'px',
+          width: this.elementProps.width + 'px',
+          height: this.elementProps.height + 'px'
+        };
+      },
+      paddingBox: function () {
+        return this.elementProps.style && {
+            top: this.elementProps.style.paddingTop || 0,
+            left: this.elementProps.style.paddingLeft || 0,
+            right: this.elementProps.style.paddingRight || 0,
+            bottom: this.elementProps.style.paddingBottom || 0
+          };
+      }
     }
+
   };
 </script>
 
