@@ -1,7 +1,8 @@
 <template>
   <div
     :class='$style.element'
-    :style=borderBox >
+    :style=borderBox
+  >
     <div
       :class='$style.paddingBox'
       :style=paddingBox
