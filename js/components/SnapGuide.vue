@@ -4,13 +4,15 @@
     <SG_Guide :is-vertical=true :position=crossPos.x :cross-guide=true :scroll-position=scrollPosition ></SG_Guide>
     <SG_Guide :is-vertical=false :position=crossPos.y :cross-guide=true :scroll-position=scrollPosition ></SG_Guide>
 
-    <template v-for="guidePos in verticalGuides">
-      <SG_Guide
-        :position=guidePos
-        :scroll-position=scrollPosition
-        :is-vertical=true
+    <transition-group name="list2" tag="div">
+      <SG_Guide v-for="guidePos in verticalGuides"
+                :key=guidePos.position
+                class="list-item"
+                :position=guidePos.position
+                :scroll-position=scrollPosition
+                :is-vertical=true
       ></SG_Guide>
-    </template>
+    </transition-group>
     <template v-for="sizer in verticalGuidesSizer">
       <SG_GuideSizer
           :start=sizer.start
@@ -20,13 +22,15 @@
         ></SG_GuideSizer>
     </template>
 
-    <template v-for="guidePos in horizontalGuides">
-      <SG_Guide
-        :position=guidePos
-        :scroll-position=scrollPosition
-        :is-vertical=false
+    <transition-group name="list" tag="div">
+      <SG_Guide v-for="guidePos in horizontalGuides"
+                :key=guidePos.position
+                class="list-item"
+                :position=guidePos.position
+                :scroll-position=scrollPosition
+                :is-vertical=false
       ></SG_Guide>
-    </template>
+    </transition-group>
     <template v-for="sizer in horizontalGuidesSizer">
       <SG_GuideSizer
         :start=sizer.start
@@ -73,8 +77,8 @@
           {isVertical: false},
           {isVertical: true}
         ],
-        verticalGuides: [263, 278, 1071, 1103],
-        horizontalGuides: [64, 244, 409],
+        verticalGuides: [{position: 263}, {position: 278}, {position: 1071}, {position: 1103}],
+        horizontalGuides: [{position: 64}, {position: 244}, {position: 409}],
         verticalGuidesSizer: [{start: 300, end: 555}],
         horizontalGuidesSizer: [{start: 300, end: 555}],
         showLegend: true
@@ -88,27 +92,37 @@
     methods: {
       toggleRule: function (direction) {
         let guidesArr;
-        let currGuide;
+        let currGuidePosition;
 
         switch (direction) {
           case 'vertical':
             guidesArr = this.verticalGuides;
-            currGuide = this.cursorPos.x;
+            currGuidePosition = this.cursorPos.x;
             break;
           case 'horizontal':
             guidesArr = this.horizontalGuides;
-            currGuide = this.cursorPos.y;
+            currGuidePosition = this.cursorPos.y;
             break;
         }
 
-        if (guidesArr.indexOf(currGuide) >= 0) {
-          _.pull(guidesArr, currGuide)
+        if (_.findIndex(guidesArr, function (guide) {
+            return guide.position === currGuidePosition;
+          }) >= 0) {
+          _.pull(guidesArr, currGuidePosition)
         } else {
-          guidesArr.push(currGuide);
-
-          guidesArr.sort(function (a, b) {
-            return a - b;
+          guidesArr.push({
+            position: currGuidePosition,
+            isNew: true
           });
+
+          switch (direction) {
+            case 'vertical':
+              this.verticalGuides = _.sortBy(guidesArr, ['position']);
+              break;
+            case 'horizontal':
+              this.horizontalGuides = _.sortBy(guidesArr, ['position']);
+              break;
+          }
         }
 
         this.generateGuideMeasures(direction);
@@ -139,8 +153,8 @@
 
         while (i + 1 < guidesArr.length) {
           guidesMeasuresArr.push({
-            start: guidesArr[i],
-            end: guidesArr[i + 1]
+            start: guidesArr[i].position,
+            end: guidesArr[i + 1].position
           });
           i++;
         }
