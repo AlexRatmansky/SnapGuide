@@ -28,17 +28,29 @@ let App = new Vue({
   components: {SnapGuide}
 });
 
-document.onmousemove = function (e) {
-  passMousePosition(e);
-};
+document.addEventListener('mousemove',
+  (e) => {
+    passMousePosition(e);
+  }, {
+    capture: true,
+    passive: true
+  });
 
-window.onscroll = function () {
-  passScrollPosition();
-};
+document.addEventListener('scroll',
+  () => {
+    passScrollPosition();
+  }, {
+    capture: true,
+    passive: true
+  });
 
-window.onresize = function () {
-  passUpdatedWindowSize();
-};
+document.addEventListener('resize',
+  () => {
+    passUpdatedWindowSize();
+  }, {
+    capture: true,
+    passive: true
+  });
 
 document.onkeydown = function (e) {
   passKeyPressEvent(e)
