@@ -40,6 +40,14 @@ module.exports = {
         exclude: /node_modules/
       },
       {
+        test: /\.styl$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'stylus-loader'
+        ]
+      },
+      {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         options: {
