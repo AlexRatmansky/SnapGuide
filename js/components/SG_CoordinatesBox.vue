@@ -1,9 +1,6 @@
 <template>
   <div :class=$style.coordinatesBoxContainer
-       :style="{
-           left: cursorPos.x + 10 + 'px',
-           top: cursorPos.y + 10 + 'px'
-         }"
+       :style=cssStyle
   >
     <div :class=$style.coordinatesBox>
       <div :class=$style.horPosition>{{ cursorPos.x }}</div>
@@ -15,7 +12,28 @@
 <script>
   export default {
     name: 'SG_CoordinatesBox',
-    props: ['cursorPos']
+    props: {
+      cursorPos: Object,
+      scrollPosition: {
+        type: Object,
+        default: function () {
+          return {
+            scrollTop: 0,
+            scrollLeft: 0
+          }
+        },
+      }
+    },
+    computed: {
+      cssStyle: function () {
+        let styleObject = {};
+
+        styleObject.left = this.cursorPos.x - this.scrollPosition.scrollLeft + 'px';
+        styleObject.top = this.cursorPos.y - this.scrollPosition.scrollTop + 'px';
+
+        return styleObject
+      }
+    }
   };
 </script>
 
@@ -44,10 +62,10 @@
   }
 
   .horPosition {
-    background: url(../../img/sizing-hor.svg) no-repeat left center;
+    background: url('../../img/sizing-hor.svg') no-repeat left center;
   }
   .vertPosition {
-    background: url(../../img/sizing-vert.svg) no-repeat left center;
+    background: url('../../img/sizing-vert.svg') no-repeat left center;
   }
 
 </style>

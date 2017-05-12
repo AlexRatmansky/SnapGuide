@@ -36,7 +36,10 @@
       ></SG_GuideSizer>
     </template>
 
-    <SG_CoordinatesBox :cursor-pos=cursorPos></SG_CoordinatesBox>
+    <SG_CoordinatesBox
+      :cursor-pos=cursorPos
+      :scroll-position=scrollPosition
+    ></SG_CoordinatesBox>
 
     <SG_ElementHighlighter :element-props=elem :scroll-position=scrollPosition></SG_ElementHighlighter>
 
