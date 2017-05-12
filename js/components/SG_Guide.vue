@@ -1,17 +1,14 @@
 <template>
-  <transition name="slide-fade">
-    <div :class="{
+  <div :class="{
           [$style.guide]: true,
           [$style.vertical]: isVertical,
           [$style.horizontal]: !isVertical,
           [$style.crossGuide]: crossGuide
        }"
-         :style=cssObject
-    >
-      <p v-if="isVertical">hello</p>
-      <div :class=$style.label>{{text}}</div>
-    </div>
-  </transition>
+       :style=cssObject
+  >
+    <div :class=$style.label>{{text}}</div>
+  </div>
 </template>
 
 <script>
