@@ -4,7 +4,7 @@
     <SG_Guide :is-vertical=true :position=crossPos.x :cross-guide=true :scroll-position=scrollPosition ></SG_Guide>
     <SG_Guide :is-vertical=false :position=crossPos.y :cross-guide=true :scroll-position=scrollPosition ></SG_Guide>
 
-    <transition-group name="list2" tag="div">
+    <transition-group name="list_vert" tag="div">
       <SG_Guide v-for="guidePos in verticalGuides"
                 :key=guidePos.position
                 class="list-item"
@@ -22,7 +22,7 @@
         ></SG_GuideSizer>
     </template>
 
-    <transition-group name="list" tag="div">
+    <transition-group name="list_hor" tag="div">
       <SG_Guide v-for="guidePos in horizontalGuides"
                 :key=guidePos.position
                 class="list-item"
@@ -105,10 +105,12 @@
             break;
         }
 
-        if (_.findIndex(guidesArr, function (guide) {
-            return guide.position === currGuidePosition;
-          }) >= 0) {
-          _.pull(guidesArr, currGuidePosition)
+        let currGuidePositionInArray = _.findIndex(guidesArr, function (guide) {
+          return guide.position === currGuidePosition;
+        });
+
+        if (currGuidePositionInArray >= 0) {
+          _.pullAt(guidesArr, currGuidePositionInArray);
         } else {
           guidesArr.push({
             position: currGuidePosition,
