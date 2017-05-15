@@ -66,8 +66,7 @@
   }
 
   .crossGuide {
-    opacity: 0.5;
-    background-color: #ff0000;
+    background-color: #ff00ff;
   }
 
   .label {
