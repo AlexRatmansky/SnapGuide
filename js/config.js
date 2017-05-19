@@ -1,3 +1,3 @@
 export const CONFIG = {
-  SNAP_FACTOR: 5
+  SNAP_FACTOR: 3
 };
