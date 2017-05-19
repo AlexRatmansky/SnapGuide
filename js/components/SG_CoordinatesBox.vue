@@ -47,7 +47,7 @@
     position: absolute;
     top: 10px;
     left: 10px;
-    padding: 1px 5px 0;
+    padding: 3px 5px 1px;
     border: 1px solid #BD10E0;
     background: #fff;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
@@ -59,10 +59,11 @@
   .coordinatesBox div {
     padding-left: 16px;
     font-size: 10px;
+    line-height: 14px;
   }
 
   .horPosition {
-    background: url('../../img/sizing-hor.svg') no-repeat left center;
+    background: url('../../img/sizing-hor.svg') no-repeat left 40%;
   }
 
   .vertPosition {

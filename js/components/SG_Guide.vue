@@ -66,7 +66,7 @@
   }
 
   .crossGuide {
-    background-color: #ff00ff;
+    background-color: rgba(255, 0, 255, 0.5);
   }
 
   .label {
@@ -78,6 +78,7 @@
     color: #ffffff;
     font-size: 8px;
     line-height: 11px;
+    opacity: 0.5;
   }
 
   .guide.vertical {

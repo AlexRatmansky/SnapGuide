@@ -32,9 +32,10 @@
   }
 
   .legendBoard code {
-    background: #ffffff;
-    color: #000000;
+    background: #fff;
+    color: #000;
     border-radius: 2px;
     margin: 0 2px;
+    padding: 3px 6px 2px !important;
   }
 </style>
