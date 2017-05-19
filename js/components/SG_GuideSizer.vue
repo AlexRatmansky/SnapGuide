@@ -35,7 +35,7 @@
       cssStyle: function () {
         let styleObject = {};
         let startPointProperty = this.isVertical ? 'left' : 'top';
-        let sizeProperty = this.isVertical ? 'width': 'height';
+        let sizeProperty = this.isVertical ? 'width' : 'height';
 
         if (this.isVertical) {
           styleObject[startPointProperty] = this.start - this.scrollPosition.scrollLeft + 'px';
@@ -78,7 +78,9 @@
     position: relative;
   }
 
-  .horizontal .GuideSizerBox {}
+  .horizontal .GuideSizerBox {
+  }
+
   .horizontal .GuideSizerBox::before {
     content: '';
     display: block;
@@ -89,6 +91,7 @@
     left: -3px;
     background: url(../../img/sizing-arrow-vert.svg);
   }
+
   .horizontal .GuideSizerBox::after {
     content: '';
     display: block;
@@ -101,7 +104,9 @@
     transform: scaleY(-1);
   }
 
-  .vertical .GuideSizerBox {}
+  .vertical .GuideSizerBox {
+  }
+
   .vertical .GuideSizerBox::before {
     content: '';
     display: block;
@@ -112,6 +117,7 @@
     top: -3px;
     background: url(../../img/sizing-arrow-hor.svg);
   }
+
   .vertical .GuideSizerBox::after {
     content: '';
     display: block;
@@ -139,6 +145,7 @@
     left: 0;
     transform: translateY(-50%);
   }
+
   .vertical .label {
     top: 0;
     transform: translateX(-50%) translateY(-50%);

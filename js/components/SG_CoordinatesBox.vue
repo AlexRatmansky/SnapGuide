@@ -64,6 +64,7 @@
   .horPosition {
     background: url('../../img/sizing-hor.svg') no-repeat left center;
   }
+
   .vertPosition {
     background: url('../../img/sizing-vert.svg') no-repeat left center;
   }

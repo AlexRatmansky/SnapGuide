@@ -28,11 +28,11 @@
       },
       paddingBox: function () {
         return this.elementProps.style && {
-            top: this.elementProps.style.paddingTop || 0,
-            left: this.elementProps.style.paddingLeft || 0,
-            right: this.elementProps.style.paddingRight || 0,
-            bottom: this.elementProps.style.paddingBottom || 0
-          };
+          top: this.elementProps.style.paddingTop || 0,
+          left: this.elementProps.style.paddingLeft || 0,
+          right: this.elementProps.style.paddingRight || 0,
+          bottom: this.elementProps.style.paddingBottom || 0
+        };
       }
     }
 

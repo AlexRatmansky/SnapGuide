@@ -1,8 +1,8 @@
 <template>
   <div :class=$style.snapGuide>
 
-    <SG_Guide :is-vertical=true :position=crossPos.x :cross-guide=true :scroll-position=scrollPosition ></SG_Guide>
-    <SG_Guide :is-vertical=false :position=crossPos.y :cross-guide=true :scroll-position=scrollPosition ></SG_Guide>
+    <SG_Guide :is-vertical=true :position=crossPos.x :cross-guide=true :scroll-position=scrollPosition></SG_Guide>
+    <SG_Guide :is-vertical=false :position=crossPos.y :cross-guide=true :scroll-position=scrollPosition></SG_Guide>
 
     <transition-group name="list_vert" tag="div">
       <SG_Guide v-for="guidePos in verticalGuides"
@@ -15,11 +15,11 @@
     </transition-group>
     <template v-for="sizer in verticalGuidesSizer">
       <SG_GuideSizer
-          :start=sizer.start
-          :end=sizer.end
-          :scroll-position=scrollPosition
-          :is-vertical=true
-        ></SG_GuideSizer>
+        :start=sizer.start
+        :end=sizer.end
+        :scroll-position=scrollPosition
+        :is-vertical=true
+      ></SG_GuideSizer>
     </template>
 
     <transition-group name="list_hor" tag="div">
@@ -286,6 +286,7 @@
     height: 100vh;
     z-index: 9999;
   }
+
   .snapGuide * {
     pointer-events: none;
   }
