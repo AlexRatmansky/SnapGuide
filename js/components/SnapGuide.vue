@@ -273,9 +273,9 @@
 
 <style lang="stylus" module>
   .snapGuide {
-    pointer-events: none;
-    font-family: Menlo, Consolas, Courier, monospace;
-    font-size: 12px;
+    pointer-events: none !important;
+    font-family: Menlo, Consolas, Courier, monospace !important;
+    font-size: 12px !important;
     will-change: transform;
     position: fixed;
     top: 0;
@@ -286,6 +286,6 @@
   }
 
   .snapGuide * {
-    pointer-events: none;
+    pointer-events: none !important;
   }
 </style>
