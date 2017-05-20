@@ -63,6 +63,8 @@
     left: 50%;
     background-color: #e62ee6;
     z-index: 9998;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
   .crossGuide {

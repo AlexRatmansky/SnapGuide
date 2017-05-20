@@ -7,7 +7,6 @@
     <transition-group name="list_vert" tag="div">
       <SG_Guide v-for="guidePos in verticalGuides"
                 :key=guidePos.position
-                class="list-item"
                 :position=guidePos.position
                 :scroll-position=scrollPosition
                 :is-vertical=true
@@ -25,7 +24,6 @@
     <transition-group name="list_hor" tag="div">
       <SG_Guide v-for="guidePos in horizontalGuides"
                 :key=guidePos.position
-                class="list-item"
                 :position=guidePos.position
                 :scroll-position=scrollPosition
                 :is-vertical=false
