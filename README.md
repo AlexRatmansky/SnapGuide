@@ -16,7 +16,7 @@ Mouse over document, observe that rules snap to useful positions (including base
 `←`, `↑`, `→`, `↓`  – move cursor 1px (+ Shift 10px)  
 `Space` – toggle help
 
-Please leave feedback or send me suggestions at alexratmansky@yandex.ru
+Please leave feedback or send me suggestions at [alexratmansky@yandex.ru](mailto:alexratmansky@yandex.ru)
 
 ## Build Setup
 
