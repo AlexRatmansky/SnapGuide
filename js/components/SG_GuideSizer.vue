@@ -66,12 +66,12 @@
   }
 
   .GuideSizer.vertical {
-    top: 30px;
+    top: 11px;
     height: 1px;
   }
 
   .GuideSizerBox {
-    z-index: 9998;
+    z-index: 9997;
     width: 100%;
     height: 100%;
     background-color: magenta;
@@ -108,6 +108,7 @@
   }
 
   .vertical .GuideSizerBox::before {
+    z-index: 9998;
     content: '';
     display: block;
     position: absolute;
@@ -132,12 +133,14 @@
 
   .label {
     position: absolute;
+    font-size: 10px;
+    line-height: 10px;
     top: 50%;
     left: 50%;
     border: 1px solid #BD10E0;
     border-radius: 3px;
     background: white;
-    padding: 0 5px;
+    padding: 2px 3px 1px;
     z-index: 99999;
   }
 
