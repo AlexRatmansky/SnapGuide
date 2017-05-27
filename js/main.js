@@ -83,7 +83,16 @@ function passUpdatedWindowSize() {
 function passKeyPressEvent(e) {
   e.preventDefault();
 
+  console.log(e.code);
+
   switch (e.code) {
+    // Space - for vertical
+    case 'Space':
+      App.eventName = {
+        name: 'toggleLegend'
+      };
+      break;
+
     // v - for vertical
     case 'KeyV':
       App.eventName = {

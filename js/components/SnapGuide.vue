@@ -180,6 +180,10 @@
         this.horizontalGuidesSizer = [];
       },
 
+      toggleLegend: function () {
+        this.showLegend = !this.showLegend;
+      },
+
       arrowPositioning: function (data) {
         let step = data.shiftKey ? 10 : 1;
 
