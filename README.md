@@ -13,7 +13,7 @@ Mouse over document, observe that rules snap to useful positions (including base
 `V` – add vertical guide  
 `H` – add horisontal guide  
 `Q` – remove all guides  
-`←`, `↑`, `→`, `↓`  – move cursor 1px (+ Shift 10px)  
+`←`, `↑`, `→`, `↓`  – move cursor 1px (+ `Shift` for x10)  
 `Space` – toggle help
 
 Please leave feedback or send me suggestions at [alexratmansky@yandex.ru](mailto:alexratmansky@yandex.ru)
