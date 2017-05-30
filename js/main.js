@@ -148,6 +148,12 @@ function passKeyPressEvent(e) {
       };
       break;
 
+    case 'Escape':
+      App.eventName = {
+        name: 'toggleActive'
+      };
+      break;
+
     default:
       break;
   }

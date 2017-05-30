@@ -1,5 +1,5 @@
 <template>
-  <div :class=$style.snapGuide>
+  <div v-if=showApp :class=$style.snapGuide>
 
     <SG_Guide :is-vertical=true :position=crossPos.x :cross-guide=true :scroll-position=scrollPosition></SG_Guide>
     <SG_Guide :is-vertical=false :position=crossPos.y :cross-guide=true :scroll-position=scrollPosition></SG_Guide>
@@ -57,6 +57,7 @@
   import SG_GuideSizer from './SG_GuideSizer.vue';
   import SG_Legend from './SG_Legend.vue';
   import {checkSnap} from '../helpers/snapping'
+  import {CONFIG} from "../config";
   import _ from 'lodash';
 
   export default {
@@ -65,6 +66,7 @@
 
     data: function () {
       return {
+        showApp: true,
         cursorPos: {
           x: 0,
           y: 0
@@ -78,10 +80,10 @@
           {isVertical: false},
           {isVertical: true}
         ],
-        verticalGuides: [{position: 263}, {position: 278}, {position: 1071}, {position: 1103}],
-        horizontalGuides: [{position: 64}, {position: 244}, {position: 409}],
-        verticalGuidesSizer: [{start: 300, end: 555}],
-        horizontalGuidesSizer: [{start: 300, end: 555}],
+        verticalGuides: CONFIG.VERTICAL_GUIDES || [],
+        horizontalGuides: CONFIG.HORIZONTAL_GUIDES || [],
+        verticalGuidesSizer: CONFIG.VERTICAL_GUIDES_SIZER || [],
+        horizontalGuidesSizer: CONFIG.HORIZONTAL_GUIDES_SIZER || [],
         showLegend: true
       }
     },
@@ -182,6 +184,10 @@
 
       toggleLegend: function () {
         this.showLegend = !this.showLegend;
+      },
+
+      toggleActive: function () {
+        this.showApp = !this.showApp;
       },
 
       arrowPositioning: function (data) {
