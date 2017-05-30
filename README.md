@@ -11,7 +11,7 @@ Click icon to activate. Read help, or press Space to dismiss it.
 Mouse over document, observe that rules snap to useful positions (including baselines!), and use keys as follows:
 
 `V` – add vertical guide  
-`H` – add horisontal guide  
+`H` – add horizontal guide  
 `Q` – remove all guides  
 `←`, `↑`, `→`, `↓`  – move cursor 1px (+ `Shift` for x10)  
 `Space` – toggle help
