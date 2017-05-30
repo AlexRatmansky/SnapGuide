@@ -80,10 +80,10 @@
           {isVertical: false},
           {isVertical: true}
         ],
-        verticalGuides: CONFIG.VERTICAL_GUIDES || [],
-        horizontalGuides: CONFIG.HORIZONTAL_GUIDES || [],
-        verticalGuidesSizer: CONFIG.VERTICAL_GUIDES_SIZER || [],
-        horizontalGuidesSizer: CONFIG.HORIZONTAL_GUIDES_SIZER || [],
+        verticalGuides: DEV_MODE && CONFIG.VERTICAL_GUIDES || [],
+        horizontalGuides: DEV_MODE && CONFIG.HORIZONTAL_GUIDES || [],
+        verticalGuidesSizer: DEV_MODE && CONFIG.VERTICAL_GUIDES_SIZER || [],
+        horizontalGuidesSizer: DEV_MODE && CONFIG.HORIZONTAL_GUIDES_SIZER || [],
         showLegend: true
       }
     },
