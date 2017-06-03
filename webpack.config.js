@@ -1,12 +1,14 @@
 let path = require('path');
 let webpack = require('webpack');
+let CopyWebpackPlugin = require('copy-webpack-plugin');
+let ZipPlugin = require('zip-webpack-plugin');
 
 module.exports = {
   entry: './js/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'build.js'
+    filename: 'inpage.js'
   },
   module: {
     rules: [
@@ -14,14 +16,6 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
-          loaders: {
-            // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-            // the "scss" and "sass" values for the lang attribute to the right configs here.
-            // other preprocessors should work out of the box, no loader config like this necessary.
-            'scss': 'vue-style-loader!css-loader!sass-loader',
-            'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-          },
-          // other vue-loader options go here
           cssModules: {
             localIdentName: '[local]__[hash:base64:5]',
             camelCase: true
@@ -33,14 +27,31 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         query: {
+          plugins: ['lodash'],
           presets: ['es2015']
         }
       },
       {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ],
+        exclude: /node_modules/
+      },
+      {
+        test: /\.styl$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'stylus-loader'
+        ]
+      },
+      {
         test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
+        loader: 'url-loader',
         options: {
-          name: '[name].[ext]?[hash]'
+          limit: 50000,
         }
       }
     ]
@@ -60,14 +71,21 @@ module.exports = {
   devtool: '#eval-source-map'
 };
 
-if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map';
-  // http://vue-loader.vuejs.org/en/workflow/production.html
+if (process.env.NODE_ENV === 'development') {
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
+      'DEV_MODE': JSON.stringify(true)
+    })
+  ])
+}
+
+if (process.env.NODE_ENV === 'production') {
+  module.exports.devtool = '#source-map';
+
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    new webpack.DefinePlugin({
+      'process.env': {NODE_ENV: '"production"'},
+      'DEV_MODE': JSON.stringify(false)
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
@@ -77,6 +95,17 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
+    }),
+    new CopyWebpackPlugin([
+        {from: 'manifest.json'},
+        {from: 'background.js'},
+        {from: 'icon/*.png'}
+      ]
+    ),
+    new ZipPlugin({
+      path: 'zip',
+      filename: 'pack.zip',
+      exclude: [/\.map$/, /\.sketch$/, /\.psd$/]
     })
   ])
 }
