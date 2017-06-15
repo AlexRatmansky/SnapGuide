@@ -2,7 +2,8 @@
   <div :class="{
         [$style.GuideSizer]: true,
         [$style.vertical]: isVertical,
-        [$style.horizontal]: !isVertical
+        [$style.horizontal]: !isVertical,
+        [$style.active]: isActive
        }"
        :style=cssStyle
   >
@@ -21,6 +22,7 @@
       start: Number,
       end: Number,
       isVertical: Boolean,
+      cursorPosition: Number,
       scrollPosition: {
         type: Object,
         default: function () {
@@ -32,6 +34,7 @@
       }
     },
     computed: {
+
       cssStyle: function () {
         let styleObject = {};
         let startPointProperty = this.isVertical ? 'left' : 'top';
@@ -47,6 +50,11 @@
 
         return styleObject
       },
+
+      isActive: function () {
+        return this.start <= this.cursorPosition && this.end > this.cursorPosition;
+      },
+
       size: function () {
         return this.end - this.start
       }
@@ -55,19 +63,22 @@
 </script>
 
 <style lang="stylus" module>
+  $size = 5px
+
   .GuideSizer {
     position: absolute;
     z-index: 9998;
+    opacity: 0.3;
   }
 
   .GuideSizer.horizontal {
-    left: 5px;
-    width: 1px;
+    left: 0;
+    width: $size;
   }
 
   .GuideSizer.vertical {
-    top: 11px;
-    height: 1px;
+    top: 0;
+    height: $size;
   }
 
   .GuideSizerBox {
@@ -152,6 +163,10 @@
   .vertical .label {
     top: 0;
     transform: translateX(-50%) translateY(-50%);
+  }
+
+  .active {
+    opacity: 1;
   }
 
 </style>
