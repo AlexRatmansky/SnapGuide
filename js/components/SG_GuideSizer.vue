@@ -37,15 +37,13 @@
 
       cssStyle: function () {
         let styleObject = {};
-        let startPointProperty = this.isVertical ? 'left' : 'top';
-        let sizeProperty = this.isVertical ? 'width' : 'height';
 
         if (this.isVertical) {
-          styleObject[startPointProperty] = this.start - this.scrollPosition.scrollLeft + 'px';
-          styleObject[sizeProperty] = this.end - this.start + 'px';
+          styleObject['left'] = this.start - this.scrollPosition.scrollLeft + 'px';
+          styleObject['width'] = this.end - this.start + 'px';
         } else {
-          styleObject[startPointProperty] = this.start - this.scrollPosition.scrollTop + 'px';
-          styleObject[sizeProperty] = this.end - this.start + 'px';
+          styleObject['top'] = this.start - this.scrollPosition.scrollTop + 'px';
+          styleObject['height'] = this.end - this.start + 'px';
         }
 
         return styleObject
