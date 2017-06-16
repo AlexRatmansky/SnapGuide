@@ -10,6 +10,7 @@
 
     <div :class=$style.GuideSizerBox></div>
 
+    <div :class=$style.inlineLabel>{{size}}</div>
     <div :class=$style.label>{{size}}</div>
 
   </div>
@@ -50,7 +51,11 @@
       },
 
       isActive: function () {
-        return this.start <= this.cursorPosition && this.end > this.cursorPosition;
+        const cursorPos = this.isVertical
+          ? this.cursorPosition + this.scrollPosition.scrollLeft
+          : this.cursorPosition + this.scrollPosition.scrollTop;
+
+        return this.start <= cursorPos && this.end > cursorPos;
       },
 
       size: function () {
@@ -61,22 +66,26 @@
 </script>
 
 <style lang="stylus" module>
-  $size = 5px
+  $size = 8px
 
   .GuideSizer {
     position: absolute;
     z-index: 9998;
     opacity: 0.3;
-  }
 
-  .GuideSizer.horizontal {
-    left: 0;
-    width: $size;
-  }
+    &.active {
+      opacity: 1;
+    }
 
-  .GuideSizer.vertical {
-    top: 0;
-    height: $size;
+    &.horizontal {
+      left: 0;
+      width: $size;
+    }
+
+    &.vertical {
+      top: 0;
+      height: $size;
+    }
   }
 
   .GuideSizerBox {
@@ -85,59 +94,12 @@
     height: 100%;
     background-color: magenta;
     position: relative;
-  }
 
-  .horizontal .GuideSizerBox {
-  }
+    .horizontal & {
+    }
 
-  .horizontal .GuideSizerBox::before {
-    content: '';
-    display: block;
-    position: absolute;
-    width: 7px;
-    height: 10px;
-    top: 0;
-    left: -3px;
-    background: url(../../img/sizing-arrow-vert.svg);
-  }
-
-  .horizontal .GuideSizerBox::after {
-    content: '';
-    display: block;
-    position: absolute;
-    width: 7px;
-    height: 10px;
-    bottom: 0;
-    left: -3px;
-    background: url(../../img/sizing-arrow-vert.svg);
-    transform: scaleY(-1);
-  }
-
-  .vertical .GuideSizerBox {
-  }
-
-  .vertical .GuideSizerBox::before {
-    z-index: 9998;
-    content: '';
-    display: block;
-    position: absolute;
-    width: 10px;
-    height: 7px;
-    left: 0;
-    top: -3px;
-    background: url(../../img/sizing-arrow-hor.svg);
-  }
-
-  .vertical .GuideSizerBox::after {
-    content: '';
-    display: block;
-    position: absolute;
-    width: 10px;
-    height: 7px;
-    right: 0;
-    top: -3px;
-    background: url(../../img/sizing-arrow-hor.svg);
-    transform: scaleX(-1);
+    .vertical & {
+    }
   }
 
   .label {
@@ -151,20 +113,50 @@
     background: white;
     padding: 2px 3px 1px;
     z-index: 99999;
+    transition: transform 0.3s ease-out,
+      opacity 0.3s ease-out;
+
+    .horizontal & {
+      left: 0;
+      opacity: 0;
+      transform: translateX(0) translateY(-50%);
+    }
+
+    .horizontal.active & {
+      transform: translateX(10px) translateY(-50%);
+      opacity: 1;
+    }
+
+    .vertical & {
+      top: 0;
+      opacity: 0;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .vertical.active & {
+      transform: translateX(-50%) translateY(10px);
+      opacity: 1;
+    }
   }
 
-  .horizontal .label {
-    left: 0;
-    transform: translateY(-50%);
-  }
+  .inline-label {
+    position: absolute;
+    font-size: 6px;
+    line-height: 1;
+    top: 50%;
+    left: 50%;
+    color: #fff;
+    z-index: 99999;
 
-  .vertical .label {
-    top: 0;
-    transform: translateX(-50%) translateY(-50%);
-  }
+    .horizontal & {
+      left: 0;
+      transform: translateY(-50%) rotate(-90deg);
+    }
 
-  .active {
-    opacity: 1;
+    .vertical & {
+      top: 0;
+      transform: translateX(-50%);
+    }
   }
 
 </style>
