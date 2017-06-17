@@ -70,7 +70,7 @@
 
   .GuideSizer {
     position: absolute;
-    z-index: 9998;
+    z-index: 999998;
     opacity: 0.3;
 
     &.active {

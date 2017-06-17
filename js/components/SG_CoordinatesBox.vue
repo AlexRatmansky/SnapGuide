@@ -53,7 +53,7 @@
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
     color: #000;
     border-radius: 2px;
-    z-index: 9999;
+    z-index: 999999;
   }
 
   .coordinatesBox div {
