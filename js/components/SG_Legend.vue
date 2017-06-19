@@ -19,6 +19,8 @@
 
 <style lang="stylus" module>
   .legendBoard {
+    font-family: Menlo, Consolas, Courier, monospace !important;
+    font-size: 12px !important;
     position: fixed;
     bottom: 0;
     right: 0;
