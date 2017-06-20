@@ -65,8 +65,8 @@
   };
 </script>
 
-<style lang="stylus" module>
-  $size = 8px
+<style lang="less" module>
+  @size: 8px;
 
   .GuideSizer {
     position: absolute;
@@ -79,12 +79,12 @@
 
     &.horizontal {
       left: 0;
-      width: $size;
+      width: @size;
     }
 
     &.vertical {
       top: 0;
-      height: $size;
+      height: @size;
     }
   }
 

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import SnapGuide from './components/SnapGuide.vue'
 import _ from 'lodash';
-import '../css/style.styl';
+import '../css/style.less';
 
 let rootEl = document.createElement('div');
 rootEl.id = 'app';

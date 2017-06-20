@@ -37,7 +37,7 @@
   };
 </script>
 
-<style lang="stylus" module>
+<style lang="less" module>
   .coordinatesBoxContainer {
     position: absolute;
   }

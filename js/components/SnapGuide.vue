@@ -283,7 +283,7 @@
   }
 </script>
 
-<style lang="stylus" module>
+<style lang="less" module>
   .snapGuide {
     pointer-events: none !important;
     font-family: Menlo, Consolas, Courier, monospace !important;

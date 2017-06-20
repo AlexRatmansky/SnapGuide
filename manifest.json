@@ -6,7 +6,7 @@
     "48": "icon/icon48.png",
     "16": "icon/icon16.png"
   },
-  "version": "0.5.1",
+  "version": "0.5.2",
   "permissions": [
     "activeTab"
   ],

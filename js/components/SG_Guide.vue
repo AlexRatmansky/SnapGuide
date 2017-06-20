@@ -55,7 +55,7 @@
   };
 </script>
 
-<style lang="stylus" module>
+<style lang="less" module>
   .guide {
     position: absolute;
     display: block;
