@@ -1,5 +1,5 @@
 <template>
-  <div v-if=showApp :class=$style.snapGuide>
+  <div inert v-if=showApp :class=$style.snapGuide>
 
     <SG_Guide :is-vertical=true :position=crossPos.x :cross-guide=true :scroll-position=scrollPosition></SG_Guide>
     <SG_Guide :is-vertical=false :position=crossPos.y :cross-guide=true :scroll-position=scrollPosition></SG_Guide>
