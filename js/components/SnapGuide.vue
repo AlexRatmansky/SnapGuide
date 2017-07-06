@@ -19,7 +19,6 @@
         :scroll-position=scrollPosition
         :is-vertical=true
         :cursor-position=crossPos.x
-        :key=sizer.start
       ></SG_GuideSizer>
     </template>
 
@@ -38,7 +37,6 @@
         :scroll-position=scrollPosition
         :is-vertical=false
         :cursor-position=crossPos.y
-        :key=sizer.start
       ></SG_GuideSizer>
     </template>
 
