@@ -19,6 +19,7 @@
         :scroll-position=scrollPosition
         :is-vertical=true
         :cursor-position=crossPos.x
+        :key=sizer.start
       ></SG_GuideSizer>
     </template>
 
@@ -37,6 +38,7 @@
         :scroll-position=scrollPosition
         :is-vertical=false
         :cursor-position=crossPos.y
+        :key=sizer.start
       ></SG_GuideSizer>
     </template>
 
@@ -267,11 +269,11 @@
       },
 
       scrollPosition: function (data) {
-        console.log('scroll', data);
+        DEV_MODE && console.log('scroll', data);
       },
 
       windowSize: function (data) {
-        console.log('resize', data);
+        DEV_MODE && console.log('resize', data);
       },
 
       eventName: function (data) {

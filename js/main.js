@@ -83,7 +83,7 @@ function passUpdatedWindowSize() {
 function passKeyPressEvent(e) {
   e.preventDefault();
 
-  console.log(e.code);
+  DEV_MODE && console.log(e.code);
 
   switch (e.code) {
     // Space - for vertical
