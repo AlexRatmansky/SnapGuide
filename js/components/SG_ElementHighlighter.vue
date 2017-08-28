@@ -39,7 +39,7 @@
   };
 </script>
 
-<style lang="stylus" module>
+<style lang="less" module>
   .element {
     position: absolute;
     top: 0;

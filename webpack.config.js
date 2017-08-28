@@ -40,11 +40,11 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.styl$/,
+        test: /\.less/,
         use: [
           'style-loader',
           'css-loader',
-          'stylus-loader'
+          'less-loader'
         ]
       },
       {

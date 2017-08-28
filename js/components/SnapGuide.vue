@@ -1,5 +1,5 @@
 <template>
-  <div v-if=showApp :class=$style.snapGuide>
+  <div inert v-if=showApp :class=$style.snapGuide>
 
     <SG_Guide :is-vertical=true :position=crossPos.x :cross-guide=true :scroll-position=scrollPosition></SG_Guide>
     <SG_Guide :is-vertical=false :position=crossPos.y :cross-guide=true :scroll-position=scrollPosition></SG_Guide>
@@ -18,6 +18,7 @@
         :end=sizer.end
         :scroll-position=scrollPosition
         :is-vertical=true
+        :cursor-position=crossPos.x
       ></SG_GuideSizer>
     </template>
 
@@ -35,6 +36,7 @@
         :end=sizer.end
         :scroll-position=scrollPosition
         :is-vertical=false
+        :cursor-position=crossPos.y
       ></SG_GuideSizer>
     </template>
 
@@ -265,11 +267,11 @@
       },
 
       scrollPosition: function (data) {
-        console.log('scroll', data);
+        DEV_MODE && console.log('scroll', data);
       },
 
       windowSize: function (data) {
-        console.log('resize', data);
+        DEV_MODE && console.log('resize', data);
       },
 
       eventName: function (data) {
@@ -281,7 +283,7 @@
   }
 </script>
 
-<style lang="stylus" module>
+<style lang="less" module>
   .snapGuide {
     pointer-events: none !important;
     font-family: Menlo, Consolas, Courier, monospace !important;
@@ -292,7 +294,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 9999;
+    z-index: 999999;
   }
 
   .snapGuide * {
