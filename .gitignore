@@ -1,2 +1,4 @@
 dist/
-/*.sketch
+node_modules/
+
+*.sketch
