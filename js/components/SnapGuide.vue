@@ -1,8 +1,8 @@
 <template>
   <div inert v-if=showApp :class=$style.snapGuide>
 
-    <SG_Guide :is-vertical=true :position=crossPos.x :cross-guide=true :scroll-position=scrollPosition></SG_Guide>
-    <SG_Guide :is-vertical=false :position=crossPos.y :cross-guide=true :scroll-position=scrollPosition></SG_Guide>
+    <SG_Guide :is-vertical=true :position=crossPos.x :cross-guide=true :scroll-position=scrollPosition />
+    <SG_Guide :is-vertical=false :position=crossPos.y :cross-guide=true :scroll-position=scrollPosition />
 
     <transition-group name="list_vert" tag="div">
       <SG_Guide v-for="guidePos in verticalGuides"
@@ -10,7 +10,7 @@
                 :position=guidePos.position
                 :scroll-position=scrollPosition
                 :is-vertical=true
-      ></SG_Guide>
+      />
     </transition-group>
     <template v-for="sizer in verticalGuidesSizer">
       <SG_GuideSizer
@@ -19,7 +19,7 @@
         :scroll-position=scrollPosition
         :is-vertical=true
         :cursor-position=crossPos.x
-      ></SG_GuideSizer>
+      />
     </template>
 
     <transition-group name="list_hor" tag="div">
@@ -28,7 +28,7 @@
                 :position=guidePos.position
                 :scroll-position=scrollPosition
                 :is-vertical=false
-      ></SG_Guide>
+      />
     </transition-group>
     <template v-for="sizer in horizontalGuidesSizer">
       <SG_GuideSizer
@@ -37,17 +37,17 @@
         :scroll-position=scrollPosition
         :is-vertical=false
         :cursor-position=crossPos.y
-      ></SG_GuideSizer>
+      />
     </template>
 
     <SG_CoordinatesBox
       :cursor-pos=cursorPos
       :scroll-position=scrollPosition
-    ></SG_CoordinatesBox>
+    />
 
-    <SG_ElementHighlighter :element-props=elem :scroll-position=scrollPosition></SG_ElementHighlighter>
+    <SG_ElementHighlighter :element-props=elem :scroll-position=scrollPosition />
 
-    <SG_Legend v-if=showLegend></SG_Legend>
+    <SG_Legend v-if=showLegend />
 
   </div>
 </template>
