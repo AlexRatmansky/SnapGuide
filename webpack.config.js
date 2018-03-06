@@ -10,6 +10,7 @@ module.exports = {
     publicPath: '/dist/',
     filename: 'inpage.js'
   },
+  mode: 'development',
   module: {
     rules: [
       {
