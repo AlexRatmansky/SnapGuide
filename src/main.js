@@ -114,7 +114,6 @@ function passKeyPressEvent(e) {
       };
       break;
 
-
     // Arrow keys
     case 'ArrowUp':
       App.eventName = {

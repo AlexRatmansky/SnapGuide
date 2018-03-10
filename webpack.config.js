@@ -4,7 +4,7 @@ let CopyWebpackPlugin = require('copy-webpack-plugin');
 let ZipPlugin = require('zip-webpack-plugin');
 
 module.exports = {
-  entry: './js/main.js',
+  entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
