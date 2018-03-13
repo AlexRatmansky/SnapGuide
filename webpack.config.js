@@ -10,7 +10,7 @@ module.exports = {
     publicPath: '/dist/',
     filename: 'inpage.js'
   },
-  mode: 'development',
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   module: {
     rules: [
       {
@@ -87,12 +87,6 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.DefinePlugin({
       'process.env': {NODE_ENV: '"production"'},
       'DEV_MODE': JSON.stringify(false)
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
-      }
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true

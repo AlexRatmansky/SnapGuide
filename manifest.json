@@ -1,12 +1,12 @@
 {
-  "name": "SnapGuide [0.6.5-β]",
+  "name": "SnapGuide [0.6.6-β]",
   "description": "Chrome extension for measuring elements on page",
   "icons": {
     "128": "icon/icon128.png",
     "48": "icon/icon48.png",
     "16": "icon/icon16.png"
   },
-  "version": "0.6.5",
+  "version": "0.6.6",
   "permissions": [
     "activeTab"
   ],
@@ -25,8 +25,8 @@
   "commands": {
     "toggle-snap-guide": {
       "suggested_key": {
-        "default": "Alt+Shift+S",
-        "mac": "Alt+Shift+S"
+        "default": "Alt+Shift+Z",
+        "mac": "Alt+Shift+Z"
       },
       "description": "Toggles SnapGuide"
     }
