@@ -12,34 +12,34 @@
 </template>
 
 <script>
-  export default {
-    name: 'SG_Legend'
-  };
+export default {
+  name: "SG_Legend"
+};
 </script>
 
 <style lang="less" module>
-  .legendBoard {
-    font-family: Menlo, Consolas, Courier, monospace !important;
-    font-size: 12px !important;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    padding: 10px 20px;
-    border-radius: 3px 0 0 0;
-    background: #000000;
-    color: #ffffff;
-    max-width: 300px;
-  }
+.legendBoard {
+  font-family: Menlo, Consolas, Courier, monospace !important;
+  font-size: 12px !important;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 10px 20px;
+  border-radius: 3px 0 0 0;
+  background: #000000;
+  color: #ffffff;
+  max-width: 300px;
+}
 
-  .textLine {
-    line-height: 2;
-  }
+.textLine {
+  line-height: 2;
+}
 
-  .legendBoard code {
-    background: #fff;
-    color: #000;
-    border-radius: 2px;
-    margin: 0 2px;
-    padding: 3px 6px 2px !important;
-  }
+.legendBoard code {
+  background: #fff;
+  color: #000;
+  border-radius: 2px;
+  margin: 0 2px;
+  padding: 3px 6px 2px !important;
+}
 </style>

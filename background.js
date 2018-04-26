@@ -6,7 +6,7 @@ chrome.commands.onCommand.addListener(function (command) {
   chrome.tabs.update({}, function (tab) {
     if (!isRunning) {
       if (command === 'toggle-snap-guide') {
-        chrome.tabs.executeScript(tab.id, {file: 'inpage.js'});
+        chrome.tabs.executeScript(tab.id, { file: 'inpage.js' });
         isRunning = true;
       }
     }
@@ -15,7 +15,7 @@ chrome.commands.onCommand.addListener(function (command) {
 
 chrome.browserAction.onClicked.addListener(function (tab) {
   if (!isRunning) {
-    chrome.tabs.executeScript(tab.id, {file: 'inpage.js'});
+    chrome.tabs.executeScript(tab.id, { file: 'inpage.js' });
     isRunning = true;
   }
 });
