@@ -1,7 +1,8 @@
-let path = require('path');
-let webpack = require('webpack');
-let CopyWebpackPlugin = require('copy-webpack-plugin');
-let ZipPlugin = require('zip-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const { VueLoaderPlugin } = require('vue-loader');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ZipPlugin = require('zip-webpack-plugin');
 
 module.exports = {
   entry: './src/main.js',
@@ -25,26 +26,26 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        query: {
-          plugins: ['lodash'],
-          presets: ['es2015']
-        }
+        loader: 'babel-loader'
       },
       {
         test: /\.css$/,
         use: [
-          'style-loader',
-          'css-loader'
-        ],
-        exclude: /node_modules/
+          'vue-style-loader',
+          {
+            loader: 'css-loader',
+            options: { modules: true }
+          }
+        ]
       },
       {
         test: /\.less/,
         use: [
-          'style-loader',
-          'css-loader',
+          'vue-style-loader',
+          {
+            loader: 'css-loader',
+            options: { modules: true }
+          },
           'less-loader'
         ]
       },
@@ -57,6 +58,9 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new VueLoaderPlugin()
+  ],
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.common.js'
@@ -85,17 +89,17 @@ if (process.env.NODE_ENV === 'production') {
 
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
-      'process.env': {NODE_ENV: '"production"'},
+      'process.env': { NODE_ENV: '"production"' },
       'DEV_MODE': JSON.stringify(false)
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
     }),
     new CopyWebpackPlugin([
-        {from: 'manifest.json'},
-        {from: 'background.js'},
-        {from: 'icon/*.png'}
-      ]
+      { from: 'manifest.json' },
+      { from: 'background.js' },
+      { from: 'icon/*.png' }
+    ]
     ),
     new ZipPlugin({
       path: 'zip',
