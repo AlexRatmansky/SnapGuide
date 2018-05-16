@@ -14,7 +14,6 @@
     </transition-group>
     <template v-for="sizer in verticalGuidesSizer" >
       <SG_GuideSizer
-        :key=sizer.start
         :start=sizer.start
         :end=sizer.end
         :scroll-position=scrollPosition
@@ -33,7 +32,6 @@
     </transition-group>
     <template v-for="sizer in horizontalGuidesSizer">
       <SG_GuideSizer
-        :key=sizer.start
         :start=sizer.start
         :end=sizer.end
         :scroll-position=scrollPosition

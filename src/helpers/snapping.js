@@ -1,4 +1,5 @@
 import { CONFIG } from '../config'
+import styles from '../../css/style.less'
 
 function isInSnapArea(point, target) {
   return (point >= target - CONFIG.SNAP_FACTOR) && (point <= target + CONFIG.SNAP_FACTOR);
@@ -34,7 +35,7 @@ function getBaselineY(target) {
   let yPosition;
 
   emptySpan = document.createElement('span');
-  emptySpan.classList.add('empty-span');
+  emptySpan.classList.add(styles['empty-span']);
 
   target.insertBefore(emptySpan, textNode);
 
@@ -89,8 +90,8 @@ export function checkSnap(params) {
   const isSnapped = newXPos !== null || newYPos !== null;
 
   return {
-    xPos: isSnapped ? newXPos : cursorPosX,
-    yPos: isSnapped ? newYPos : cursorPosY,
+    xPos: newXPos !== null ? newXPos : cursorPosX,
+    yPos: newYPos !== null ? newYPos : cursorPosY,
     isSnapped: isSnapped
   };
 }
