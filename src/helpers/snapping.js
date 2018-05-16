@@ -1,99 +1,27 @@
 import { CONFIG } from '../config'
 
-// elem
-// elemRect
-// bodyRect
-// cursorPosX
-// cursorPosY
-export function checkSnap(params) {
+function checkTop(top, y) {
+  return y <= top + CONFIG.SNAP_FACTOR && y >= top - CONFIG.SNAP_FACTOR
+}
 
-  const bodyRect = params.bodyRect;
-  const elemRect = params.elemRect;
-  const elemStyles = params.elemStyles;
+function checkBottom(bottom, y) {
+  return y >= bottom - CONFIG.SNAP_FACTOR && y <= bottom + CONFIG.SNAP_FACTOR
+}
 
-  const top = Math.round(elemRect.top - bodyRect.top);
-  const left = Math.round(elemRect.left - bodyRect.left);
-  const right = left + elemRect.width;
-  const bottom = top + elemRect.height;
+function checkLeft(left, x) {
+  return x <= left + CONFIG.SNAP_FACTOR && x >= left - CONFIG.SNAP_FACTOR
+}
 
-  const paddingTop = parseInt(elemStyles.paddingTop);
-  const paddingLeft = parseInt(elemStyles.paddingLeft);
-  const paddingRight = parseInt(elemStyles.paddingRight);
-  const paddingBottom = parseInt(elemStyles.paddingBottom);
-
-  let newXPos = params.cursorPosX;
-  let newYPos = params.cursorPosY;
-
-  let isSnapped = false;
-  const snapFactor = CONFIG.SNAP_FACTOR;
-
-  if (checkTop(top, params.cursorPosY)) {
-    newYPos = top;
-    isSnapped = true;
-  }
-  if (checkLeft(left, params.cursorPosX)) {
-    newXPos = left;
-    isSnapped = true;
-  }
-  if (checkRight(right, params.cursorPosX)) {
-    newXPos = right;
-    isSnapped = true;
-  }
-  if (checkBottom(bottom, params.cursorPosY)) {
-    newYPos = bottom;
-    isSnapped = true;
-  }
-  if (checkTop(top + paddingTop, params.cursorPosY)) {
-    newYPos = top + paddingTop;
-    isSnapped = true;
-  }
-  if (checkLeft(left + paddingLeft, params.cursorPosX)) {
-    newXPos = left + paddingLeft;
-    isSnapped = true;
-  }
-  if (checkRight(right - paddingRight, params.cursorPosX)) {
-    newXPos = right - paddingRight;
-    isSnapped = true;
-  }
-  if (checkBottom(bottom - paddingBottom, params.cursorPosY)) {
-    newYPos = bottom - paddingBottom;
-    isSnapped = true;
-  }
-
-  const baselinePosition = Math.round(getBaselineY(params.elem) - bodyRect.top);
-  if (params.cursorPosY >= baselinePosition - snapFactor && params.cursorPosY <= baselinePosition + snapFactor) {
-    newYPos = getBaselineY(params.elem) - bodyRect.top;
-    isSnapped = true;
-  }
-
-  function checkTop(top, y) {
-    return y <= top + snapFactor && y >= top - snapFactor
-  }
-
-  function checkLeft(left, x) {
-    return x <= left + snapFactor && x >= left - snapFactor
-  }
-
-  function checkRight(right, x) {
-    return x >= right - snapFactor && x <= right + snapFactor
-  }
-
-  function checkBottom(bottom, y) {
-    return y >= bottom - snapFactor && y <= bottom + snapFactor
-  }
-
-  return {
-    xPos: newXPos,
-    yPos: newYPos,
-    isSnapped: isSnapped
-  };
+function checkRight(right, x) {
+  return x >= right - CONFIG.SNAP_FACTOR && x <= right + CONFIG.SNAP_FACTOR
 }
 
 function getBaselineY(target) {
+
+  if (!target.hasChildNodes()) return null;
+
   // TODO: подумать что можно сделать с таблицами>
-  if (!target.hasChildNodes() || target.tagName === 'TABLE') {
-    return null;
-  }
+  if (target.tagName === 'TABLE') return null;
 
   let children = target.childNodes;
   let child = null;
@@ -105,26 +33,89 @@ function getBaselineY(target) {
     }
   }
 
-  if (child === null) {
-    return null;
-  }
+  if (child === null) return null;
 
-  let txt = document.createElement('span');
+  let emptySpan = document.createElement('span');
 
-  txt.style.setProperty('display', 'inline-block', 'important');
-  txt.style.setProperty('position', 'static', 'important');
-  txt.style.setProperty('height', '1px', 'important');
-  txt.style.setProperty('width', '1px', 'important');
-  txt.style.setProperty('padding', '0', 'important');
-  txt.style.setProperty('margin', '0', 'important');
-  txt.style.setProperty('background-color', 'green', 'important');
-  txt.style.setProperty('opacity', '0', 'important');
+  emptySpan.style.setAttribute('class', 'empty-span');
 
-  target.insertBefore(txt, child);
+  target.insertBefore(emptySpan, child);
 
-  let y = txt.getBoundingClientRect().top + 1;
+  let y = emptySpan.getBoundingClientRect().top + 1;
 
-  target.removeChild(txt);
+  target.removeChild(emptySpan);
 
   return y;
+}
+
+export function checkSnap(params) {
+
+  const {
+    bodyRect,
+    elem,
+    elemRect,
+    elemStyles,
+    cursorPosX,
+    cursorPosY
+  } = params;
+
+  let newXPos;
+  let newYPos;
+
+  const top = Math.round(elemRect.top - bodyRect.top);
+  const bottom = top + elemRect.height;
+  const left = Math.round(elemRect.left - bodyRect.left);
+  const right = left + elemRect.width;
+
+  const paddingTop = parseInt(elemStyles.paddingTop);
+  const paddingBottom = parseInt(elemStyles.paddingBottom);
+  const paddingLeft = parseInt(elemStyles.paddingLeft);
+  const paddingRight = parseInt(elemStyles.paddingRight);
+
+  const baselinePosition = Math.round(getBaselineY(elem) - bodyRect.top);
+
+  let isSnapped = false;
+
+  if (checkTop(top, cursorPosY)) {
+    newYPos = top;
+    isSnapped = true;
+  } else if (checkBottom(bottom, cursorPosY)) {
+    newYPos = bottom;
+    isSnapped = true;
+  }
+
+  if (checkLeft(left, cursorPosX)) {
+    newXPos = left;
+    isSnapped = true;
+  } else if (checkRight(right, cursorPosX)) {
+    newXPos = right;
+    isSnapped = true;
+  }
+
+  if (checkTop(top + paddingTop, cursorPosY)) {
+    newYPos = top + paddingTop;
+    isSnapped = true;
+  } else if (checkBottom(bottom - paddingBottom, cursorPosY)) {
+    newYPos = bottom - paddingBottom;
+    isSnapped = true;
+  }
+
+  if (checkLeft(left + paddingLeft, cursorPosX)) {
+    newXPos = left + paddingLeft;
+    isSnapped = true;
+  } else if (checkRight(right - paddingRight, cursorPosX)) {
+    newXPos = right - paddingRight;
+    isSnapped = true;
+  }
+
+  if (cursorPosY >= baselinePosition - CONFIG.SNAP_FACTOR && cursorPosY <= baselinePosition + CONFIG.SNAP_FACTOR) {
+    newYPos = getBaselineY(elem) - bodyRect.top;
+    isSnapped = true;
+  }
+
+  return {
+    xPos: newXPos,
+    yPos: newYPos,
+    isSnapped: isSnapped
+  };
 }
