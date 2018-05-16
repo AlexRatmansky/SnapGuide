@@ -9,29 +9,31 @@ function getBaselineY(target) {
   if (!target.hasChildNodes()) return null;
   if (target.tagName === 'TABLE') return null; // TODO: подумать что можно сделать с таблицами
 
-  let children = target.childNodes;
-  let child = null;
+  let childNodes = target.childNodes;
+  let textNode = null;
 
-  for (let i = 0, len = children.length; i < len; ++i) {
-    if (children[i].nodeType === Node.TEXT_NODE) {
-      child = children[i];
+  for (let i = 0, len = childNodes.length; i < len; ++i) {
+    if (childNodes[i].nodeType === Node.TEXT_NODE) {
+      textNode = childNodes[i];
       break;
     }
   }
 
-  if (child === null) return null;
+  if (textNode === null) return null;
 
-  let emptySpan = document.createElement('span');
+  let emptySpan;
+  let yPosition;
 
-  emptySpan.style.setAttribute('class', 'empty-span');
+  emptySpan = document.createElement('span');
+  emptySpan.classList.add('empty-span');
 
-  target.insertBefore(emptySpan, child);
+  target.insertBefore(emptySpan, textNode);
 
-  let y = emptySpan.getBoundingClientRect().top + 1;
+  yPosition = emptySpan.getBoundingClientRect().top + 1;
 
   target.removeChild(emptySpan);
 
-  return y;
+  return yPosition;
 }
 
 export function checkSnap(params) {
