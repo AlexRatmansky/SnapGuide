@@ -59,9 +59,6 @@ export function checkSnap(params) {
     cursorPosY
   } = params;
 
-  let newXPos;
-  let newYPos;
-
   const top = Math.round(elemRect.top - bodyRect.top);
   const bottom = top + elemRect.height;
   const left = Math.round(elemRect.left - bodyRect.left);
@@ -74,6 +71,8 @@ export function checkSnap(params) {
 
   const baselinePosition = Math.round(getBaselineY(elem) - bodyRect.top);
 
+  let newXPos;
+  let newYPos;
   let isSnapped = false;
 
   if (checkTop(top, cursorPosY)) {
