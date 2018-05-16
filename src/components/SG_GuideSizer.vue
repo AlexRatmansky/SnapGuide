@@ -138,7 +138,7 @@ export default {
   }
 }
 
-.inline-label {
+.inlineLabel {
   position: absolute;
   font-size: 6px;
   line-height: 1;
