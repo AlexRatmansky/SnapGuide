@@ -5,14 +5,12 @@ function isInSnapArea(point, target) {
 }
 
 function checkKeyPointsForSnapping(pointPos, arr) {
+
   for (let i = 0, len = arr.length; i < len; i++) {
-    if (isInSnapArea(point, arr[i])) {
-      return {
-        newPointPos: arr[i],
-        isSnapped: true
-      }
-    }
+    if (isInSnapArea(point, arr[i])) return arr[i]
   }
+
+  return null;
 }
 
 function getBaselineY(target) {
@@ -70,22 +68,25 @@ export function checkSnap(params) {
 
   const baselinePosition = Math.round(getBaselineY(elem) - bodyRect.top);
 
-  const newXPos = checkKeyPointsForSnapping(cursorPosX, [
+  const hKeyPoints = [
     left,
     left + paddingLeft,
     right - paddingRight,
     right
-  ]);
+  ];
 
-  const newYPos = checkKeyPointsForSnapping(cursorPosY, [
+  const vKeyPoints = [
     top,
     top + paddingTop,
     baselinePosition,
     bottom - paddingBottom,
     bottom
-  ]);
+  ];
 
-  const isSnapped = newXPos !== undefined || newYPos !== undefined;
+  const newXPos = checkKeyPointsForSnapping(cursorPosX, hKeyPoints);
+  const newYPos = checkKeyPointsForSnapping(cursorPosY, vKeyPoints);
+
+  const isSnapped = newXPos !== null || newYPos !== null;
 
   return {
     xPos: isSnapped ? newXPos : cursorPosX,
