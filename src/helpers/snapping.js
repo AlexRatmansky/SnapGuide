@@ -1,32 +1,18 @@
 import { CONFIG } from '../config'
 
-function checkTop(top, y) {
-  return y <= top + CONFIG.SNAP_FACTOR && y >= top - CONFIG.SNAP_FACTOR
-}
-
-function checkBottom(bottom, y) {
-  return y >= bottom - CONFIG.SNAP_FACTOR && y <= bottom + CONFIG.SNAP_FACTOR
-}
-
-function checkLeft(left, x) {
-  return x <= left + CONFIG.SNAP_FACTOR && x >= left - CONFIG.SNAP_FACTOR
-}
-
-function checkRight(right, x) {
-  return x >= right - CONFIG.SNAP_FACTOR && x <= right + CONFIG.SNAP_FACTOR
+function isInSnapArea(point, target) {
+  return (point >= target - CONFIG.SNAP_FACTOR) && (point <= target + CONFIG.SNAP_FACTOR);
 }
 
 function getBaselineY(target) {
 
   if (!target.hasChildNodes()) return null;
-
-  // TODO: подумать что можно сделать с таблицами>
-  if (target.tagName === 'TABLE') return null;
+  if (target.tagName === 'TABLE') return null; // TODO: подумать что можно сделать с таблицами
 
   let children = target.childNodes;
   let child = null;
 
-  for (let i = 0; i < children.length; ++i) {
+  for (let i = 0, len = children.length; i < len; ++i) {
     if (children[i].nodeType === Node.TEXT_NODE) {
       child = children[i];
       break;
@@ -75,40 +61,36 @@ export function checkSnap(params) {
   let newYPos;
   let isSnapped = false;
 
-  if (checkTop(top, cursorPosY)) {
+  if (isInSnapArea(cursorPosY, top)) {
     newYPos = top;
     isSnapped = true;
-  } else if (checkBottom(bottom, cursorPosY)) {
+  } else if (isInSnapArea(cursorPosY, bottom)) {
     newYPos = bottom;
     isSnapped = true;
-  }
-
-  if (checkLeft(left, cursorPosX)) {
-    newXPos = left;
-    isSnapped = true;
-  } else if (checkRight(right, cursorPosX)) {
-    newXPos = right;
-    isSnapped = true;
-  }
-
-  if (checkTop(top + paddingTop, cursorPosY)) {
+  } else if (isInSnapArea(cursorPosY, top + paddingTop)) {
     newYPos = top + paddingTop;
     isSnapped = true;
-  } else if (checkBottom(bottom - paddingBottom, cursorPosY)) {
+  } else if (isInSnapArea(cursorPosY, bottom - paddingBottom)) {
     newYPos = bottom - paddingBottom;
     isSnapped = true;
   }
 
-  if (checkLeft(left + paddingLeft, cursorPosX)) {
+  if (isInSnapArea(cursorPosX, left)) {
+    newXPos = left;
+    isSnapped = true;
+  } else if (isInSnapArea(cursorPosX, right)) {
+    newXPos = right;
+    isSnapped = true;
+  } else if (isInSnapArea(cursorPosX, left + paddingLeft)) {
     newXPos = left + paddingLeft;
     isSnapped = true;
-  } else if (checkRight(right - paddingRight, cursorPosX)) {
+  } else if (isInSnapArea(cursorPosX, right - paddingRight)) {
     newXPos = right - paddingRight;
     isSnapped = true;
   }
 
-  if (cursorPosY >= baselinePosition - CONFIG.SNAP_FACTOR && cursorPosY <= baselinePosition + CONFIG.SNAP_FACTOR) {
-    newYPos = getBaselineY(elem) - bodyRect.top;
+  if (isInSnapArea(cursorPosY, baselinePosition)) {
+    newYPos = baselinePosition;
     isSnapped = true;
   }
 
