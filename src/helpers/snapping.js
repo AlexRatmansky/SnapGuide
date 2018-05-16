@@ -4,6 +4,17 @@ function isInSnapArea(point, target) {
   return (point >= target - CONFIG.SNAP_FACTOR) && (point <= target + CONFIG.SNAP_FACTOR);
 }
 
+function checkKeyPointsForSnapping(pointPos, arr) {
+  for (let i = 0, len = arr.length; i < len; i++) {
+    if (isInSnapArea(point, arr[i])) {
+      return {
+        newPointPos: arr[i],
+        isSnapped: true
+      }
+    }
+  }
+}
+
 function getBaselineY(target) {
 
   if (!target.hasChildNodes()) return null;
@@ -48,9 +59,9 @@ export function checkSnap(params) {
   } = params;
 
   const top = Math.round(elemRect.top - bodyRect.top);
-  const bottom = top + elemRect.height;
+  const bottom = Math.round(top + elemRect.height);
   const left = Math.round(elemRect.left - bodyRect.left);
-  const right = left + elemRect.width;
+  const right = Math.round(left + elemRect.width);
 
   const paddingTop = parseInt(elemStyles.paddingTop);
   const paddingBottom = parseInt(elemStyles.paddingBottom);
@@ -59,46 +70,26 @@ export function checkSnap(params) {
 
   const baselinePosition = Math.round(getBaselineY(elem) - bodyRect.top);
 
-  let newXPos;
-  let newYPos;
-  let isSnapped = false;
+  const newXPos = checkKeyPointsForSnapping(cursorPosX, [
+    left,
+    left + paddingLeft,
+    right - paddingRight,
+    right
+  ]);
 
-  if (isInSnapArea(cursorPosY, top)) {
-    newYPos = top;
-    isSnapped = true;
-  } else if (isInSnapArea(cursorPosY, bottom)) {
-    newYPos = bottom;
-    isSnapped = true;
-  } else if (isInSnapArea(cursorPosY, top + paddingTop)) {
-    newYPos = top + paddingTop;
-    isSnapped = true;
-  } else if (isInSnapArea(cursorPosY, bottom - paddingBottom)) {
-    newYPos = bottom - paddingBottom;
-    isSnapped = true;
-  }
+  const newYPos = checkKeyPointsForSnapping(cursorPosY, [
+    top,
+    top + paddingTop,
+    baselinePosition,
+    bottom - paddingBottom,
+    bottom
+  ]);
 
-  if (isInSnapArea(cursorPosX, left)) {
-    newXPos = left;
-    isSnapped = true;
-  } else if (isInSnapArea(cursorPosX, right)) {
-    newXPos = right;
-    isSnapped = true;
-  } else if (isInSnapArea(cursorPosX, left + paddingLeft)) {
-    newXPos = left + paddingLeft;
-    isSnapped = true;
-  } else if (isInSnapArea(cursorPosX, right - paddingRight)) {
-    newXPos = right - paddingRight;
-    isSnapped = true;
-  }
-
-  if (isInSnapArea(cursorPosY, baselinePosition)) {
-    newYPos = baselinePosition;
-    isSnapped = true;
-  }
+  const isSnapped = newXPos !== undefined || newYPos !== undefined;
 
   return {
-    xPos: newXPos,
-    yPos: newYPos,
+    xPos: isSnapped ? newXPos : cursorPosX,
+    yPos: isSnapped ? newYPos : cursorPosY,
     isSnapped: isSnapped
   };
 }
