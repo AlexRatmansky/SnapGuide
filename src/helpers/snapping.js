@@ -17,7 +17,7 @@ function checkKeyPointsForSnapping(pointPos, arr) {
 function getBaselineY(target) {
 
   if (!target.hasChildNodes()) return null;
-  if (target.tagName === 'TABLE') return null; // TODO: подумать что можно сделать с таблицами
+  if (target.tagName === 'TABLE') return null; // TODO: подумать, что можно сделать с таблицами
 
   let childNodes = target.childNodes;
   let textNode = null;
@@ -87,11 +87,9 @@ export function checkSnap(params) {
   const newXPos = checkKeyPointsForSnapping(cursorPosX, hKeyPoints);
   const newYPos = checkKeyPointsForSnapping(cursorPosY, vKeyPoints);
 
-  const isSnapped = newXPos !== null || newYPos !== null;
-
   return {
     xPos: newXPos !== null ? newXPos : cursorPosX,
     yPos: newYPos !== null ? newYPos : cursorPosY,
-    isSnapped: isSnapped
+    isSnapped: newXPos !== null || newYPos !== null
   };
 }
