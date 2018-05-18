@@ -8,7 +8,9 @@ function isInSnapArea(point, target) {
 function checkKeyPointsForSnapping(pointPos, arr) {
 
   for (let i = 0, len = arr.length; i < len; i++) {
-    if (isInSnapArea(pointPos, arr[i])) return arr[i]
+    if (isInSnapArea(pointPos, arr[i])) {
+      return arr[i];
+    }
   }
 
   return null;
