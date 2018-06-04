@@ -6,7 +6,6 @@
     <div :class=$style.textLine><code>←</code>,<code>↑</code>,<code>→</code>,<code>↓</code>
       – move cursor 1px (+<code>Shift</code> 10px)
     </div>
-    <div :class=$style.textLine><code>ESC</code> – toggle visibility</div>
     <div :class=$style.textLine><code>Space</code> – toggle help</div>
   </div>
 </template>

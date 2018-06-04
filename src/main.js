@@ -26,7 +26,22 @@ let App = new Vue({
 
   template: '<SnapGuide :event-data=eventData :event-name=eventName :scroll-position=scrollPosition :window-size=windowSize />',
 
-  components: {SnapGuide}
+  components: { SnapGuide }
+});
+
+chrome.runtime.onMessage.addListener(function (msg, _, sendResponse) {
+
+  switch (msg) {
+    case 'toggleActive':
+      App.eventName = {
+        name: 'toggleActive'
+      };
+      break;
+
+    default:
+      break;
+  }
+
 });
 
 document.addEventListener('mousemove',
@@ -144,12 +159,6 @@ function passKeyPressEvent(e) {
         name: 'arrowPositioning',
         direction: 'right',
         shiftKey: e.shiftKey
-      };
-      break;
-
-    case 'Escape':
-      App.eventName = {
-        name: 'toggleActive'
       };
       break;
 
