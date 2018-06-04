@@ -96,13 +96,11 @@ function passUpdatedWindowSize() {
 }
 
 function passKeyPressEvent(e) {
-  e.preventDefault();
-
-  DEV_MODE && console.log(e.code);
 
   switch (e.code) {
     // Space - for vertical
     case 'Space':
+      e.preventDefault();
       App.eventName = {
         name: 'toggleLegend'
       };
@@ -110,6 +108,7 @@ function passKeyPressEvent(e) {
 
     // v - for vertical
     case 'KeyV':
+      e.preventDefault();
       App.eventName = {
         name: 'toggleVerticalRule'
       };
@@ -117,6 +116,7 @@ function passKeyPressEvent(e) {
 
     // h - for horizontal
     case 'KeyH':
+      e.preventDefault();
       App.eventName = {
         name: 'toggleHorizontalRule'
       };
@@ -124,6 +124,7 @@ function passKeyPressEvent(e) {
 
     // q - for clean
     case 'KeyQ':
+      e.preventDefault();
       App.eventName = {
         name: 'cleanGuides'
       };
@@ -131,6 +132,7 @@ function passKeyPressEvent(e) {
 
     // Arrow keys
     case 'ArrowUp':
+      e.preventDefault();
       App.eventName = {
         name: 'arrowPositioning',
         direction: 'up',
@@ -139,6 +141,7 @@ function passKeyPressEvent(e) {
       break;
 
     case 'ArrowDown':
+      e.preventDefault();
       App.eventName = {
         name: 'arrowPositioning',
         direction: 'down',
@@ -147,6 +150,7 @@ function passKeyPressEvent(e) {
       break;
 
     case 'ArrowLeft':
+      e.preventDefault();
       App.eventName = {
         name: 'arrowPositioning',
         direction: 'left',
@@ -155,6 +159,7 @@ function passKeyPressEvent(e) {
       break;
 
     case 'ArrowRight':
+      e.preventDefault();
       App.eventName = {
         name: 'arrowPositioning',
         direction: 'right',
