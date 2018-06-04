@@ -12,7 +12,7 @@
           isRunning = true;
         }
       } else {
-        chrome.tabs.sendMessage(tab.id, 'be');
+        chrome.tabs.sendMessage(tab.id, 'toggleActive');
       }
     });
   });
