@@ -12,6 +12,7 @@
                 :is-vertical=true
       />
     </transition-group>
+
     <template v-for="sizer in verticalGuidesSizer" >
       <SG_GuideSizer
         :start=sizer.start

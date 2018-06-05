@@ -29,17 +29,18 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        test: /\.css$/,
+        test: /css\/.+\.less$/,
         use: [
           'vue-style-loader',
           {
             loader: 'css-loader',
-            options: { modules: true }
-          }
+          },
+          'less-loader'
         ]
       },
       {
-        test: /\.less/,
+        test: /\.less$/,
+        exclude: /css/,
         use: [
           'vue-style-loader',
           {

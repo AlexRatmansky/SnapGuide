@@ -29,20 +29,22 @@ let App = new Vue({
   components: { SnapGuide }
 });
 
-chrome.runtime.onMessage.addListener(function (msg, _, sendResponse) {
+if (process.env.NODE_ENV === 'production') {
+  chrome.runtime.onMessage.addListener(function (msg, _, sendResponse) {
 
-  switch (msg) {
-    case 'toggleActive':
-      App.eventName = {
-        name: 'toggleActive'
-      };
-      break;
+    switch (msg) {
+      case 'toggleActive':
+        App.eventName = {
+          name: 'toggleActive'
+        };
+        break;
 
-    default:
-      break;
-  }
+      default:
+        break;
+    }
 
-});
+  });
+}
 
 document.addEventListener('mousemove',
   (e) => {
