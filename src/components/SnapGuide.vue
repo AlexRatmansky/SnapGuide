@@ -15,6 +15,7 @@
 
     <template v-for="sizer in verticalGuidesSizer" >
       <SG_GuideSizer
+        :key=sizer.id
         :start=sizer.start
         :end=sizer.end
         :scroll-position=scrollPosition
@@ -33,6 +34,7 @@
     </transition-group>
     <template v-for="sizer in horizontalGuidesSizer">
       <SG_GuideSizer
+        :key=sizer.id
         :start=sizer.start
         :end=sizer.end
         :scroll-position=scrollPosition
@@ -54,17 +56,18 @@
 </template>
 
 <script>
-import SG_Guide from "./SG_Guide.vue";
-import SG_ElementHighlighter from "./SG_ElementHighlighter.vue";
-import SG_CoordinatesBox from "./SG_CoordinatesBox.vue";
-import SG_GuideSizer from "./SG_GuideSizer.vue";
-import SG_Legend from "./SG_Legend.vue";
-import { checkSnap } from "../helpers/snapping";
-import { CONFIG } from "../config";
-import _ from "lodash";
+import SG_Guide from './SG_Guide.vue';
+import SG_ElementHighlighter from './SG_ElementHighlighter.vue';
+import SG_CoordinatesBox from './SG_CoordinatesBox.vue';
+import SG_GuideSizer from './SG_GuideSizer.vue';
+import SG_Legend from './SG_Legend.vue';
+import { checkSnap } from '../helpers/snapping';
+import { CONFIG } from '../config';
+import _ from 'lodash';
+import uuidv4 from 'uuid/v4';
 
 export default {
-  name: "App",
+  name: 'App',
 
   data: function() {
     return {
@@ -95,7 +98,7 @@ export default {
     SG_Legend
   },
 
-  props: ["eventData", "eventName", "scrollPosition", "windowSize"],
+  props: ['eventData', 'eventName', 'scrollPosition', 'windowSize'],
 
   methods: {
     toggleRule: function(direction) {
@@ -103,11 +106,11 @@ export default {
       let currGuidePosition;
 
       switch (direction) {
-        case "vertical":
+        case 'vertical':
           guidesArr = this.verticalGuides;
           currGuidePosition = this.cursorPos.x;
           break;
-        case "horizontal":
+        case 'horizontal':
           guidesArr = this.horizontalGuides;
           currGuidePosition = this.cursorPos.y;
           break;
@@ -126,11 +129,11 @@ export default {
         });
 
         switch (direction) {
-          case "vertical":
-            this.verticalGuides = _.sortBy(guidesArr, ["position"]);
+          case 'vertical':
+            this.verticalGuides = _.sortBy(guidesArr, ['position']);
             break;
-          case "horizontal":
-            this.horizontalGuides = _.sortBy(guidesArr, ["position"]);
+          case 'horizontal':
+            this.horizontalGuides = _.sortBy(guidesArr, ['position']);
             break;
         }
       }
@@ -139,11 +142,11 @@ export default {
     },
 
     toggleVerticalRule: function() {
-      this.toggleRule("vertical");
+      this.toggleRule('vertical');
     },
 
     toggleHorizontalRule: function() {
-      this.toggleRule("horizontal");
+      this.toggleRule('horizontal');
     },
 
     generateGuideMeasures: function(direction) {
@@ -152,16 +155,17 @@ export default {
       let i = 0;
 
       switch (direction) {
-        case "vertical":
+        case 'vertical':
           guidesArr = this.verticalGuides;
           break;
-        case "horizontal":
+        case 'horizontal':
           guidesArr = this.horizontalGuides;
           break;
       }
 
       while (i + 1 < guidesArr.length) {
         guidesMeasuresArr.push({
+          id: uuidv4(),
           start: guidesArr[i].position,
           end: guidesArr[i + 1].position
         });
@@ -169,10 +173,10 @@ export default {
       }
 
       switch (direction) {
-        case "vertical":
+        case 'vertical':
           this.verticalGuidesSizer = guidesMeasuresArr;
           break;
-        case "horizontal":
+        case 'horizontal':
           this.horizontalGuidesSizer = guidesMeasuresArr;
           break;
       }
@@ -197,19 +201,19 @@ export default {
       let step = data.shiftKey ? 10 : 1;
 
       switch (data.direction) {
-        case "up":
+        case 'up':
           this.crossPos.y -= step;
           this.cursorPos.y -= step;
           break;
-        case "down":
+        case 'down':
           this.crossPos.y += step;
           this.cursorPos.y += step;
           break;
-        case "left":
+        case 'left':
           this.crossPos.x -= step;
           this.cursorPos.x -= step;
           break;
-        case "right":
+        case 'right':
           this.crossPos.x += step;
           this.cursorPos.x += step;
           break;
@@ -265,11 +269,11 @@ export default {
     },
 
     scrollPosition: function(data) {
-      DEV_MODE && console.log("scroll", data);
+      DEV_MODE && console.log('scroll', data);
     },
 
     windowSize: function(data) {
-      DEV_MODE && console.log("resize", data);
+      DEV_MODE && console.log('resize', data);
     },
 
     eventName: function(data) {

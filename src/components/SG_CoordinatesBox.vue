@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: "SG_CoordinatesBox",
+  name: 'SG_CoordinatesBox',
   props: {
     cursorPos: Object,
     scrollPosition: {
@@ -29,8 +29,8 @@ export default {
       let styleObject = {};
 
       styleObject.left =
-        this.cursorPos.x - this.scrollPosition.scrollLeft + "px";
-      styleObject.top = this.cursorPos.y - this.scrollPosition.scrollTop + "px";
+        this.cursorPos.x - this.scrollPosition.scrollLeft + 'px';
+      styleObject.top = this.cursorPos.y - this.scrollPosition.scrollTop + 'px';
 
       return styleObject;
     }

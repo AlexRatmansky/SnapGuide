@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: "SG_GuideSizer",
+  name: 'SG_GuideSizer',
   props: {
     start: Number,
     end: Number,
@@ -39,12 +39,12 @@ export default {
       let styleObject = {};
 
       if (this.isVertical) {
-        styleObject["left"] =
-          this.start - this.scrollPosition.scrollLeft + "px";
-        styleObject["width"] = this.end - this.start + "px";
+        styleObject['left'] =
+          this.start - this.scrollPosition.scrollLeft + 'px';
+        styleObject['width'] = this.end - this.start + 'px';
       } else {
-        styleObject["top"] = this.start - this.scrollPosition.scrollTop + "px";
-        styleObject["height"] = this.end - this.start + "px";
+        styleObject['top'] = this.start - this.scrollPosition.scrollTop + 'px';
+        styleObject['height'] = this.end - this.start + 'px';
       }
 
       return styleObject;

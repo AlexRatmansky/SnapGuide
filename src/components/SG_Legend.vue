@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "SG_Legend"
+  name: 'SG_Legend'
 };
 </script>
 

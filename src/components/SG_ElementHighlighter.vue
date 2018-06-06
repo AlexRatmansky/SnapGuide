@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "SG_ElementHighlighter",
+  name: 'SG_ElementHighlighter',
   props: {
     elementProps: Object,
     scrollPosition: Object
@@ -20,10 +20,10 @@ export default {
   computed: {
     borderBox: function() {
       return {
-        top: this.elementProps.top - this.scrollPosition.scrollTop + "px",
-        left: this.elementProps.left - this.scrollPosition.scrollLeft + "px",
-        width: this.elementProps.width + "px",
-        height: this.elementProps.height + "px"
+        top: this.elementProps.top - this.scrollPosition.scrollTop + 'px',
+        left: this.elementProps.left - this.scrollPosition.scrollLeft + 'px',
+        width: this.elementProps.width + 'px',
+        height: this.elementProps.height + 'px'
       };
     },
     paddingBox: function() {
