@@ -61,7 +61,9 @@ import SG_ElementHighlighter from './SG_ElementHighlighter.vue';
 import SG_CoordinatesBox from './SG_CoordinatesBox.vue';
 import SG_GuideSizer from './SG_GuideSizer.vue';
 import SG_Legend from './SG_Legend.vue';
+import eventBus from '../helpers/event-bus'
 import { checkSnap } from '../helpers/snapping';
+import { generateGuideMeasures } from '../helpers/guides';
 import { CONFIG } from '../config';
 import _ from 'lodash';
 import uuidv4 from 'uuid/v4';
@@ -150,39 +152,17 @@ export default {
     },
 
     generateGuideMeasures: function(direction) {
-      let guidesArr;
-      let guidesMeasuresArr = [];
-      let i = 0;
-
       switch (direction) {
         case 'vertical':
-          guidesArr = this.verticalGuides;
+          this.verticalGuidesSizer = generateGuideMeasures(this.verticalGuides);
           break;
         case 'horizontal':
-          guidesArr = this.horizontalGuides;
-          break;
-      }
-
-      while (i + 1 < guidesArr.length) {
-        guidesMeasuresArr.push({
-          id: uuidv4(),
-          start: guidesArr[i].position,
-          end: guidesArr[i + 1].position
-        });
-        i++;
-      }
-
-      switch (direction) {
-        case 'vertical':
-          this.verticalGuidesSizer = guidesMeasuresArr;
-          break;
-        case 'horizontal':
-          this.horizontalGuidesSizer = guidesMeasuresArr;
+          this.horizontalGuidesSizer = generateGuideMeasures(this.horizontalGuides);
           break;
       }
     },
 
-    cleanGuides: function() {
+    clearGuides: function() {
       this.verticalGuides = [];
       this.horizontalGuides = [];
       this.verticalGuidesSizer = [];

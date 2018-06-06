@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import eventBus from './helpers/event-bus'
 import SnapGuide from './components/SnapGuide.vue'
 import _ from 'lodash';
 import '../css/style.less';
@@ -46,33 +47,10 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-document.addEventListener('mousemove',
-  (e) => {
-    passMousePosition(e);
-  }, {
-    capture: true,
-    passive: true
-  });
-
-document.addEventListener('scroll',
-  () => {
-    passScrollPosition();
-  }, {
-    capture: true,
-    passive: true
-  });
-
-document.addEventListener('resize',
-  () => {
-    passUpdatedWindowSize();
-  }, {
-    capture: true,
-    passive: true
-  });
-
-document.onkeydown = function (e) {
-  passKeyPressEvent(e)
-};
+document.addEventListener('mousemove', (e) => { passMousePosition(e) }, { capture: true });
+document.addEventListener('scroll', () => { passScrollPosition() }, { capture: true} );
+document.addEventListener('resize', () => { passUpdatedWindowSize() }, { capture: true });
+document.onkeydown = (e) => { passKeyPressEvent(e) };
 
 passMousePosition = _.throttle(passMousePosition, 30);
 passScrollPosition = _.throttle(passScrollPosition, 30);
@@ -106,6 +84,7 @@ function passKeyPressEvent(e) {
       App.eventName = {
         name: 'toggleLegend'
       };
+      eventBus.$emit('toggleLegend');
       break;
 
     // v - for vertical
@@ -114,6 +93,7 @@ function passKeyPressEvent(e) {
       App.eventName = {
         name: 'toggleVerticalRule'
       };
+      eventBus.$emit('toggleVerticalRule');
       break;
 
     // h - for horizontal
@@ -122,14 +102,16 @@ function passKeyPressEvent(e) {
       App.eventName = {
         name: 'toggleHorizontalRule'
       };
+      eventBus.$emit('toggleHorizontalRule');
       break;
 
     // q - for clean
     case 'KeyQ':
       e.preventDefault();
       App.eventName = {
-        name: 'cleanGuides'
+        name: 'clearGuides'
       };
+      eventBus.$emit('clearGuides');
       break;
 
     // Arrow keys
@@ -140,6 +122,10 @@ function passKeyPressEvent(e) {
         direction: 'up',
         shiftKey: e.shiftKey
       };
+      eventBus.$emit('arrowPositioning', {
+        direction: 'up',
+        shiftKey: e.shiftKey
+      });
       break;
 
     case 'ArrowDown':
@@ -149,6 +135,10 @@ function passKeyPressEvent(e) {
         direction: 'down',
         shiftKey: e.shiftKey
       };
+      eventBus.$emit('arrowPositioning', {
+        direction: 'down',
+        shiftKey: e.shiftKey
+      });
       break;
 
     case 'ArrowLeft':
@@ -158,6 +148,10 @@ function passKeyPressEvent(e) {
         direction: 'left',
         shiftKey: e.shiftKey
       };
+      eventBus.$emit('arrowPositioning', {
+        direction: 'left',
+        shiftKey: e.shiftKey
+      });
       break;
 
     case 'ArrowRight':
@@ -167,6 +161,10 @@ function passKeyPressEvent(e) {
         direction: 'right',
         shiftKey: e.shiftKey
       };
+      eventBus.$emit('arrowPositioning', {
+        direction: 'right',
+        shiftKey: e.shiftKey
+      });
       break;
 
     default:
