@@ -66,7 +66,6 @@ import { checkSnap } from '../helpers/snapping';
 import { generateGuideMeasures } from '../helpers/guides';
 import { CONFIG } from '../config';
 import _ from 'lodash';
-import uuidv4 from 'uuid/v4';
 
 export default {
   name: 'App',

@@ -37,7 +37,7 @@ function getBaselineY(target) {
   let yPosition;
 
   emptySpan = document.createElement('span');
-  emptySpan.classList.add(styles['empty-span']);
+  emptySpan.classList.add('empty-span');
 
   target.insertBefore(emptySpan, textNode);
 
