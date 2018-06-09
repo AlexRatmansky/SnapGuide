@@ -7,7 +7,7 @@ function isInSnapArea(point, target) {
 
 function checkKeyPointsForSnapping(pointPos, arr) {
 
-  for (let i = 0, len = arr.length; i < len; i++) {
+  for (let i = 0, len = arr.length; i < len; ++i) {
     if (isInSnapArea(pointPos, arr[i])) {
       return arr[i];
     }
@@ -24,9 +24,15 @@ function getBaselineY(target) {
   let childNodes = target.childNodes;
   let textNode = null;
 
-  for (let i = 0, len = childNodes.length; i < len; ++i) {
-    if (childNodes[i].nodeType === Node.TEXT_NODE) {
+  for (let i = 0, len = childNodes.length; i < len; i++) {
+
+    console.log(childNodes[i].textContent.match(/^(?!\s*$).+/g));
+
+    if (childNodes[i].nodeType === Node.TEXT_NODE && childNodes[i].textContent.match(/^(?!\s*$).+/g) !== null ) {
       textNode = childNodes[i];
+
+      console.log('textNode', textNode);
+
       break;
     }
   }
@@ -43,9 +49,17 @@ function getBaselineY(target) {
 
   yPosition = emptySpan.getBoundingClientRect().top + 1;
 
+  let lh = parseInt(getComputedStyle(target).lineHeight);
+  let times = Math.floor(target.clientHeight / lh)
+  let arr = [];
+
+  for (let i = 0; i < times; i++) {
+    arr.push(yPosition + i * lh);
+  }
+
   target.removeChild(emptySpan);
 
-  return yPosition;
+  return arr;
 }
 
 export function checkSnap(params) {
@@ -69,7 +83,12 @@ export function checkSnap(params) {
   const paddingLeft = parseInt(elemStyles.paddingLeft);
   const paddingRight = parseInt(elemStyles.paddingRight);
 
-  const baselinePosition = Math.round(getBaselineY(elem) - bodyRect.top);
+  let baselinePosition = [];
+
+  if (getBaselineY(elem)) {
+    baselinePosition = getBaselineY(elem).map(item => Math.round(item - bodyRect.top));
+  }
+
 
   const hKeyPoints = [
     left,
@@ -78,10 +97,12 @@ export function checkSnap(params) {
     right
   ];
 
+  console.log('baselinePosition', baselinePosition);
+
   const vKeyPoints = [
     top,
     top + paddingTop,
-    baselinePosition,
+    ...baselinePosition,
     bottom - paddingBottom,
     bottom
   ];
