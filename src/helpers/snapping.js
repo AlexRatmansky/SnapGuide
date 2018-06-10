@@ -18,8 +18,8 @@ function checkKeyPointsForSnapping(pointPos, arr) {
 
 function getBaselineY(targetElement) {
 
-  if (!targetElement.hasChildNodes()) return null;
-  if (targetElement.tagName === 'TABLE') return null; // TODO: подумать, что можно сделать с таблицами
+  if (!targetElement.hasChildNodes()) return [];
+  if (targetElement.tagName === 'TABLE') return []; // TODO: подумать, что можно сделать с таблицами
 
   let childNodes = targetElement.childNodes;
   let textNode = null;
@@ -31,7 +31,7 @@ function getBaselineY(targetElement) {
     }
   }
 
-  if (textNode === null) return null;
+  if (textNode === null) return [];
 
   let emptySpan;
   let yPosition;
@@ -77,11 +77,7 @@ export function checkSnap(params) {
   const paddingLeft = parseInt(elemStyles.paddingLeft);
   const paddingRight = parseInt(elemStyles.paddingRight);
 
-  let baselinePosition = [];
-
-  if (getBaselineY(elem)) {
-    baselinePosition = getBaselineY(elem).map(item => Math.round(item - bodyRect.top));
-  }
+  const baselinePosition = getBaselineY(elem).map(item => Math.round(item - bodyRect.top));
 
   const hKeyPoints = [
     left,
