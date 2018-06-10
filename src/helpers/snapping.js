@@ -1,5 +1,4 @@
 import { CONFIG } from '../config'
-import styles from '../../css/style.less'
 
 function isInSnapArea(point, target) {
   return (point >= target - CONFIG.SNAP_FACTOR) && (point <= target + CONFIG.SNAP_FACTOR);
