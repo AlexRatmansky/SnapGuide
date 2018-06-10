@@ -16,23 +16,17 @@ function checkKeyPointsForSnapping(pointPos, arr) {
   return null;
 }
 
-function getBaselineY(target) {
+function getBaselineY(targetElement) {
 
-  if (!target.hasChildNodes()) return null;
-  if (target.tagName === 'TABLE') return null; // TODO: подумать, что можно сделать с таблицами
+  if (!targetElement.hasChildNodes()) return null;
+  if (targetElement.tagName === 'TABLE') return null; // TODO: подумать, что можно сделать с таблицами
 
-  let childNodes = target.childNodes;
+  let childNodes = targetElement.childNodes;
   let textNode = null;
 
   for (let i = 0, len = childNodes.length; i < len; i++) {
-
-    console.log(childNodes[i].textContent.match(/^(?!\s*$).+/g));
-
     if (childNodes[i].nodeType === Node.TEXT_NODE && childNodes[i].textContent.match(/^(?!\s*$).+/g) !== null ) {
       textNode = childNodes[i];
-
-      console.log('textNode', textNode);
-
       break;
     }
   }
@@ -45,19 +39,19 @@ function getBaselineY(target) {
   emptySpan = document.createElement('span');
   emptySpan.classList.add('empty-span');
 
-  target.insertBefore(emptySpan, textNode);
+  targetElement.insertBefore(emptySpan, textNode);
 
   yPosition = emptySpan.getBoundingClientRect().top + 1;
 
-  let lh = parseInt(getComputedStyle(target).lineHeight);
-  let times = Math.floor(target.clientHeight / lh)
+  let lh = parseInt(getComputedStyle(targetElement).lineHeight);
+  let times = Math.floor(targetElement.clientHeight / lh)
   let arr = [];
 
   for (let i = 0; i < times; i++) {
     arr.push(yPosition + i * lh);
   }
 
-  target.removeChild(emptySpan);
+  targetElement.removeChild(emptySpan);
 
   return arr;
 }
@@ -89,15 +83,12 @@ export function checkSnap(params) {
     baselinePosition = getBaselineY(elem).map(item => Math.round(item - bodyRect.top));
   }
 
-
   const hKeyPoints = [
     left,
     left + paddingLeft,
     right - paddingRight,
     right
   ];
-
-  console.log('baselinePosition', baselinePosition);
 
   const vKeyPoints = [
     top,
