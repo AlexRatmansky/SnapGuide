@@ -15,25 +15,29 @@ function checkKeyPointsForSnapping(pointPos, arr) {
   return null;
 }
 
-function getBaselineY(targetElement) {
-
-  if (!targetElement.hasChildNodes()) return [];
-  if (targetElement.tagName === 'TABLE') return []; // TODO: подумать, что можно сделать с таблицами
+function getTextNode(targetElement) {
+  if (!targetElement.hasChildNodes()) return null;
+  if (targetElement.tagName === 'TABLE') return null; // TODO: подумать, что можно сделать с таблицами
 
   let childNodes = targetElement.childNodes;
   let textNode = null;
 
   for (let i = 0, len = childNodes.length; i < len; i++) {
-    if (childNodes[i].nodeType === Node.TEXT_NODE && childNodes[i].textContent.match(/^(?!\s*$).+/g) !== null ) {
+    if (childNodes[i].nodeType === Node.TEXT_NODE && childNodes[i].textContent.match(/^(?!\s*$).+/g) !== null) {
       textNode = childNodes[i];
       break;
     }
   }
 
-  if (textNode === null) return [];
+  return textNode;
+}
 
+function getBaselineY(targetElement) {
+  let textNode = getTextNode(targetElement);
   let emptySpan;
   let yPosition;
+
+  if (textNode === null) return [];
 
   emptySpan = document.createElement('span');
   emptySpan.classList.add('empty-span');
@@ -56,7 +60,6 @@ function getBaselineY(targetElement) {
 }
 
 export function checkSnap(params) {
-
   const {
     bodyRect,
     elem,
