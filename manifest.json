@@ -1,12 +1,12 @@
 {
-  "name": "SnapGuide [0.7.0-β]",
+  "name": "SnapGuide [0.7.1-β]",
   "description": "Chrome extension for measuring elements on page",
   "icons": {
     "128": "icon/icon128.png",
     "48": "icon/icon48.png",
     "16": "icon/icon16.png"
   },
-  "version": "0.7.0",
+  "version": "0.7.1",
   "permissions": [
     "activeTab",
     "<all_urls>"
