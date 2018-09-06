@@ -1,4 +1,13 @@
 {
-  "plugins": ["lodash"],
-  "presets": ["es2015"]
+  "plugins": [
+    "lodash"
+  ],
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "entry"
+      }
+    ]
+  ]
 }
