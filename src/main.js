@@ -1,8 +1,24 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
 import eventBus from './helpers/event-bus'
 import SnapGuide from './components/SnapGuide.vue'
 import _ from 'lodash';
 import '../css/style.less';
+
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+  state: {
+    count: 0
+  },
+  mutations: {
+    increment(state) {
+      state.count++
+    }
+  }
+});
+
+console.log(store.state.count);
 
 let rootEl = document.createElement('div');
 rootEl.id = 'app';
@@ -11,7 +27,7 @@ document.body.appendChild(rootEl);
 let App = new Vue({
 
   el: '#app',
-
+  store: store,
   data: {
     eventData: {},
     eventName: '',
@@ -22,7 +38,8 @@ let App = new Vue({
     windowSize: {
       width: window.innerWidth,
       height: window.innerHeight
-    }
+    },
+    count: store.state.count
   },
 
   template: '<SnapGuide :event-data=eventData :event-name=eventName :scroll-position=scrollPosition :window-size=windowSize />',

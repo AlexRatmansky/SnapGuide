@@ -1,5 +1,6 @@
 <template>
   <div :class=$style.legendBoard>
+    <div>{{ count }}</div>
     <div :class=$style.textLine><code>V</code> – add vertical rule</div>
     <div :class=$style.textLine><code>H</code> – add horisontal rule</div>
     <div :class=$style.textLine><code>Q</code> – remove all guides</div>
@@ -12,7 +13,12 @@
 
 <script>
 export default {
-  name: 'SG_Legend'
+  name: 'SG_Legend',
+  computed: {
+    count () {
+      return this.$store.state.count
+    }
+  }
 };
 </script>
 
