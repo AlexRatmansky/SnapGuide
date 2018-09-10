@@ -61,7 +61,6 @@ import SG_ElementHighlighter from './SG_ElementHighlighter.vue';
 import SG_CoordinatesBox from './SG_CoordinatesBox.vue';
 import SG_GuideSizer from './SG_GuideSizer.vue';
 import SG_Legend from './SG_Legend.vue';
-import eventBus from '../helpers/event-bus'
 import { checkSnap } from '../helpers/snapping';
 import { generateGuideMeasures } from '../helpers/guides';
 import { CONFIG } from '../config';

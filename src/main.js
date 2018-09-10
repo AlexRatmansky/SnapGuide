@@ -1,24 +1,8 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
-import eventBus from './helpers/event-bus'
+import store from './store'
 import SnapGuide from './components/SnapGuide.vue'
 import _ from 'lodash';
 import '../css/style.less';
-
-Vue.use(Vuex)
-
-const store = new Vuex.Store({
-  state: {
-    count: 0
-  },
-  mutations: {
-    increment(state) {
-      state.count++
-    }
-  }
-});
-
-console.log(store.state.count);
 
 let rootEl = document.createElement('div');
 rootEl.id = 'app';
@@ -47,6 +31,8 @@ let App = new Vue({
   components: { SnapGuide }
 });
 
+console.log(App);
+
 if (process.env.NODE_ENV === 'production') {
   chrome.runtime.onMessage.addListener(function (msg, _, sendResponse) {
 
@@ -65,7 +51,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 document.addEventListener('mousemove', (e) => { passMousePosition(e) }, { capture: true });
-document.addEventListener('scroll', () => { passScrollPosition() }, { capture: true} );
+document.addEventListener('scroll', () => { passScrollPosition() }, { capture: true });
 document.addEventListener('resize', () => { passUpdatedWindowSize() }, { capture: true });
 document.onkeydown = (e) => { passKeyPressEvent(e) };
 
@@ -101,7 +87,6 @@ function passKeyPressEvent(e) {
       App.eventName = {
         name: 'toggleLegend'
       };
-      eventBus.$emit('toggleLegend');
       break;
 
     // v - for vertical
@@ -110,7 +95,6 @@ function passKeyPressEvent(e) {
       App.eventName = {
         name: 'toggleVerticalRule'
       };
-      eventBus.$emit('toggleVerticalRule');
       break;
 
     // h - for horizontal
@@ -119,7 +103,7 @@ function passKeyPressEvent(e) {
       App.eventName = {
         name: 'toggleHorizontalRule'
       };
-      eventBus.$emit('toggleHorizontalRule');
+      App.$store.commit('increment');
       break;
 
     // q - for clean
@@ -128,7 +112,6 @@ function passKeyPressEvent(e) {
       App.eventName = {
         name: 'clearGuides'
       };
-      eventBus.$emit('clearGuides');
       break;
 
     // Arrow keys
@@ -139,10 +122,6 @@ function passKeyPressEvent(e) {
         direction: 'up',
         shiftKey: e.shiftKey
       };
-      eventBus.$emit('arrowPositioning', {
-        direction: 'up',
-        shiftKey: e.shiftKey
-      });
       break;
 
     case 'ArrowDown':
@@ -152,10 +131,6 @@ function passKeyPressEvent(e) {
         direction: 'down',
         shiftKey: e.shiftKey
       };
-      eventBus.$emit('arrowPositioning', {
-        direction: 'down',
-        shiftKey: e.shiftKey
-      });
       break;
 
     case 'ArrowLeft':
@@ -165,10 +140,6 @@ function passKeyPressEvent(e) {
         direction: 'left',
         shiftKey: e.shiftKey
       };
-      eventBus.$emit('arrowPositioning', {
-        direction: 'left',
-        shiftKey: e.shiftKey
-      });
       break;
 
     case 'ArrowRight':
@@ -178,10 +149,6 @@ function passKeyPressEvent(e) {
         direction: 'right',
         shiftKey: e.shiftKey
       };
-      eventBus.$emit('arrowPositioning', {
-        direction: 'right',
-        shiftKey: e.shiftKey
-      });
       break;
 
     default:
