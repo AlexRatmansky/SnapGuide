@@ -3,6 +3,7 @@ import store from './store'
 import SnapGuide from './components/SnapGuide.vue'
 import _ from 'lodash';
 import '../css/style.less';
+import * as bbEvents from './events.js'
 
 let rootEl = document.createElement('div');
 rootEl.id = 'app';
@@ -26,12 +27,15 @@ let App = new Vue({
     count: store.state.count
   },
 
+  created: () => {
+    bbEvents.passScrollPosition();
+    bbEvents.passUpdatedWindowSize();
+  },
+
   template: '<SnapGuide :event-data=eventData :event-name=eventName :scroll-position=scrollPosition :window-size=windowSize />',
 
   components: { SnapGuide }
 });
-
-console.log(App);
 
 if (process.env.NODE_ENV === 'production') {
   chrome.runtime.onMessage.addListener(function (msg, _, sendResponse) {
@@ -49,16 +53,6 @@ if (process.env.NODE_ENV === 'production') {
 
   });
 }
-
-document.addEventListener('mousemove', (e) => { passMousePosition(e) }, { capture: true });
-document.addEventListener('scroll', () => { passScrollPosition() }, { capture: true });
-document.addEventListener('resize', () => { passUpdatedWindowSize() }, { capture: true });
-document.onkeydown = (e) => { passKeyPressEvent(e) };
-
-passMousePosition = _.throttle(passMousePosition, 30);
-passScrollPosition = _.throttle(passScrollPosition, 30);
-passUpdatedWindowSize = _.throttle(passUpdatedWindowSize, 30);
-passKeyPressEvent = _.throttle(passKeyPressEvent, 50);
 
 function passMousePosition(eventData) {
   App.eventData = eventData;
@@ -155,3 +149,13 @@ function passKeyPressEvent(e) {
       break;
   }
 }
+
+passMousePosition = _.throttle(passMousePosition, 30);
+passScrollPosition = _.throttle(passScrollPosition, 100);
+passUpdatedWindowSize = _.throttle(passUpdatedWindowSize, 100);
+passKeyPressEvent = _.throttle(passKeyPressEvent, 100);
+
+document.addEventListener('mousemove', (e) => { passMousePosition(e) }, { capture: true });
+document.addEventListener('scroll', () => { passScrollPosition() }, { capture: true });
+window.addEventListener('resize', () => { passUpdatedWindowSize() }, { capture: true });
+document.onkeydown = (e) => { passKeyPressEvent(e) };
