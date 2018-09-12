@@ -10,12 +10,12 @@ export default new Vuex.Store({
     count: 0,
 
     scrollPosition: {
-      scrollTop: 0,
-      scrollLeft: 0
+      scrollTop: window.pageYOffset,
+      scrollLeft: window.pageXOffset
     },
     windowSize: {
-      width: 0,
-      height: 0
+      width: window.innerWidth,
+      height: window.innerHeight
     }
   },
   mutations: {
@@ -24,13 +24,11 @@ export default new Vuex.Store({
     },
 
     updateScrollPosition: (state, scrollPosition) => {
-      state.scrollPosition.scrollTop = scrollPosition.scrollTop;
-      state.scrollPosition.scrollLeft = scrollPosition.scrollLeft;
+      state.scrollPosition = Object.assign({}, scrollPosition);
     },
 
     updateWindowSize: (state, windowSize) => {
-      state.windowSize.width = windowSize.width;
-      state.windowSize.height = windowSize.height;
+      state.windowSize = Object.assign({}, windowSize);
     }
   },
 })

@@ -3,7 +3,9 @@ import store from './store'
 import SnapGuide from './components/SnapGuide.vue'
 import _ from 'lodash';
 import '../css/style.less';
-import * as initEvents from './events.js'
+import initEvents from './events.js'
+
+initEvents();
 
 let rootEl = document.createElement('div');
 rootEl.id = 'app';
@@ -25,11 +27,6 @@ let App = new Vue({
       height: window.innerHeight
     },
     count: store.state.count
-  },
-
-  created: () => {
-    initEvents.passScrollPosition();
-    initEvents.passUpdatedWindowSize();
   },
 
   template: `
@@ -142,11 +139,7 @@ function passKeyPressEvent(e) {
 }
 
 const throttledPassMousePosition = _.throttle(passMousePosition, 30);
-const throttledPassScrollPosition = _.throttle(initEvents.passScrollPosition, 100);
-const throttledPassUpdatedWindowSize = _.throttle(initEvents.passUpdatedWindowSize, 100);
 const throttledPassKeyPressEvent = _.throttle(passKeyPressEvent, 100);
 
 document.addEventListener('mousemove', (e) => { throttledPassMousePosition(e) }, { capture: true });
-document.addEventListener('scroll', () => { throttledPassScrollPosition() }, { capture: true });
-window.addEventListener('resize', () => { throttledPassUpdatedWindowSize() }, { capture: true });
 document.onkeydown = (e) => { throttledPassKeyPressEvent(e) };
