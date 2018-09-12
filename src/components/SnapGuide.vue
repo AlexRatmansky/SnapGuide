@@ -201,57 +201,49 @@ export default {
 
   watch: {
     eventData: function(data) {
-      if (data !== undefined) {
-        const currElement = data.path[0] || undefined;
-        const bodyRect = document.body.getBoundingClientRect();
-        const elemRect = currElement.getBoundingClientRect();
-        const elemStyles = window.getComputedStyle(currElement);
+      if (data === undefined) return;
 
-        const snapObj = checkSnap({
-          elem: currElement,
-          elemRect: elemRect,
-          bodyRect: bodyRect,
-          cursorPosX: data.pageX,
-          cursorPosY: data.pageY,
-          elemStyles: elemStyles
-        });
+      const currElement = data.path[0] || undefined;
+      const bodyRect = document.body.getBoundingClientRect();
+      const elemRect = currElement.getBoundingClientRect();
+      const elemStyles = window.getComputedStyle(currElement);
 
-        this.cursorPos = {
-          x: Math.round(snapObj.xPos),
-          y: Math.round(snapObj.yPos)
-        };
+      const snapObj = checkSnap({
+        elem: currElement,
+        elemRect: elemRect,
+        bodyRect: bodyRect,
+        cursorPosX: data.pageX,
+        cursorPosY: data.pageY,
+        elemStyles: elemStyles
+      });
 
-        this.crossPos = {
-          x: Math.round(this.cursorPos.x + bodyRect.left),
-          y: Math.round(this.cursorPos.y + bodyRect.top)
-        };
+      this.cursorPos = {
+        x: Math.round(snapObj.xPos),
+        y: Math.round(snapObj.yPos)
+      };
 
-        let left = Math.round(elemRect.left - bodyRect.left);
-        let top = Math.round(elemRect.top - bodyRect.top);
+      this.crossPos = {
+        x: Math.round(this.cursorPos.x + bodyRect.left),
+        y: Math.round(this.cursorPos.y + bodyRect.top)
+      };
 
-        this.elem = {
-          top: top,
-          left: left,
-          right: left + elemRect.width,
-          bottom: top + elemRect.height,
-          width: elemRect.width,
-          height: elemRect.height,
-          style: {
-            paddingTop: elemStyles.paddingTop,
-            paddingLeft: elemStyles.paddingLeft,
-            paddingRight: elemStyles.paddingRight,
-            paddingBottom: elemStyles.paddingBottom
-          }
-        };
-      }
-    },
+      let left = Math.round(elemRect.left - bodyRect.left);
+      let top = Math.round(elemRect.top - bodyRect.top);
 
-    scrollPosition: function(data) {
-      DEV_MODE && console.log('scroll', data);
-    },
-
-    windowSize: function(data) {
-      DEV_MODE && console.log('resize', data);
+      this.elem = {
+        top: top,
+        left: left,
+        right: left + elemRect.width,
+        bottom: top + elemRect.height,
+        width: elemRect.width,
+        height: elemRect.height,
+        style: {
+          paddingTop: elemStyles.paddingTop,
+          paddingLeft: elemStyles.paddingLeft,
+          paddingRight: elemStyles.paddingRight,
+          paddingBottom: elemStyles.paddingBottom
+        }
+      };
     },
 
     eventName: function(data) {
