@@ -23,16 +23,7 @@ export default {
     start: Number,
     end: Number,
     isVertical: Boolean,
-    cursorPosition: Number,
-    scrollPosition: {
-      type: Object,
-      default: function() {
-        return {
-          scrollTop: 0,
-          scrollLeft: 0
-        };
-      }
-    }
+    cursorPosition: Number
   },
   computed: {
     cssStyle: function() {
@@ -40,10 +31,10 @@ export default {
 
       if (this.isVertical) {
         styleObject['left'] =
-          this.start - this.scrollPosition.scrollLeft + 'px';
+          this.start - this.$store.state.scrollPosition.scrollLeft + 'px';
         styleObject['width'] = this.end - this.start + 'px';
       } else {
-        styleObject['top'] = this.start - this.scrollPosition.scrollTop + 'px';
+        styleObject['top'] = this.start - this.$store.state.scrollPosition.scrollTop + 'px';
         styleObject['height'] = this.end - this.start + 'px';
       }
 
@@ -52,8 +43,8 @@ export default {
 
     isActive: function() {
       const cursorPos = this.isVertical
-        ? this.cursorPosition + this.scrollPosition.scrollLeft
-        : this.cursorPosition + this.scrollPosition.scrollTop;
+        ? this.cursorPosition + this.$store.state.scrollPosition.scrollLeft
+        : this.cursorPosition + this.$store.state.scrollPosition.scrollTop;
 
       return this.start <= cursorPos && this.end > cursorPos;
     },

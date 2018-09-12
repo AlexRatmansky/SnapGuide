@@ -3,7 +3,7 @@ import store from './store'
 import SnapGuide from './components/SnapGuide.vue'
 import _ from 'lodash';
 import '../css/style.less';
-import * as bbEvents from './events.js'
+import * as initEvents from './events.js'
 
 let rootEl = document.createElement('div');
 rootEl.id = 'app';
@@ -28,11 +28,16 @@ let App = new Vue({
   },
 
   created: () => {
-    bbEvents.passScrollPosition();
-    bbEvents.passUpdatedWindowSize();
+    initEvents.passScrollPosition();
+    initEvents.passUpdatedWindowSize();
   },
 
-  template: '<SnapGuide :event-data=eventData :event-name=eventName :scroll-position=scrollPosition :window-size=windowSize />',
+  template: `
+    <SnapGuide
+      :event-data=eventData
+      :event-name=eventName
+    />
+  `,
 
   components: { SnapGuide }
 });
@@ -56,20 +61,6 @@ if (process.env.NODE_ENV === 'production') {
 
 function passMousePosition(eventData) {
   App.eventData = eventData;
-}
-
-function passScrollPosition() {
-  App.scrollPosition = {
-    scrollTop: window.pageYOffset,
-    scrollLeft: window.pageXOffset
-  }
-}
-
-function passUpdatedWindowSize() {
-  App.windowSize = {
-    width: window.innerWidth,
-    height: window.innerHeight
-  }
 }
 
 function passKeyPressEvent(e) {
@@ -150,12 +141,12 @@ function passKeyPressEvent(e) {
   }
 }
 
-passMousePosition = _.throttle(passMousePosition, 30);
-passScrollPosition = _.throttle(passScrollPosition, 100);
-passUpdatedWindowSize = _.throttle(passUpdatedWindowSize, 100);
-passKeyPressEvent = _.throttle(passKeyPressEvent, 100);
+const throttledPassMousePosition = _.throttle(passMousePosition, 30);
+const throttledPassScrollPosition = _.throttle(initEvents.passScrollPosition, 100);
+const throttledPassUpdatedWindowSize = _.throttle(initEvents.passUpdatedWindowSize, 100);
+const throttledPassKeyPressEvent = _.throttle(passKeyPressEvent, 100);
 
-document.addEventListener('mousemove', (e) => { passMousePosition(e) }, { capture: true });
-document.addEventListener('scroll', () => { passScrollPosition() }, { capture: true });
-window.addEventListener('resize', () => { passUpdatedWindowSize() }, { capture: true });
-document.onkeydown = (e) => { passKeyPressEvent(e) };
+document.addEventListener('mousemove', (e) => { throttledPassMousePosition(e) }, { capture: true });
+document.addEventListener('scroll', () => { throttledPassScrollPosition() }, { capture: true });
+window.addEventListener('resize', () => { throttledPassUpdatedWindowSize() }, { capture: true });
+document.onkeydown = (e) => { throttledPassKeyPressEvent(e) };

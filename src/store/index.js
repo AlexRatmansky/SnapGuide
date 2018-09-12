@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     horizontalPoints: [],
     verticalPoints: [],
     count: 0,
+
     scrollPosition: {
       scrollTop: 0,
       scrollLeft: 0
@@ -19,18 +20,6 @@ export default new Vuex.Store({
   },
   mutations: {
     increment: (state) => {
-      state.count++
-    },
-    addHorizontalPoint: (state) => {
-      state.count++
-    },
-    removeHorizontalPoint: (state) => {
-      state.count++
-    },
-    addVerticalPoint: (state) => {
-      state.count++
-    },
-    removeVerticalPoint: (state) => {
       state.count++
     },
 

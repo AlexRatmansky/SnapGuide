@@ -1,12 +1,11 @@
 import store from './store'
 import _ from 'lodash';
 
-// function passMousePosition(eventData) {
-//   App.eventData = eventData;
+// export function passMousePosition(eventData) {
+//   store.commit('updateMousePosition', eventData);
 // }
 
 export function passScrollPosition() {
-  console.log('scrollPosition');
   store.commit('updateScrollPosition', {
     scrollTop: window.pageYOffset,
     scrollLeft: window.pageXOffset
@@ -14,7 +13,6 @@ export function passScrollPosition() {
 }
 
 export function passUpdatedWindowSize() {
-  console.log('updateWindowSize');
   store.commit('updateWindowSize', {
     width: window.innerWidth,
     height: window.innerHeight

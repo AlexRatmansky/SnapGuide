@@ -24,30 +24,21 @@
       crossGuide: {
         type: Boolean,
         default: false,
-      },
-      scrollPosition: {
-        type: Object,
-        default: function () {
-          return {
-            scrollTop: 0,
-            scrollLeft: 0
-          }
-        },
       }
     },
     computed: {
       cssObject: function () {
         if (this.isVertical) {
-          return {left: this.position - (!this.crossGuide && this.scrollPosition.scrollLeft) + 'px'};
+          return {left: this.position - (!this.crossGuide && this.$store.state.scrollPosition.scrollLeft) + 'px'};
         } else {
-          return {top: this.position - (!this.crossGuide && this.scrollPosition.scrollTop) + 'px'};
+          return {top: this.position - (!this.crossGuide && this.$store.state.scrollPosition.scrollTop) + 'px'};
         }
       },
       text: function () {
         if (this.isVertical) {
-          return this.position + (this.crossGuide && this.scrollPosition.scrollLeft);
+          return this.position + (this.crossGuide && this.$store.state.scrollPosition.scrollLeft);
         } else {
-          return this.position + (this.crossGuide && this.scrollPosition.scrollTop);
+          return this.position + (this.crossGuide && this.$store.state.scrollPosition.scrollTop);
         }
       }
     }
