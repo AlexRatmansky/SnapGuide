@@ -53,7 +53,6 @@
   import SG_CoordinatesBox from './SG_CoordinatesBox.vue';
   import SG_GuideSizer from './SG_GuideSizer.vue';
   import SG_Legend from './SG_Legend.vue';
-  import { checkSnap } from '../helpers/snapping';
   import { generateGuideMeasures } from '../helpers/guides';
   import { CONFIG } from '../config';
   import _ from 'lodash';
@@ -61,18 +60,21 @@
   export default {
     name: 'App',
 
+    computed: {
+      cursorPos() {
+        return this.$store.state.cursorPos
+      },
+      crossPos() {
+        return this.$store.state.crossPos
+      },
+      elem() {
+        return this.$store.state.elem
+      }
+    },
+
     data: function () {
       return {
         showApp: true,
-        cursorPos: {
-          x: 0,
-          y: 0
-        },
-        crossPos: {
-          x: 0,
-          y: 0
-        },
-        elem: {},
         crossGuides: [ { isVertical: false }, { isVertical: true } ],
         verticalGuides: (DEV_MODE && CONFIG.VERTICAL_GUIDES) || [],
         horizontalGuides: (DEV_MODE && CONFIG.HORIZONTAL_GUIDES) || [],
@@ -90,7 +92,7 @@
       SG_Legend
     },
 
-  props: ['eventData', 'eventName'],
+    props: [ 'eventName' ],
 
     methods: {
       toggleRule: function (direction) {
@@ -192,52 +194,6 @@
     },
 
     watch: {
-      eventData: function (data) {
-        if (data === undefined) return;
-
-        const currElement = data.path[ 0 ] || undefined;
-        const bodyRect = document.body.getBoundingClientRect();
-        const elemRect = currElement.getBoundingClientRect();
-        const elemStyles = window.getComputedStyle(currElement);
-
-        const snapObj = checkSnap({
-          elem: currElement,
-          elemRect: elemRect,
-          bodyRect: bodyRect,
-          cursorPosX: data.pageX,
-          cursorPosY: data.pageY,
-          elemStyles: elemStyles
-        });
-
-        this.cursorPos = {
-          x: Math.round(snapObj.xPos),
-          y: Math.round(snapObj.yPos)
-        };
-
-        this.crossPos = {
-          x: Math.round(this.cursorPos.x + bodyRect.left),
-          y: Math.round(this.cursorPos.y + bodyRect.top)
-        };
-
-        let left = Math.round(elemRect.left - bodyRect.left);
-        let top = Math.round(elemRect.top - bodyRect.top);
-
-        this.elem = {
-          top: top,
-          left: left,
-          right: left + elemRect.width,
-          bottom: top + elemRect.height,
-          width: elemRect.width,
-          height: elemRect.height,
-          style: {
-            paddingTop: elemStyles.paddingTop,
-            paddingLeft: elemStyles.paddingLeft,
-            paddingRight: elemStyles.paddingRight,
-            paddingBottom: elemStyles.paddingBottom
-          }
-        };
-      },
-
       eventName: function (data) {
         if (this[ data.name ]) {
           this[ data.name ](data);

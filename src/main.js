@@ -16,25 +16,10 @@ let App = new Vue({
   el: '#app',
   store: store,
   data: {
-    eventData: {},
-    eventName: '',
-    scrollPosition: {
-      scrollTop: window.pageYOffset,
-      scrollLeft: window.pageXOffset
-    },
-    windowSize: {
-      width: window.innerWidth,
-      height: window.innerHeight
-    },
-    count: store.state.count
+    eventName: ''
   },
 
-  template: `
-    <SnapGuide
-      :event-data=eventData
-      :event-name=eventName
-    />
-  `,
+  template: '<SnapGuide :event-name=eventName />',
 
   components: { SnapGuide }
 });
@@ -54,10 +39,6 @@ if (process.env.NODE_ENV === 'production') {
     }
 
   });
-}
-
-function passMousePosition(eventData) {
-  App.eventData = eventData;
 }
 
 function passKeyPressEvent(e) {
@@ -138,8 +119,6 @@ function passKeyPressEvent(e) {
   }
 }
 
-const throttledPassMousePosition = _.throttle(passMousePosition, 30);
 const throttledPassKeyPressEvent = _.throttle(passKeyPressEvent, 100);
 
-document.addEventListener('mousemove', (e) => { throttledPassMousePosition(e) }, { capture: true });
 document.onkeydown = (e) => { throttledPassKeyPressEvent(e) };

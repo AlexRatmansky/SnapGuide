@@ -17,23 +17,28 @@ export default {
     elementProps: Object
   },
   computed: {
-    borderBox: function() {
-      return {
-        top: this.elementProps.top - this.$store.state.scrollPosition.scrollTop + 'px',
-        left: this.elementProps.left - this.$store.state.scrollPosition.scrollLeft + 'px',
-        width: this.elementProps.width + 'px',
-        height: this.elementProps.height + 'px'
-      };
+    borderBox: function () {
+      if (this.elementProps !== undefined) {
+
+        return {
+          top: this.elementProps.top - this.$store.state.scrollPosition.scrollTop + 'px',
+          left: this.elementProps.left - this.$store.state.scrollPosition.scrollLeft + 'px',
+          width: this.elementProps.width + 'px',
+          height: this.elementProps.height + 'px'
+        };
+      }
     },
-    paddingBox: function() {
-      return (
-        this.elementProps.style && {
-          top: this.elementProps.style.paddingTop || 0,
-          left: this.elementProps.style.paddingLeft || 0,
-          right: this.elementProps.style.paddingRight || 0,
-          bottom: this.elementProps.style.paddingBottom || 0
-        }
-      );
+    paddingBox: function () {
+      if (this.elementProps !== undefined) {
+        return (
+          this.elementProps.style && {
+            top: this.elementProps.style.paddingTop || 0,
+            left: this.elementProps.style.paddingLeft || 0,
+            right: this.elementProps.style.paddingRight || 0,
+            bottom: this.elementProps.style.paddingBottom || 0
+          }
+        );
+      }
     }
   }
 };
