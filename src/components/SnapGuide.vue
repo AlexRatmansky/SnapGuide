@@ -39,7 +39,7 @@
       />
     </template>
 
-    <SG_CoordinatesBox :cursor-pos=cursorPos />
+    <SG_CoordinatesBox />
 
     <SG_ElementHighlighter :element-props=elem />
 
@@ -53,38 +53,24 @@
   import SG_CoordinatesBox from './SG_CoordinatesBox.vue';
   import SG_GuideSizer from './SG_GuideSizer.vue';
   import SG_Legend from './SG_Legend.vue';
-  import { generateGuideMeasures } from '../helpers/guides';
-  import { CONFIG } from '../config';
   import _ from 'lodash';
 
   export default {
     name: 'App',
 
     computed: {
-      cursorPos() {
-        return this.$store.state.cursorPos;
-      },
-      crossPos() {
-        return this.$store.state.crossPos;
-      },
-      elem() {
-        return this.$store.state.elem;
-      },
-
-      showLegend() {
-        return this.$store.state.legendVisible;
-      }
-
+      cursorPos() { return this.$store.state.cursorPos },
+      crossPos() { return this.$store.state.crossPos },
+      elem() { return this.$store.state.elem },
+      showLegend() { return this.$store.state.legendVisible },
+      verticalGuides() { return this.$store.state.verticalGuides },
+      horizontalGuides() { return this.$store.state.horizontalGuides }
     },
 
     data: function () {
       return {
         showApp: true,
         crossGuides: [ { isVertical: false }, { isVertical: true } ],
-        verticalGuides: (DEV_MODE && CONFIG.VERTICAL_GUIDES) || [],
-        horizontalGuides: (DEV_MODE && CONFIG.HORIZONTAL_GUIDES) || [],
-        verticalGuidesSizer: (DEV_MODE && CONFIG.VERTICAL_GUIDES_SIZER) || [],
-        horizontalGuidesSizer: (DEV_MODE && CONFIG.HORIZONTAL_GUIDES_SIZER) || []
       };
     },
 
@@ -135,38 +121,6 @@
               break;
           }
         }
-
-        this.generateGuideMeasures(direction);
-      },
-
-      toggleVerticalRule: function () {
-        this.toggleRule('vertical');
-      },
-
-      toggleHorizontalRule: function () {
-        this.toggleRule('horizontal');
-      },
-
-      generateGuideMeasures: function (direction) {
-        switch (direction) {
-          case 'vertical':
-            this.verticalGuidesSizer = generateGuideMeasures(this.verticalGuides);
-            break;
-          case 'horizontal':
-            this.horizontalGuidesSizer = generateGuideMeasures(this.horizontalGuides);
-            break;
-        }
-      },
-
-      clearGuides: function () {
-        this.verticalGuides = [];
-        this.horizontalGuides = [];
-        this.verticalGuidesSizer = [];
-        this.horizontalGuidesSizer = [];
-      },
-
-      toggleLegend: function () {
-        this.showLegend = !this.showLegend;
       },
 
       toggleActive: function () {

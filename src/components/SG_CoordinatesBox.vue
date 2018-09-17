@@ -12,10 +12,8 @@
 <script>
 export default {
   name: 'SG_CoordinatesBox',
-  props: {
-    cursorPos: Object
-  },
   computed: {
+    cursorPos() { return this.$store.state.cursorPos },
     cssStyle: function() {
       let styleObject = {};
 

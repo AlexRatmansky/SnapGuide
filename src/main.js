@@ -44,31 +44,6 @@ if (process.env.NODE_ENV === 'production') {
 function passKeyPressEvent(e) {
 
   switch (e.code) {
-    // v - for vertical
-    case 'KeyV':
-      e.preventDefault();
-      App.eventName = {
-        name: 'toggleVerticalRule'
-      };
-      break;
-
-    // h - for horizontal
-    case 'KeyH':
-      e.preventDefault();
-      App.eventName = {
-        name: 'toggleHorizontalRule'
-      };
-      App.$store.commit('increment');
-      break;
-
-    // q - for clean
-    case 'KeyQ':
-      e.preventDefault();
-      App.eventName = {
-        name: 'clearGuides'
-      };
-      break;
-
     // Arrow keys
     case 'ArrowUp':
       e.preventDefault();
