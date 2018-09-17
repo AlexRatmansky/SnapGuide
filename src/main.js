@@ -44,14 +44,6 @@ if (process.env.NODE_ENV === 'production') {
 function passKeyPressEvent(e) {
 
   switch (e.code) {
-    // Space - for vertical
-    case 'Space':
-      e.preventDefault();
-      App.eventName = {
-        name: 'toggleLegend'
-      };
-      break;
-
     // v - for vertical
     case 'KeyV':
       e.preventDefault();
@@ -121,4 +113,4 @@ function passKeyPressEvent(e) {
 
 const throttledPassKeyPressEvent = _.throttle(passKeyPressEvent, 100);
 
-document.onkeydown = (e) => { throttledPassKeyPressEvent(e) };
+document.addEventListener('keydown', (e) => { throttledPassKeyPressEvent(e) }, { capture: true });

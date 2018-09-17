@@ -10,6 +10,7 @@ export default new Vuex.Store({
     verticalPoints: [],
     count: 0,
 
+    legendVisible: true,
     cursorPos: {
       x: 0,
       y: 0
@@ -36,8 +37,6 @@ export default new Vuex.Store({
 
     updateMousePosition: (state, eventData) => {
         if (eventData === undefined) return;
-
-        console.dir(eventData);
 
         const currElement = eventData.path[ 0 ] || undefined;
         const bodyRect = document.body.getBoundingClientRect();
@@ -80,6 +79,10 @@ export default new Vuex.Store({
             paddingBottom: elemStyles.paddingBottom
           }
         };
+    },
+
+    toggleLegend: (state) => {
+      state.legendVisible = !state.legendVisible;
     },
 
     updateScrollPosition: (state, scrollPosition) => {

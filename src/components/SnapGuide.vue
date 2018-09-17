@@ -62,14 +62,19 @@
 
     computed: {
       cursorPos() {
-        return this.$store.state.cursorPos
+        return this.$store.state.cursorPos;
       },
       crossPos() {
-        return this.$store.state.crossPos
+        return this.$store.state.crossPos;
       },
       elem() {
-        return this.$store.state.elem
+        return this.$store.state.elem;
+      },
+
+      showLegend() {
+        return this.$store.state.legendVisible;
       }
+
     },
 
     data: function () {
@@ -79,8 +84,7 @@
         verticalGuides: (DEV_MODE && CONFIG.VERTICAL_GUIDES) || [],
         horizontalGuides: (DEV_MODE && CONFIG.HORIZONTAL_GUIDES) || [],
         verticalGuidesSizer: (DEV_MODE && CONFIG.VERTICAL_GUIDES_SIZER) || [],
-        horizontalGuidesSizer: (DEV_MODE && CONFIG.HORIZONTAL_GUIDES_SIZER) || [],
-        showLegend: true
+        horizontalGuidesSizer: (DEV_MODE && CONFIG.HORIZONTAL_GUIDES_SIZER) || []
       };
     },
 
