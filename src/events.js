@@ -6,7 +6,6 @@ function passMousePosition(eventData) {
 }
 
 function passScrollPosition() {
-  console.log('passScrollPosition');
   store.commit('updateScrollPosition', {
     scrollTop: window.pageYOffset,
     scrollLeft: window.pageXOffset
@@ -14,7 +13,6 @@ function passScrollPosition() {
 }
 
 function passUpdatedWindowSize() {
-  console.log('passUpdatedWindowSize');
   store.commit('updateWindowSize', {
     width: window.innerWidth,
     height: window.innerHeight
@@ -43,6 +41,39 @@ function passKeyPressEvent(e) {
       store.commit('clearGuides');
       break;
 
+    // Arrow keys
+    case 'ArrowUp':
+      e.preventDefault();
+      store.commit('arrowPositioning', {
+        direction: 'up',
+        shiftKey: e.shiftKey
+      });
+      break;
+
+    case 'ArrowDown':
+      e.preventDefault();
+      store.commit('arrowPositioning', {
+        direction: 'down',
+        shiftKey: e.shiftKey
+      });
+      break;
+
+    case 'ArrowLeft':
+      e.preventDefault();
+      store.commit('arrowPositioning', {
+        direction: 'left',
+        shiftKey: e.shiftKey
+      });
+      break;
+
+    case 'ArrowRight':
+      e.preventDefault();
+      store.commit('arrowPositioning', {
+        direction: 'right',
+        shiftKey: e.shiftKey
+      });
+      break;
+
     // Space - for vertical
     case 'Space':
       e.preventDefault();
@@ -54,10 +85,10 @@ function passKeyPressEvent(e) {
   }
 }
 
-const throttledPassMousePosition = _.throttle(passMousePosition, 100);
-const throttledPassScrollPosition = _.throttle(passScrollPosition, 100);
-const throttledPassUpdatedWindowSize = _.throttle(passUpdatedWindowSize, 100);
-const throttledPassKeyPressEvent = _.throttle(passKeyPressEvent, 100);
+const throttledPassMousePosition = _.throttle(passMousePosition, 60);
+const throttledPassScrollPosition = _.throttle(passScrollPosition, 60);
+const throttledPassUpdatedWindowSize = _.throttle(passUpdatedWindowSize, 60);
+const throttledPassKeyPressEvent = _.throttle(passKeyPressEvent, 60);
 
 export default function () {
   document.addEventListener('keydown', (e) => { throttledPassKeyPressEvent(e) }, { capture: true });

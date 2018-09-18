@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import store from './store'
 import SnapGuide from './components/SnapGuide.vue'
-import _ from 'lodash';
 import '../css/style.less';
 import initEvents from './events.js'
 
@@ -11,16 +10,10 @@ let rootEl = document.createElement('div');
 rootEl.id = 'app';
 document.body.appendChild(rootEl);
 
-let App = new Vue({
-
+new Vue({
   el: '#app',
   store: store,
-  data: {
-    eventName: ''
-  },
-
-  template: '<SnapGuide :event-name=eventName />',
-
+  template: '<SnapGuide />',
   components: { SnapGuide }
 });
 
@@ -29,9 +22,7 @@ if (process.env.NODE_ENV === 'production') {
 
     switch (msg) {
       case 'toggleActive':
-        App.eventName = {
-          name: 'toggleActive'
-        };
+        store.commit(toggleActive);
         break;
 
       default:
@@ -40,52 +31,3 @@ if (process.env.NODE_ENV === 'production') {
 
   });
 }
-
-function passKeyPressEvent(e) {
-
-  switch (e.code) {
-    // Arrow keys
-    case 'ArrowUp':
-      e.preventDefault();
-      App.eventName = {
-        name: 'arrowPositioning',
-        direction: 'up',
-        shiftKey: e.shiftKey
-      };
-      break;
-
-    case 'ArrowDown':
-      e.preventDefault();
-      App.eventName = {
-        name: 'arrowPositioning',
-        direction: 'down',
-        shiftKey: e.shiftKey
-      };
-      break;
-
-    case 'ArrowLeft':
-      e.preventDefault();
-      App.eventName = {
-        name: 'arrowPositioning',
-        direction: 'left',
-        shiftKey: e.shiftKey
-      };
-      break;
-
-    case 'ArrowRight':
-      e.preventDefault();
-      App.eventName = {
-        name: 'arrowPositioning',
-        direction: 'right',
-        shiftKey: e.shiftKey
-      };
-      break;
-
-    default:
-      break;
-  }
-}
-
-const throttledPassKeyPressEvent = _.throttle(passKeyPressEvent, 100);
-
-document.addEventListener('keydown', (e) => { throttledPassKeyPressEvent(e) }, { capture: true });

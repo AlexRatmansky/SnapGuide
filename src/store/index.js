@@ -8,6 +8,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    showApp: true,
+
     verticalGuides: (DEV_MODE && CONFIG.VERTICAL_GUIDES) || [],
     horizontalGuides: (DEV_MODE && CONFIG.HORIZONTAL_GUIDES) || [],
 
@@ -32,6 +34,10 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+
+    toggleActive: (state) => {
+      state.showApp = !state.showApp;
+    },
 
     toggleVerticalRule: (state) => {
       let guidesArr = state.verticalGuides;
@@ -111,6 +117,29 @@ export default new Vuex.Store({
           paddingBottom: elemStyles.paddingBottom
         }
       };
+    },
+
+    arrowPositioning: (state, params) => {
+        let step = params.shiftKey ? 10 : 1;
+
+        switch (params.direction) {
+          case 'up':
+            state.crossPos.y -= step;
+            state.cursorPos.y -= step;
+            break;
+          case 'down':
+            state.crossPos.y += step;
+            state.cursorPos.y += step;
+            break;
+          case 'left':
+            state.crossPos.x -= step;
+            state.cursorPos.x -= step;
+            break;
+          case 'right':
+            state.crossPos.x += step;
+            state.cursorPos.x += step;
+            break;
+        }
     },
 
     toggleLegend: (state) => {

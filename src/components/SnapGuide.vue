@@ -53,7 +53,6 @@
   import SG_CoordinatesBox from './SG_CoordinatesBox.vue';
   import SG_GuideSizer from './SG_GuideSizer.vue';
   import SG_Legend from './SG_Legend.vue';
-  import _ from 'lodash';
 
   export default {
     name: 'App',
@@ -64,14 +63,8 @@
       elem() { return this.$store.state.elem },
       showLegend() { return this.$store.state.legendVisible },
       verticalGuides() { return this.$store.state.verticalGuides },
-      horizontalGuides() { return this.$store.state.horizontalGuides }
-    },
-
-    data: function () {
-      return {
-        showApp: true,
-        crossGuides: [ { isVertical: false }, { isVertical: true } ],
-      };
+      horizontalGuides() { return this.$store.state.horizontalGuides },
+      showApp() { return this.$store.state.showApp }
     },
 
     components: {
@@ -80,84 +73,8 @@
       SG_ElementHighlighter,
       SG_CoordinatesBox,
       SG_Legend
-    },
-
-    props: [ 'eventName' ],
-
-    methods: {
-      toggleRule: function (direction) {
-        let guidesArr;
-        let currGuidePosition;
-
-        switch (direction) {
-          case 'vertical':
-            guidesArr = this.verticalGuides;
-            currGuidePosition = this.cursorPos.x;
-            break;
-          case 'horizontal':
-            guidesArr = this.horizontalGuides;
-            currGuidePosition = this.cursorPos.y;
-            break;
-        }
-
-        let currGuidePositionInArray = _.findIndex(guidesArr, function (guide) {
-          return guide.position === currGuidePosition;
-        });
-
-        if (currGuidePositionInArray >= 0) {
-          _.pullAt(guidesArr, currGuidePositionInArray);
-        } else {
-          guidesArr.push({
-            position: currGuidePosition,
-            isNew: true
-          });
-
-          switch (direction) {
-            case 'vertical':
-              this.verticalGuides = _.sortBy(guidesArr, [ 'position' ]);
-              break;
-            case 'horizontal':
-              this.horizontalGuides = _.sortBy(guidesArr, [ 'position' ]);
-              break;
-          }
-        }
-      },
-
-      toggleActive: function () {
-        this.showApp = !this.showApp;
-      },
-
-      arrowPositioning: function (data) {
-        let step = data.shiftKey ? 10 : 1;
-
-        switch (data.direction) {
-          case 'up':
-            this.crossPos.y -= step;
-            this.cursorPos.y -= step;
-            break;
-          case 'down':
-            this.crossPos.y += step;
-            this.cursorPos.y += step;
-            break;
-          case 'left':
-            this.crossPos.x -= step;
-            this.cursorPos.x -= step;
-            break;
-          case 'right':
-            this.crossPos.x += step;
-            this.cursorPos.x += step;
-            break;
-        }
-      }
-    },
-
-    watch: {
-      eventName: function (data) {
-        if (this[ data.name ]) {
-          this[ data.name ](data);
-        }
-      }
     }
+
   };
 </script>
 
