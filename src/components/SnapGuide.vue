@@ -12,16 +12,6 @@
       />
     </transition-group>
 
-    <template v-for="sizer in verticalGuidesSizer">
-      <SG_GuideSizer
-        :key=sizer.id
-        :start=sizer.start
-        :end=sizer.end
-        :is-vertical=true
-        :cursor-position=crossPos.x
-      />
-    </template>
-
     <transition-group name="list_hor" tag="div">
       <SG_Guide v-for="guidePos in horizontalGuides"
                 :key=guidePos.position
@@ -29,15 +19,6 @@
                 :is-vertical=false
       />
     </transition-group>
-    <template v-for="sizer in horizontalGuidesSizer">
-      <SG_GuideSizer
-        :key=sizer.id
-        :start=sizer.start
-        :end=sizer.end
-        :is-vertical=false
-        :cursor-position=crossPos.y
-      />
-    </template>
 
     <SG_CoordinatesBox />
 
@@ -51,7 +32,6 @@
   import SG_Guide from './SG_Guide.vue';
   import SG_ElementHighlighter from './SG_ElementHighlighter.vue';
   import SG_CoordinatesBox from './SG_CoordinatesBox.vue';
-  import SG_GuideSizer from './SG_GuideSizer.vue';
   import SG_Legend from './SG_Legend.vue';
 
   export default {
@@ -69,7 +49,6 @@
 
     components: {
       SG_Guide,
-      SG_GuideSizer,
       SG_ElementHighlighter,
       SG_CoordinatesBox,
       SG_Legend
