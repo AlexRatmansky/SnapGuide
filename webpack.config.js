@@ -1,15 +1,17 @@
-let path = require('path');
-let webpack = require('webpack');
-let CopyWebpackPlugin = require('copy-webpack-plugin');
-let ZipPlugin = require('zip-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const { VueLoaderPlugin } = require('vue-loader');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ZipPlugin = require('zip-webpack-plugin');
 
 module.exports = {
-  entry: './js/main.js',
+  entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
     filename: 'inpage.js'
   },
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   module: {
     rules: [
       {
@@ -24,26 +26,33 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
         exclude: /node_modules/,
-        query: {
-          plugins: ['lodash'],
-          presets: ['es2015']
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
         }
       },
       {
-        test: /\.css$/,
+        test: /css\/.+\.less$/,
         use: [
-          'style-loader',
-          'css-loader'
-        ],
-        exclude: /node_modules/
+          'vue-style-loader',
+          {
+            loader: 'css-loader',
+          },
+          'less-loader'
+        ]
       },
       {
-        test: /\.less/,
+        test: /\.less$/,
+        exclude: /css/,
         use: [
-          'style-loader',
-          'css-loader',
+          'vue-style-loader',
+          {
+            loader: 'css-loader',
+            options: { modules: true }
+          },
           'less-loader'
         ]
       },
@@ -56,6 +65,9 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new VueLoaderPlugin()
+  ],
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.common.js'
@@ -84,23 +96,17 @@ if (process.env.NODE_ENV === 'production') {
 
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
-      'process.env': {NODE_ENV: '"production"'},
+      'process.env': { NODE_ENV: '"production"' },
       'DEV_MODE': JSON.stringify(false)
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
-      }
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
     }),
     new CopyWebpackPlugin([
-        {from: 'manifest.json'},
-        {from: 'background.js'},
-        {from: 'icon/*.png'}
-      ]
+      { from: 'manifest.json' },
+      { from: 'background.js' },
+      { from: 'icon/*.png' }
+    ]
     ),
     new ZipPlugin({
       path: 'zip',
