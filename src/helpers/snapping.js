@@ -47,7 +47,7 @@ function getBaselineY(targetElement) {
   yPosition = emptySpan.getBoundingClientRect().top + 1;
 
   let lh = parseInt(getComputedStyle(targetElement).lineHeight);
-  let times = Math.floor(targetElement.clientHeight / lh)
+  let times = Math.floor(targetElement.clientHeight / lh);
   let arr = [];
 
   for (let i = 0; i < times; i++) {

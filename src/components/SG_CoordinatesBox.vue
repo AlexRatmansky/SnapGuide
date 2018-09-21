@@ -12,25 +12,14 @@
 <script>
 export default {
   name: 'SG_CoordinatesBox',
-  props: {
-    cursorPos: Object,
-    scrollPosition: {
-      type: Object,
-      default: function() {
-        return {
-          scrollTop: 0,
-          scrollLeft: 0
-        };
-      }
-    }
-  },
   computed: {
+    cursorPos() { return this.$store.state.cursorPos },
     cssStyle: function() {
       let styleObject = {};
 
       styleObject.left =
-        this.cursorPos.x - this.scrollPosition.scrollLeft + 'px';
-      styleObject.top = this.cursorPos.y - this.scrollPosition.scrollTop + 'px';
+        this.cursorPos.x - this.$store.state.scrollPosition.scrollLeft + 'px';
+      styleObject.top = this.cursorPos.y - this.$store.state.scrollPosition.scrollTop + 'px';
 
       return styleObject;
     }
