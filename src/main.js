@@ -11,7 +11,7 @@ rootEl.id = 'app';
 document.body.appendChild(rootEl);
 
 new Vue({
-  el: '#app',
+  el: rootEl,
   store: store,
   template: '<SnapGuide />',
   components: { SnapGuide }
