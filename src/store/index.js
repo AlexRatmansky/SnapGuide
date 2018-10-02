@@ -100,8 +100,8 @@ export default new Vuex.Store({
         y: Math.round(Math.round(snapObj.yPos) + bodyRect.top)
       };
 
-      let left = Math.round(elemRect.left - bodyRect.left);
-      let top = Math.round(elemRect.top - bodyRect.top);
+      let left = Math.round(elemRect.left);
+      let top = Math.round(elemRect.top);
 
       state.elem = {
         top: top,
