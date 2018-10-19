@@ -1,4 +1,4 @@
-import store from './store'
+import store from './store';
 import _ from 'lodash';
 
 function passMousePosition(eventData) {
@@ -20,9 +20,7 @@ function passUpdatedWindowSize() {
 }
 
 function passKeyPressEvent(e) {
-
   switch (e.code) {
-
     // v - for vertical
     case 'KeyV':
       e.preventDefault();
@@ -96,4 +94,3 @@ export default function () {
   document.addEventListener('scroll', () => { throttledPassScrollPosition() }, { capture: true });
   window.addEventListener('resize', () => { throttledPassUpdatedWindowSize() }, { capture: true });
 }
-
