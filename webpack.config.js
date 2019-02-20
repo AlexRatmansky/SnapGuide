@@ -77,6 +77,11 @@ module.exports = {
     historyApiFallback: true,
     noInfo: true
   },
+
+  optimization: {
+    minimize: false
+  },
+
   performance: {
     hints: false
   },
