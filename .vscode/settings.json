@@ -1,10 +1,6 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-  "workbench.colorCustomizations": {
-    "statusBar.background": "#00bb77",
-    "statusBar.foreground": "#113300",
-    "statusBarItem.hoverBackground": "#009955"
-  },
+  "workbench.colorCustomizations": {},
   "files.exclude": {
     "**/.idea": true,
     "**/.vscode": true
