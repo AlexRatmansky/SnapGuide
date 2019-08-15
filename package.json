@@ -17,7 +17,7 @@
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
     "lodash": "^4.17.15",
-    "style-loader": "^0.23.1",
+    "style-loader": "^1.0.0",
     "url-loader": "^2.1.0",
     "uuid": "^3.3.2",
     "vue": "^2.6.10",
