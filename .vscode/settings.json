@@ -1,8 +1,0 @@
-// Place your settings in this file to overwrite default and user settings.
-{
-  "workbench.colorCustomizations": {},
-  "files.exclude": {
-    "**/.idea": true,
-    "**/.vscode": true
-  }
-}
