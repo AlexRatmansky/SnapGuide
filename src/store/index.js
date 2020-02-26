@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import { checkSnap } from "../helpers/snapping";
-import { CONFIG } from "../config";
+import Vue from 'vue';
+import Vuex from 'vuex';
+import { checkSnap } from '../helpers/snapping';
+import { CONFIG } from '../config';
 import _ from 'lodash';
 
 Vue.use(Vuex);
@@ -16,33 +16,32 @@ export default new Vuex.Store({
     legendVisible: true,
     cursorPos: {
       x: 0,
-      y: 0
+      y: 0,
     },
     crossPos: {
       x: 0,
-      y: 0
+      y: 0,
     },
     elem: undefined,
 
     scrollPosition: {
       scrollTop: window.pageYOffset,
-      scrollLeft: window.pageXOffset
+      scrollLeft: window.pageXOffset,
     },
     windowSize: {
       width: window.innerWidth,
-      height: window.innerHeight
-    }
+      height: window.innerHeight,
+    },
   },
   mutations: {
-
-    toggleActive: (state) => {
+    toggleActive: state => {
       state.showApp = !state.showApp;
     },
 
-    toggleVerticalRule: (state) => {
+    toggleVerticalRule: state => {
       let guidesArr = state.verticalGuides;
       let currGuidePosition = state.cursorPos.x;
-      let currGuidePositionInArray = _.findIndex(guidesArr, function (guide) {
+      let currGuidePositionInArray = _.findIndex(guidesArr, function(guide) {
         return guide.position === currGuidePosition;
       });
 
@@ -50,13 +49,13 @@ export default new Vuex.Store({
         _.pullAt(guidesArr, currGuidePositionInArray);
       } else {
         guidesArr.push({ position: currGuidePosition });
-        state.verticalGuides = _.sortBy(guidesArr, [ 'position' ]);
+        state.verticalGuides = _.sortBy(guidesArr, ['position']);
       }
     },
-    toggleHorizontalRule: (state) => {
+    toggleHorizontalRule: state => {
       let guidesArr = state.horizontalGuides;
       let currGuidePosition = state.cursorPos.y;
-      let currGuidePositionInArray = _.findIndex(guidesArr, function (guide) {
+      let currGuidePositionInArray = _.findIndex(guidesArr, function(guide) {
         return guide.position === currGuidePosition;
       });
 
@@ -64,11 +63,11 @@ export default new Vuex.Store({
         _.pullAt(guidesArr, currGuidePositionInArray);
       } else {
         guidesArr.push({ position: currGuidePosition });
-        state.horizontalGuides = _.sortBy(guidesArr, [ 'position' ]);
+        state.horizontalGuides = _.sortBy(guidesArr, ['position']);
       }
     },
 
-    clearGuides: (state) => {
+    clearGuides: state => {
       state.verticalGuides = [];
       state.horizontalGuides = [];
     },
@@ -76,7 +75,7 @@ export default new Vuex.Store({
     updateMousePosition: (state, eventData) => {
       if (eventData === undefined) return;
 
-      const currElement = eventData.path[ 0 ] || undefined;
+      const currElement = eventData.path[0] || undefined;
       const bodyRect = document.body.getBoundingClientRect();
       const elemRect = currElement.getBoundingClientRect();
       const elemStyles = window.getComputedStyle(currElement);
@@ -87,17 +86,17 @@ export default new Vuex.Store({
         bodyRect: bodyRect,
         cursorPosX: eventData.pageX,
         cursorPosY: eventData.pageY,
-        elemStyles: elemStyles
+        elemStyles: elemStyles,
       });
 
       state.cursorPos = {
         x: Math.round(snapObj.xPos),
-        y: Math.round(snapObj.yPos)
+        y: Math.round(snapObj.yPos),
       };
 
       state.crossPos = {
         x: Math.round(Math.round(snapObj.xPos) + bodyRect.left),
-        y: Math.round(Math.round(snapObj.yPos) + bodyRect.top)
+        y: Math.round(Math.round(snapObj.yPos) + bodyRect.top),
       };
 
       let left = Math.round(elemRect.left);
@@ -114,35 +113,35 @@ export default new Vuex.Store({
           paddingTop: elemStyles.paddingTop,
           paddingLeft: elemStyles.paddingLeft,
           paddingRight: elemStyles.paddingRight,
-          paddingBottom: elemStyles.paddingBottom
-        }
+          paddingBottom: elemStyles.paddingBottom,
+        },
       };
     },
 
     arrowPositioning: (state, params) => {
-        let step = params.shiftKey ? 10 : 1;
+      let step = params.shiftKey ? 10 : 1;
 
-        switch (params.direction) {
-          case 'up':
-            state.crossPos.y -= step;
-            state.cursorPos.y -= step;
-            break;
-          case 'down':
-            state.crossPos.y += step;
-            state.cursorPos.y += step;
-            break;
-          case 'left':
-            state.crossPos.x -= step;
-            state.cursorPos.x -= step;
-            break;
-          case 'right':
-            state.crossPos.x += step;
-            state.cursorPos.x += step;
-            break;
-        }
+      switch (params.direction) {
+        case 'up':
+          state.crossPos.y -= step;
+          state.cursorPos.y -= step;
+          break;
+        case 'down':
+          state.crossPos.y += step;
+          state.cursorPos.y += step;
+          break;
+        case 'left':
+          state.crossPos.x -= step;
+          state.cursorPos.x -= step;
+          break;
+        case 'right':
+          state.crossPos.x += step;
+          state.cursorPos.x += step;
+          break;
+      }
     },
 
-    toggleLegend: (state) => {
+    toggleLegend: state => {
       state.legendVisible = !state.legendVisible;
     },
 
@@ -152,6 +151,6 @@ export default new Vuex.Store({
 
     updateWindowSize: (state, windowSize) => {
       state.windowSize = Object.assign({}, windowSize);
-    }
+    },
   },
-})
+});

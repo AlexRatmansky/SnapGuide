@@ -1,10 +1,8 @@
 <template>
-  <div :class=$style.coordinatesBoxContainer
-       :style=cssStyle
-  >
-    <div :class=$style.coordinatesBox>
-      <div :class=$style.horPosition>{{ cursorPos.x }}</div>
-      <div :class=$style.vertPosition>{{ cursorPos.y }}</div>
+  <div :class="$style.coordinatesBoxContainer" :style="cssStyle">
+    <div :class="$style.coordinatesBox">
+      <div :class="$style.horPosition">{{ cursorPos.x }}</div>
+      <div :class="$style.vertPosition">{{ cursorPos.y }}</div>
     </div>
   </div>
 </template>
@@ -13,17 +11,18 @@
 export default {
   name: 'SG_CoordinatesBox',
   computed: {
-    cursorPos() { return this.$store.state.cursorPos },
+    cursorPos() {
+      return this.$store.state.cursorPos;
+    },
     cssStyle: function() {
       let styleObject = {};
 
-      styleObject.left =
-        this.cursorPos.x - this.$store.state.scrollPosition.scrollLeft + 'px';
+      styleObject.left = this.cursorPos.x - this.$store.state.scrollPosition.scrollLeft + 'px';
       styleObject.top = this.cursorPos.y - this.$store.state.scrollPosition.scrollTop + 'px';
 
       return styleObject;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -53,10 +52,10 @@ export default {
 }
 
 .horPosition {
-  background: url("../../img/sizing-hor.svg") no-repeat left 40%;
+  background: url('../../img/sizing-hor.svg') no-repeat left 40%;
 }
 
 .vertPosition {
-  background: url("../../img/sizing-vert.svg") no-repeat left center;
+  background: url('../../img/sizing-vert.svg') no-repeat left center;
 }
 </style>

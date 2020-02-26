@@ -1,38 +1,29 @@
 {
   "name": "snap-guide",
   "description": "Chrome extension for measuring elements on page",
-  "version": "0.7.1",
+  "version": "1.0.0",
   "author": "AlexRatmansky",
   "private": true,
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "build-dev": "cross-env NODE_ENV=development webpack --progress --hide-modules"
+    "start": "parcel src/index.tsx",
+    "build-prod": "parcel build src/index.tsx"
   },
   "dependencies": {
-    "copy-webpack-plugin": "^5.1.1",
-    "cross-env": "^6.0.3",
-    "css-loader": "^3.4.0",
-    "file-loader": "^5.0.2",
-    "less": "^3.10.3",
-    "less-loader": "^5.0.0",
+    "@types/styled-components": "^5.0.1",
     "lodash": "^4.17.15",
-    "style-loader": "^1.1.2",
-    "url-loader": "^3.0.0",
-    "uuid": "^3.3.3",
-    "vue": "^2.6.11",
-    "vue-loader": "^15.8.3",
-    "vue-template-compiler": "^2.6.11",
-    "vuex": "^3.1.2",
-    "webpack-dev-server": "^3.10.1",
-    "zip-webpack-plugin": "^3.0.0"
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "styled-components": "^5.0.1",
+    "uuid": "^7.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.7",
-    "@babel/preset-env": "^7.7.7",
-    "babel-loader": "^8.0.6",
+    "@babel/core": "^7.8.4",
+    "@types/react": "^16.9.23",
+    "@types/react-dom": "^16.9.5",
     "babel-plugin-lodash": "^3.3.4",
-    "webpack": "^4.41.4",
-    "webpack-cli": "^3.3.10"
+    "gulp": "^4.0.2",
+    "parcel-bundler": "^1.12.4",
+    "prettier": "^1.19.1",
+    "typescript": "^3.8.2"
   }
 }

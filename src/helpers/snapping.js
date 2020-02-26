@@ -1,11 +1,10 @@
-import { CONFIG } from '../config'
+import { CONFIG } from '../config';
 
 function isInSnapArea(point, target) {
-  return (point >= target - CONFIG.SNAP_FACTOR) && (point <= target + CONFIG.SNAP_FACTOR);
+  return point >= target - CONFIG.SNAP_FACTOR && point <= target + CONFIG.SNAP_FACTOR;
 }
 
 function checkKeyPointsForSnapping(pointPos, arr) {
-
   for (let i = 0, len = arr.length; i < len; ++i) {
     if (isInSnapArea(pointPos, arr[i])) {
       return arr[i];
@@ -60,14 +59,7 @@ function getBaselineY(targetElement) {
 }
 
 export function checkSnap(params) {
-  const {
-    bodyRect,
-    elem,
-    elemRect,
-    elemStyles,
-    cursorPosX,
-    cursorPosY
-  } = params;
+  const { bodyRect, elem, elemRect, elemStyles, cursorPosX, cursorPosY } = params;
 
   const top = Math.round(elemRect.top - bodyRect.top);
   const bottom = Math.round(top + elemRect.height);
@@ -81,20 +73,9 @@ export function checkSnap(params) {
 
   const baselinePosition = getBaselineY(elem).map(item => Math.round(item - bodyRect.top));
 
-  const hKeyPoints = [
-    left,
-    left + paddingLeft,
-    right - paddingRight,
-    right
-  ];
+  const hKeyPoints = [left, left + paddingLeft, right - paddingRight, right];
 
-  const vKeyPoints = [
-    top,
-    top + paddingTop,
-    ...baselinePosition,
-    bottom - paddingBottom,
-    bottom
-  ];
+  const vKeyPoints = [top, top + paddingTop, ...baselinePosition, bottom - paddingBottom, bottom];
 
   const newXPos = checkKeyPointsForSnapping(cursorPosX, hKeyPoints);
   const newYPos = checkKeyPointsForSnapping(cursorPosY, vKeyPoints);
@@ -102,6 +83,6 @@ export function checkSnap(params) {
   return {
     xPos: newXPos !== null ? newXPos : cursorPosX,
     yPos: newYPos !== null ? newYPos : cursorPosY,
-    isSnapped: newXPos !== null || newYPos !== null
+    isSnapped: newXPos !== null || newYPos !== null,
   };
 }

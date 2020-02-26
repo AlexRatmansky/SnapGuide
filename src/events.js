@@ -8,14 +8,14 @@ function passMousePosition(eventData) {
 function passScrollPosition() {
   store.commit('updateScrollPosition', {
     scrollTop: window.pageYOffset,
-    scrollLeft: window.pageXOffset
+    scrollLeft: window.pageXOffset,
   });
 }
 
 function passUpdatedWindowSize() {
   store.commit('updateWindowSize', {
     width: window.innerWidth,
-    height: window.innerHeight
+    height: window.innerHeight,
   });
 }
 
@@ -44,7 +44,7 @@ function passKeyPressEvent(e) {
       e.preventDefault();
       store.commit('arrowPositioning', {
         direction: 'up',
-        shiftKey: e.shiftKey
+        shiftKey: e.shiftKey,
       });
       break;
 
@@ -52,7 +52,7 @@ function passKeyPressEvent(e) {
       e.preventDefault();
       store.commit('arrowPositioning', {
         direction: 'down',
-        shiftKey: e.shiftKey
+        shiftKey: e.shiftKey,
       });
       break;
 
@@ -60,7 +60,7 @@ function passKeyPressEvent(e) {
       e.preventDefault();
       store.commit('arrowPositioning', {
         direction: 'left',
-        shiftKey: e.shiftKey
+        shiftKey: e.shiftKey,
       });
       break;
 
@@ -68,7 +68,7 @@ function passKeyPressEvent(e) {
       e.preventDefault();
       store.commit('arrowPositioning', {
         direction: 'right',
-        shiftKey: e.shiftKey
+        shiftKey: e.shiftKey,
       });
       break;
 
@@ -88,9 +88,33 @@ const throttledPassScrollPosition = _.throttle(passScrollPosition, 60);
 const throttledPassUpdatedWindowSize = _.throttle(passUpdatedWindowSize, 60);
 const throttledPassKeyPressEvent = _.throttle(passKeyPressEvent, 60);
 
-export default function () {
-  document.addEventListener('keydown', (e) => { throttledPassKeyPressEvent(e) }, { capture: true });
-  document.addEventListener('mousemove', (e) => { throttledPassMousePosition(e) }, { capture: true });
-  document.addEventListener('scroll', () => { throttledPassScrollPosition() }, { capture: true });
-  window.addEventListener('resize', () => { throttledPassUpdatedWindowSize() }, { capture: true });
+export default function() {
+  document.addEventListener(
+    'keydown',
+    e => {
+      throttledPassKeyPressEvent(e);
+    },
+    { capture: true }
+  );
+  document.addEventListener(
+    'mousemove',
+    e => {
+      throttledPassMousePosition(e);
+    },
+    { capture: true }
+  );
+  document.addEventListener(
+    'scroll',
+    () => {
+      throttledPassScrollPosition();
+    },
+    { capture: true }
+  );
+  window.addEventListener(
+    'resize',
+    () => {
+      throttledPassUpdatedWindowSize();
+    },
+    { capture: true }
+  );
 }

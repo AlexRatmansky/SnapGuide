@@ -1,8 +1,8 @@
-import Vue from 'vue'
-import store from './store'
-import SnapGuide from './components/SnapGuide.vue'
+import Vue from 'vue';
+import store from './store';
+import SnapGuide from './components/SnapGuide.vue';
 import '../css/style.less';
-import initEvents from './events.js'
+import initEvents from './events.js';
 
 initEvents();
 
@@ -14,12 +14,11 @@ new Vue({
   el: rootEl,
   store: store,
   template: '<SnapGuide />',
-  components: { SnapGuide }
+  components: { SnapGuide },
 });
 
 if (process.env.NODE_ENV === 'production') {
-  chrome.runtime.onMessage.addListener(function (msg, _, sendResponse) {
-
+  chrome.runtime.onMessage.addListener(function(msg, _, sendResponse) {
     switch (msg) {
       case 'toggleActive':
         store.commit(toggleActive);
@@ -28,6 +27,5 @@ if (process.env.NODE_ENV === 'production') {
       default:
         break;
     }
-
   });
 }
