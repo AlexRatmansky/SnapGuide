@@ -12,6 +12,8 @@ class App extends React.Component<Props> {
   }
 }
 
-const mountNode = document.getElementById('app');
+let rootEl = document.createElement('div');
+rootEl.id = 'app';
+document.body.appendChild(rootEl);
 
-ReactDOM.render(<App name="Jane" />, mountNode);
+ReactDOM.render(<App name="Jane" />, rootEl);
