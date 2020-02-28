@@ -1,58 +1,37 @@
+import { CoordinatesBox } from 'components/CoordinatesBox';
+import { ElementHighlighter } from 'components/ElementHighlighter';
+import { Guide } from 'components/Guide';
+import { Legend } from 'components/Legend';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { Guide } from 'components/Guide';
-import styled from 'styled-components';
+import { Store } from 'store';
+import './style';
 
-const Component: FC = () => {
-  const { cursorPos, crossPos, elem, showLegend, verticalGuides, horizontalGuides, showApp } = useSelector(
-    store => store
+export const SnapGuide: FC = () => {
+  const { crossPos, elem, showLegend, verticalGuides, horizontalGuides, showApp } = useSelector(
+    (store: Store) => store
   );
 
   return (
     showApp && (
-      <div inert>
-        <Guide />
-        <SG_Guide is-vertical="true" position="crossPos.x" cross-guide="true" />
-        <SG_Guide is-vertical="false" position="crossPos.y" cross-guide="true" />
+      <div className={'snapGuide'}>
+        <Guide isVertical={true} position={crossPos.x} crossGuide={true} />
+        <Guide isVertical={false} position={crossPos.y} crossGuide={true} />
 
-        <TransitionGroup name="list_vert" tag="div">
-          <SG_Guide
-            v-for="guidePos in verticalGuides"
-            key="guidePos.position"
-            position="guidePos.position"
-            is-vertical="true"
-          />
-        </TransitionGroup>
+        {verticalGuides.map(x => (
+          <Guide key={x.position} isVertical position={x.position} />
+        ))}
 
-        <TransitionGroup name="list_hor" tag="div">
-          {horizontalGuides.map(guidePos => (
-            <SG_Guide key="guidePos.position" position="guidePos.position" is-vertical="false" />
-          ))}
-        </TransitionGroup>
+        {horizontalGuides.map(x => (
+          <Guide key={x.position} isVertical={false} position={x.position} />
+        ))}
 
-        <SG_CoordinatesBox />
+        <CoordinatesBox />
 
-        <SG_ElementHighlighter element-props="elem" />
+        <ElementHighlighter elementProps={elem} />
 
-        {showLegend && <SG_Legend />}
+        {showLegend && <Legend />}
       </div>
     )
   );
 };
-
-export const SnapGuide = styled(Component)`
-  pointer-events: none !important;
-  font-family: Menlo, Consolas, Courier, monospace !important;
-  font-size: 12px !important;
-  will-change: transform;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 999999;
-
-  & * {
-    pointer-events: none !important;
-  }
-`;

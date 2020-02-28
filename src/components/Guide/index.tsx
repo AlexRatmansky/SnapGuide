@@ -1,18 +1,18 @@
 import classNames from 'classnames';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
+import { Store } from 'store';
 import './style.scss';
 
-interface Guide {
-  isVertical: boolean;
-  position: number;
-  guideAction: string;
-  crossGuide: boolean;
+export interface Guide {
+  isVertical?: boolean;
+  position?: number;
+  crossGuide?: boolean;
 }
 
 export const Guide: FC<Guide> = props => {
-  const { isVertical, position, guideAction, crossGuide } = props;
-  const { scrollPosition } = useSelector(store => store);
+  const { isVertical, position, crossGuide } = props;
+  const { scrollPosition } = useSelector((store: Store) => store);
 
   const text = isVertical
     ? position + (crossGuide && scrollPosition.scrollLeft)

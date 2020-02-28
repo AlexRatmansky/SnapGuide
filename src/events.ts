@@ -1,22 +1,36 @@
-import store from './store';
 import _ from 'lodash';
+import {
+  arrowPositioning,
+  clearGuides,
+  store,
+  toggleHorizontalRule,
+  toggleLegend,
+  toggleVerticalRule,
+  updateMousePosition,
+  updateScrollPosition,
+  updateWindowSize,
+} from 'store';
 
 function passMousePosition(eventData) {
-  store.commit('updateMousePosition', eventData);
+  store.dispatch(updateMousePosition(eventData));
 }
 
 function passScrollPosition() {
-  store.commit('updateScrollPosition', {
-    scrollTop: window.pageYOffset,
-    scrollLeft: window.pageXOffset,
-  });
+  store.dispatch(
+    updateScrollPosition({
+      scrollTop: window.pageYOffset,
+      scrollLeft: window.pageXOffset,
+    })
+  );
 }
 
 function passUpdatedWindowSize() {
-  store.commit('updateWindowSize', {
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
+  store.dispatch(
+    updateWindowSize({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    })
+  );
 }
 
 function passKeyPressEvent(e) {
@@ -24,58 +38,66 @@ function passKeyPressEvent(e) {
     // v - for vertical
     case 'KeyV':
       e.preventDefault();
-      store.commit('toggleVerticalRule');
+      store.dispatch(toggleVerticalRule());
       break;
 
     // h - for horizontal
     case 'KeyH':
       e.preventDefault();
-      store.commit('toggleHorizontalRule');
+      store.dispatch(toggleHorizontalRule());
       break;
 
     // q - for clean
     case 'KeyQ':
       e.preventDefault();
-      store.commit('clearGuides');
+      store.dispatch(clearGuides());
       break;
 
     // Arrow keys
     case 'ArrowUp':
       e.preventDefault();
-      store.commit('arrowPositioning', {
-        direction: 'up',
-        shiftKey: e.shiftKey,
-      });
+      store.dispatch(
+        arrowPositioning({
+          direction: 'up',
+          shiftKey: e.shiftKey,
+        })
+      );
       break;
 
     case 'ArrowDown':
       e.preventDefault();
-      store.commit('arrowPositioning', {
-        direction: 'down',
-        shiftKey: e.shiftKey,
-      });
+      store.dispatch(
+        arrowPositioning({
+          direction: 'down',
+          shiftKey: e.shiftKey,
+        })
+      );
       break;
 
     case 'ArrowLeft':
       e.preventDefault();
-      store.commit('arrowPositioning', {
-        direction: 'left',
-        shiftKey: e.shiftKey,
-      });
+      store.dispatch(
+        arrowPositioning({
+          direction: 'left',
+          shiftKey: e.shiftKey,
+        })
+      );
       break;
 
     case 'ArrowRight':
       e.preventDefault();
-      store.commit('arrowPositioning', {
-        direction: 'right',
-        shiftKey: e.shiftKey,
-      });
+      store.dispatch(
+        arrowPositioning({
+          direction: 'right',
+          shiftKey: e.shiftKey,
+        })
+      );
       break;
 
     // Space - for vertical
     case 'Space':
       e.preventDefault();
-      store.commit('toggleLegend');
+      store.dispatch(toggleLegend());
       break;
 
     default:

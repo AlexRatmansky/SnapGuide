@@ -1,5 +1,7 @@
+import { Guide } from 'components/Guide';
 import { checkSnap } from 'helpers/snapping';
 import _ from 'lodash';
+import { createStore } from 'redux';
 
 enum Actions {
   TOGGLE_ACTIVE = 'TOGGLE_ACTIVE',
@@ -53,10 +55,10 @@ export const updateWindowSize = windowSize => ({
   windowSize,
 });
 
-interface Store {
+export interface Store {
   showApp: boolean;
-  verticalGuides: any;
-  horizontalGuides: any;
+  verticalGuides: Array<Guide>;
+  horizontalGuides: Array<Guide>;
   guidesArr: any;
   legendVisible: boolean;
   cursorPos: any;
@@ -64,6 +66,7 @@ interface Store {
   elem?: any;
   scrollPosition: any;
   windowSize: any;
+  showLegend: boolean;
 }
 
 const initialState: Store = {
@@ -84,7 +87,6 @@ const initialState: Store = {
     y: 0,
   },
   elem: undefined,
-
   scrollPosition: {
     scrollTop: window.pageYOffset,
     scrollLeft: window.pageXOffset,
@@ -93,9 +95,10 @@ const initialState: Store = {
     width: window.innerWidth,
     height: window.innerHeight,
   },
+  showLegend: true,
 };
 
-export const store = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case Actions.TOGGLE_ACTIVE:
       return Object.assign({}, state, {
@@ -232,3 +235,5 @@ export const store = (state = initialState, action) => {
       return state;
   }
 };
+
+export const store = createStore(reducer);
