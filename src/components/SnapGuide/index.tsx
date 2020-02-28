@@ -1,15 +1,17 @@
-import { FC } from 'react'
-import { useSelector } from 'react-redux'
-import styled from 'styled-components'
+import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { Guide } from 'components/Guide';
+import styled from 'styled-components';
 
 const Component: FC = () => {
   const { cursorPos, crossPos, elem, showLegend, verticalGuides, horizontalGuides, showApp } = useSelector(
     store => store
-  )
+  );
 
   return (
     showApp && (
       <div inert>
+        <Guide />
         <SG_Guide is-vertical="true" position="crossPos.x" cross-guide="true" />
         <SG_Guide is-vertical="false" position="crossPos.y" cross-guide="true" />
 
@@ -35,8 +37,8 @@ const Component: FC = () => {
         {showLegend && <SG_Legend />}
       </div>
     )
-  )
-}
+  );
+};
 
 export const SnapGuide = styled(Component)`
   pointer-events: none !important;
@@ -53,4 +55,4 @@ export const SnapGuide = styled(Component)`
   & * {
     pointer-events: none !important;
   }
-`
+`;

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import store from './store';
-import { SnapGuide } from './components/SnapGuide';
+import { SnapGuide } from 'components/SnapGuide';
+import { store } from 'store';
 
 let rootEl = document.createElement('div');
 rootEl.id = 'app';

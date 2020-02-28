@@ -2,6 +2,20 @@
   "compilerOptions": {
     "target": "ES2019",
     "lib": ["ESNext", "DOM"],
-    "jsx": "react"
-  }
+    "jsx": "react",
+
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "baseUrl": "src",
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"]
 }

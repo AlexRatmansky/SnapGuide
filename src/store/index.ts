@@ -1,6 +1,5 @@
-import _ from 'lodash'
-import { CONFIG } from '../config'
-import { checkSnap } from '../helpers/snapping'
+import { checkSnap } from 'helpers/snapping';
+import _ from 'lodash';
 
 enum Actions {
   TOGGLE_ACTIVE = 'TOGGLE_ACTIVE',
@@ -16,50 +15,65 @@ enum Actions {
 
 export const toggleActive = () => ({
   type: Actions.TOGGLE_ACTIVE,
-})
+});
 
 export const toggleVerticalRule = () => ({
   type: Actions.TOGGLE_VERTICAL_RULE,
-})
+});
 
 export const toggleHorizontalRule = () => ({
   type: Actions.TOGGLE_HORIZONTAL_RULE,
-})
+});
 
 export const clearGuides = () => ({
   type: Actions.CLEAR_GUIDES,
-})
+});
 
 export const updateMousePosition = eventData => ({
   type: Actions.UPDATE_MOUSE_POSITION,
   eventData,
-})
+});
 
 export const arrowPositioning = params => ({
   type: Actions.ARROW_POSITIONING,
   params,
-})
+});
 
 export const toggleLegend = () => ({
   type: Actions.TOGGLE_LEGEND,
-})
+});
 
 export const updateScrollPosition = scrollPosition => ({
   type: Actions.UPDATE_SCROLL_POSITION,
   scrollPosition,
-})
+});
 
 export const updateWindowSize = windowSize => ({
   type: Actions.UPDATE_WINDOW_SIZE,
   windowSize,
-})
+});
 
-const initialState = {
+interface Store {
+  showApp: boolean;
+  verticalGuides: any;
+  horizontalGuides: any;
+  guidesArr: any;
+  legendVisible: boolean;
+  cursorPos: any;
+  crossPos: any;
+  elem?: any;
+  scrollPosition: any;
+  windowSize: any;
+}
+
+const initialState: Store = {
   showApp: true,
 
-  verticalGuides: (NODE_ENV === 'development' && CONFIG.VERTICAL_GUIDES) || [],
-  horizontalGuides: (NODE_ENV === 'development' && CONFIG.HORIZONTAL_GUIDES) || [],
-
+  // verticalGuides: (NODE_ENV === 'development' && CONFIG.VERTICAL_GUIDES) || [],
+  // horizontalGuides: (NODE_ENV === 'development' && CONFIG.HORIZONTAL_GUIDES) || [],
+  verticalGuides: [],
+  horizontalGuides: [],
+  guidesArr: [],
   legendVisible: true,
   cursorPos: {
     x: 0,
@@ -79,57 +93,58 @@ const initialState = {
     width: window.innerWidth,
     height: window.innerHeight,
   },
-}
+};
 
-const todoApp = (state = initialState, action) => {
+export const store = (state = initialState, action) => {
   switch (action.type) {
     case Actions.TOGGLE_ACTIVE:
       return Object.assign({}, state, {
         showApp: !state.showApp,
-      })
+      });
 
     case Actions.TOGGLE_VERTICAL_RULE:
-      let guidesArr = [...state.verticalGuides]
-      let currGuidePosition = state.cursorPos.x
-      let currGuidePositionInArray = _.findIndex(guidesArr, guide => guide.position === currGuidePosition)
+      let guidesArr = [...state.verticalGuides];
+      let currGuidePosition = state.cursorPos.x;
+      let currGuidePositionInArray = _.findIndex(guidesArr, guide => guide.position === currGuidePosition);
 
       if (currGuidePositionInArray === -1) {
-        guidesArr.push({ position: currGuidePosition })
+        guidesArr.push({ position: currGuidePosition });
         return Object.assign({}, state, {
           verticalGuides: _.sortBy(guidesArr, ['position']),
-        })
+        });
       } else {
-        _.pullAt(guidesArr, currGuidePositionInArray)
+        _.pullAt(guidesArr, currGuidePositionInArray);
       }
-      return
+      return;
 
     case Actions.TOGGLE_HORIZONTAL_RULE:
-      let guidesArr = state.horizontalGuides
-      let currGuidePosition = state.cursorPos.y
-      let currGuidePositionInArray = _.findIndex(guidesArr, guide => guide.position === currGuidePosition)
+      let guidesArr2 = state.horizontalGuides;
+      let currGuidePosition2 = state.cursorPos.y;
+      let currGuidePositionInArray2 = _.findIndex(guidesArr2, guide => guide.position === currGuidePosition2);
 
-      if (currGuidePositionInArray === -1) {
-        guidesArr.push({ position: currGuidePosition })
+      if (currGuidePositionInArray2 === -1) {
+        guidesArr2.push({ position: currGuidePosition2 });
         return Object.assign({}, state, {
-          horizontalGuides = _.sortBy(guidesArr, ['position']),
-        })
+          horizontalGuides: _.sortBy(guidesArr2, ['position']),
+        });
       } else {
-        _.pullAt(guidesArr, currGuidePositionInArray)
+        _.pullAt(guidesArr2, currGuidePositionInArray2);
       }
+      return;
 
     case Actions.CLEAR_GUIDES:
       return Object.assign({}, state, {
         verticalGuides: [],
         horizontalGuides: [],
-      })
+      });
 
     case Actions.UPDATE_MOUSE_POSITION:
-      if (action.eventData === undefined) return
+      if (action.eventData === undefined) return;
 
-      const currElement = action.eventData.path[0] || undefined
-      const bodyRect = document.body.getBoundingClientRect()
-      const elemRect = currElement.getBoundingClientRect()
-      const elemStyles = window.getComputedStyle(currElement)
+      const currElement = action.eventData.path[0] || undefined;
+      const bodyRect = document.body.getBoundingClientRect();
+      const elemRect = currElement.getBoundingClientRect();
+      const elemStyles = window.getComputedStyle(currElement);
 
       const snapObj = checkSnap({
         elem: currElement,
@@ -138,20 +153,20 @@ const todoApp = (state = initialState, action) => {
         cursorPosX: action.eventData.pageX,
         cursorPosY: action.eventData.pageY,
         elemStyles: elemStyles,
-      })
+      });
 
       const cursorPos = {
         x: Math.round(snapObj.xPos),
         y: Math.round(snapObj.yPos),
-      }
+      };
 
       const crossPos = {
         x: Math.round(Math.round(snapObj.xPos) + bodyRect.left),
         y: Math.round(Math.round(snapObj.yPos) + bodyRect.top),
-      }
+      };
 
-      let left = Math.round(elemRect.left)
-      let top = Math.round(elemRect.top)
+      let left = Math.round(elemRect.left);
+      let top = Math.round(elemRect.top);
 
       const elem = {
         top: top,
@@ -166,54 +181,54 @@ const todoApp = (state = initialState, action) => {
           paddingRight: elemStyles.paddingRight,
           paddingBottom: elemStyles.paddingBottom,
         },
-      }
+      };
 
       return Object.assign({}, state, {
         cursorPos,
         crossPos,
         elem,
-      })
+      });
 
     case Actions.ARROW_POSITIONING:
-      let step = action.params.shiftKey ? 10 : 1
+      let step = action.params.shiftKey ? 10 : 1;
 
       switch (action.params.direction) {
         case 'up':
-          state.crossPos.y -= step
-          state.cursorPos.y -= step
-          return Object.assign({}, state, {})
+          state.crossPos.y -= step;
+          state.cursorPos.y -= step;
+          return Object.assign({}, state, {});
         case 'down':
-          state.crossPos.y += step
-          state.cursorPos.y += step
-          return Object.assign({}, state, {})
+          state.crossPos.y += step;
+          state.cursorPos.y += step;
+          return Object.assign({}, state, {});
         case 'left':
-          state.crossPos.x -= step
-          state.cursorPos.x -= step
-          return Object.assign({}, state, {})
+          state.crossPos.x -= step;
+          state.cursorPos.x -= step;
+          return Object.assign({}, state, {});
         case 'right':
-          state.crossPos.x += step
-          state.cursorPos.x += step
-          return Object.assign({}, state, {})
+          state.crossPos.x += step;
+          state.cursorPos.x += step;
+          return Object.assign({}, state, {});
         default:
-          return state
+          return state;
       }
 
     case Actions.TOGGLE_LEGEND:
       return Object.assign({}, state, {
         legendVisible: !state.legendVisible,
-      })
+      });
 
     case Actions.UPDATE_SCROLL_POSITION:
       return Object.assign({}, state, {
         scrollPosition: Object.assign({}, action.scrollPosition),
-      })
+      });
 
     case Actions.UPDATE_WINDOW_SIZE:
       return Object.assign({}, state, {
         windowSize: Object.assign({}, action.windowSize),
-      })
+      });
 
     default:
-      return state
+      return state;
   }
-}
+};
