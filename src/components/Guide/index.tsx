@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { Store } from 'store';
+import { Store } from '../../store';
 import './style.scss';
 
 export interface Guide {
@@ -31,7 +31,7 @@ export const Guide: FC<Guide> = props => {
 
   return (
     <div className={classList} style={cssObject}>
-      <div className={'label'}>{{ text }}</div>
+      <div className={'label'}>{text}</div>
     </div>
   );
 };

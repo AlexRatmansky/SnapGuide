@@ -8,16 +8,12 @@
     "start": "gulp copyStatic && parcel src/index.tsx --cache-dir dist/cache --out-file inpage.js --open",
     "build-prod": "parcel build src/index.tsx"
   },
-  "alias": {
-    "helpers": "src/helpers"
-  },
   "dependencies": {
     "@types/chrome": "0.0.98",
     "@types/lodash": "^4.14.149",
     "@types/react": "^16.9.23",
     "@types/react-dom": "^16.9.5",
     "@types/react-redux": "^7.1.7",
-    "@types/styled-components": "^5.0.1",
     "classnames": "^2.2.6",
     "gulp": "^4.0.2",
     "lodash": "^4.17.15",
@@ -29,6 +25,6 @@
     "redux": "^4.0.5",
     "styled-components": "^5.0.1",
     "typescript": "^3.8.2",
-    "uuid": "^7.0.1"
+    "sass": "^1.26.1"
   }
 }

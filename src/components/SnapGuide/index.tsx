@@ -1,11 +1,11 @@
-import { CoordinatesBox } from 'components/CoordinatesBox';
-import { ElementHighlighter } from 'components/ElementHighlighter';
-import { Guide } from 'components/Guide';
-import { Legend } from 'components/Legend';
+import { CoordinatesBox } from '../CoordinatesBox';
+import { ElementHighlighter } from '../ElementHighlighter';
+import { Guide } from '../Guide';
+import { Legend } from '../Legend';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { Store } from 'store';
-import './style';
+import { Store } from '../../store';
+import './style.scss';
 
 export const SnapGuide: FC = () => {
   const { crossPos, elem, showLegend, verticalGuides, horizontalGuides, showApp } = useSelector(

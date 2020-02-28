@@ -1,5 +1,5 @@
-import { Guide } from 'components/Guide';
-import { checkSnap } from 'helpers/snapping';
+import { Guide } from '/components/Guide';
+import { checkSnap } from '/helpers/snapping';
 import _ from 'lodash';
 import { createStore } from 'redux';
 
