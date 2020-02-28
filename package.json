@@ -8,22 +8,25 @@
     "start": "gulp copyStatic && parcel src/index.tsx --cache-dir dist/cache --out-file inpage.js --open",
     "build-prod": "parcel build src/index.tsx"
   },
-  "dependencies": {
-    "@types/styled-components": "^5.0.1",
-    "lodash": "^4.17.15",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "styled-components": "^5.0.1",
-    "uuid": "^7.0.1"
+  "alias": {
+    "helpers": "src/helpers"
   },
-  "devDependencies": {
-    "@babel/core": "^7.8.4",
+  "dependencies": {
+    "@types/lodash": "^4.14.149",
     "@types/react": "^16.9.23",
     "@types/react-dom": "^16.9.5",
-    "babel-plugin-lodash": "^3.3.4",
+    "@types/react-redux": "^7.1.7",
+    "@types/styled-components": "^5.0.1",
     "gulp": "^4.0.2",
+    "lodash": "^4.17.15",
     "parcel-bundler": "^1.12.4",
     "prettier": "^1.19.1",
-    "typescript": "^3.8.2"
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "styled-components": "^5.0.1",
+    "typescript": "^3.8.2",
+    "uuid": "^7.0.1"
   }
 }
