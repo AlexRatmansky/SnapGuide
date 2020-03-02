@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import {
   arrowPositioning,
   clearGuides,
@@ -105,37 +104,32 @@ function passKeyPressEvent(e) {
   }
 }
 
-const throttledPassMousePosition = _.throttle(passMousePosition, 60);
-const throttledPassScrollPosition = _.throttle(passScrollPosition, 60);
-const throttledPassUpdatedWindowSize = _.throttle(passUpdatedWindowSize, 60);
-const throttledPassKeyPressEvent = _.throttle(passKeyPressEvent, 60);
-
 export const events = () => {
   document.addEventListener(
     'keydown',
     e => {
-      throttledPassKeyPressEvent(e);
+      requestAnimationFrame(() => passKeyPressEvent(e));
     },
     { capture: true }
   );
   document.addEventListener(
     'mousemove',
     e => {
-      throttledPassMousePosition(e);
+      requestAnimationFrame(() => passMousePosition(e));
     },
     { capture: true }
   );
   document.addEventListener(
     'scroll',
     () => {
-      throttledPassScrollPosition();
+      requestAnimationFrame(passScrollPosition);
     },
     { capture: true }
   );
   window.addEventListener(
     'resize',
     () => {
-      throttledPassUpdatedWindowSize();
+      requestAnimationFrame(passUpdatedWindowSize);
     },
     { capture: true }
   );
