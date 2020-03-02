@@ -1,9 +1,11 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { Store } from '../../store';
-import { Guide } from '../Guide';
+import { Guide } from '~/components/Guide';
+import { Store } from '~store';
 
-export const PointerGuide: FC = () => {
+export { PointerGuide };
+
+const PointerGuide: FC = () => {
   const { crossPos } = useSelector((store: Store) => store);
 
   return (

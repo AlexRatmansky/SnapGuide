@@ -1,15 +1,17 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { Store } from '../../store';
-import { CoordinatesBox } from '../CoordinatesBox';
-import { ElementHighlighter } from '../ElementHighlighter';
-import { Legend } from '../Legend';
-import { PointerGuide } from '../PointerGuide';
+import { CoordinatesBox } from '~/components/CoordinatesBox';
+import { ElementHighlighter } from '~/components/ElementHighlighter';
+import { Legend } from '~/components/Legend';
+import { PointerGuide } from '~/components/PointerGuide';
+import { Store } from '~store';
 import { HorizontalGuides } from './HorizontalGuides';
 import './style.scss';
 import { VerticalGuides } from './VerticalGuides';
 
-export const SnapGuide: FC = () => {
+export { SnapGuide };
+
+const SnapGuide: FC = () => {
   const { elem, showLegend, showApp } = useSelector((store: Store) => store);
 
   return (

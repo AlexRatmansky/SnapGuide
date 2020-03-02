@@ -1,13 +1,15 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { Store } from '../../store';
+import { Store } from '~store';
 import './style.scss';
+
+export { ElementHighlighter };
 
 interface ElementHighlighter {
   elementProps?: any;
 }
 
-export const ElementHighlighter: FC<ElementHighlighter> = props => {
+const ElementHighlighter: FC<ElementHighlighter> = props => {
   const { elementProps } = props;
   const { scrollPosition } = useSelector((store: Store) => store);
 

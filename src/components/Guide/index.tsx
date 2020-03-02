@@ -1,16 +1,18 @@
 import classNames from 'classnames';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { Store } from '../../store';
+import { Store } from '~store';
 import './style.scss';
 
-export interface Guide {
+export { Guide };
+
+interface Guide {
   isVertical?: boolean;
   position?: number;
   crossGuide?: boolean;
 }
 
-export const Guide: FC<Guide> = props => {
+const Guide: FC<Guide> = props => {
   const { isVertical, position, crossGuide } = props;
   const { scrollPosition } = useSelector((store: Store) => store);
 

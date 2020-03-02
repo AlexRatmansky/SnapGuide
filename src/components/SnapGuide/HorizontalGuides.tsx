@@ -1,10 +1,12 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { Store } from '../../store';
-import { Guide } from '../Guide';
+import { Guide } from '~/components/Guide';
+import { Store } from '~store';
 import './style.scss';
 
-export const HorizontalGuides: FC = () => {
+export { HorizontalGuides };
+
+const HorizontalGuides: FC = () => {
   const { horizontalGuides } = useSelector((store: Store) => store);
 
   return (

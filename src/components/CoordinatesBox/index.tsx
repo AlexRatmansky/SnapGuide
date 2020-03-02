@@ -1,9 +1,11 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { Store } from '../../store';
+import { Store } from '~store';
 import './style.scss';
 
-export const CoordinatesBox: FC = () => {
+export { CoordinatesBox };
+
+const CoordinatesBox: FC = () => {
   const { cursorPos, scrollPosition } = useSelector((store: Store) => store);
 
   const cssObject = {
