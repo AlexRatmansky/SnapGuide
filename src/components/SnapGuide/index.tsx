@@ -1,30 +1,25 @@
-import { CoordinatesBox } from '../CoordinatesBox';
-import { ElementHighlighter } from '../ElementHighlighter';
-import { Guide } from '../Guide';
-import { Legend } from '../Legend';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Store } from '../../store';
+import { CoordinatesBox } from '../CoordinatesBox';
+import { ElementHighlighter } from '../ElementHighlighter';
+import { Legend } from '../Legend';
+import { PointerGuide } from '../PointerGuide';
+import { HorizontalGuides } from './HorizontalGuides';
 import './style.scss';
+import { VerticalGuides } from './VerticalGuides';
 
 export const SnapGuide: FC = () => {
-  const { crossPos, elem, showLegend, verticalGuides, horizontalGuides, showApp } = useSelector(
-    (store: Store) => store
-  );
+  const { elem, showLegend, showApp } = useSelector((store: Store) => store);
 
   return (
     showApp && (
       <div className={'snapGuide'}>
-        <Guide isVertical={true} position={crossPos.x} crossGuide={true} />
-        <Guide isVertical={false} position={crossPos.y} crossGuide={true} />
+        <PointerGuide />
 
-        {verticalGuides.map(x => (
-          <Guide key={x.position} isVertical position={x.position} />
-        ))}
+        <VerticalGuides />
 
-        {horizontalGuides.map(x => (
-          <Guide key={x.position} isVertical={false} position={x.position} />
-        ))}
+        <HorizontalGuides />
 
         <CoordinatesBox />
 

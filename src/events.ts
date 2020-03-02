@@ -9,7 +9,7 @@ import {
   updateMousePosition,
   updateScrollPosition,
   updateWindowSize,
-} from 'store';
+} from './store';
 
 function passMousePosition(eventData) {
   store.dispatch(updateMousePosition(eventData));
@@ -110,7 +110,7 @@ const throttledPassScrollPosition = _.throttle(passScrollPosition, 60);
 const throttledPassUpdatedWindowSize = _.throttle(passUpdatedWindowSize, 60);
 const throttledPassKeyPressEvent = _.throttle(passKeyPressEvent, 60);
 
-export default function() {
+export const events = () => {
   document.addEventListener(
     'keydown',
     e => {
@@ -139,4 +139,4 @@ export default function() {
     },
     { capture: true }
   );
-}
+};

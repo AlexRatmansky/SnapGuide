@@ -1,5 +1,5 @@
-import { Guide } from '/components/Guide';
-import { checkSnap } from '/helpers/snapping';
+import { Guide } from '../components/Guide';
+import { checkSnap } from '../helpers/snapping';
 import _ from 'lodash';
 import { createStore } from 'redux';
 
@@ -199,22 +199,28 @@ const reducer = (state = initialState, action) => {
         case 'up':
           state.crossPos.y -= step;
           state.cursorPos.y -= step;
-          return Object.assign({}, state, {});
+          break;
+
         case 'down':
           state.crossPos.y += step;
           state.cursorPos.y += step;
-          return Object.assign({}, state, {});
+          break;
+
         case 'left':
           state.crossPos.x -= step;
           state.cursorPos.x -= step;
-          return Object.assign({}, state, {});
+          break;
+
         case 'right':
           state.crossPos.x += step;
           state.cursorPos.x += step;
-          return Object.assign({}, state, {});
+          break;
+
         default:
-          return state;
+          break;
       }
+
+      return Object.assign({}, state);
 
     case Actions.TOGGLE_LEGEND:
       return Object.assign({}, state, {

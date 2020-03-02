@@ -30,12 +30,9 @@ export const ElementHighlighter: FC<ElementHighlighter> = props => {
       }) ||
     undefined;
 
-  console.log('borderBox', borderBox);
-  console.log('paddingBox', paddingBox);
-
   return (
     <div className={'element'} style={borderBox}>
-      <div className={'paddingBox'} style={paddingBox}></div>
+      <div className={'paddingBox'} style={paddingBox} />
     </div>
   );
 };

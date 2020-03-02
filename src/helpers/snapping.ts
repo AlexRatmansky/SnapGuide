@@ -1,63 +1,5 @@
 import { CONFIG } from '../config';
 
-function isInSnapArea(point, target) {
-  return point >= target - CONFIG.SNAP_FACTOR && point <= target + CONFIG.SNAP_FACTOR;
-}
-
-function checkKeyPointsForSnapping(pointPos, arr) {
-  for (let i = 0, len = arr.length; i < len; ++i) {
-    if (isInSnapArea(pointPos, arr[i])) {
-      return arr[i];
-    }
-  }
-
-  return null;
-}
-
-function getTextNode(targetElement) {
-  if (!targetElement.hasChildNodes()) return null;
-  if (targetElement.tagName === 'TABLE') return null; // TODO: подумать, что можно сделать с таблицами
-
-  let childNodes = targetElement.childNodes;
-  let textNode = null;
-
-  for (let i = 0, len = childNodes.length; i < len; i++) {
-    if (childNodes[i].nodeType === Node.TEXT_NODE && childNodes[i].textContent.match(/^(?!\s*$).+/g) !== null) {
-      textNode = childNodes[i];
-      break;
-    }
-  }
-
-  return textNode;
-}
-
-function getBaselineY(targetElement) {
-  let textNode = getTextNode(targetElement);
-  let emptySpan;
-  let yPosition;
-
-  if (textNode === null) return [];
-
-  emptySpan = document.createElement('span');
-  emptySpan.classList.add('empty-span');
-
-  targetElement.insertBefore(emptySpan, textNode);
-
-  yPosition = emptySpan.getBoundingClientRect().top + 1;
-
-  let lh = parseInt(getComputedStyle(targetElement).lineHeight);
-  let times = Math.floor(targetElement.clientHeight / lh);
-  let arr = [];
-
-  for (let i = 0; i < times; i++) {
-    arr.push(yPosition + i * lh);
-  }
-
-  targetElement.removeChild(emptySpan);
-
-  return arr;
-}
-
 export function checkSnap(params) {
   const { bodyRect, elem, elemRect, elemStyles, cursorPosX, cursorPosY } = params;
 
@@ -85,4 +27,58 @@ export function checkSnap(params) {
     yPos: newYPos !== null ? newYPos : cursorPosY,
     isSnapped: newXPos !== null || newYPos !== null,
   };
+}
+
+function getBaselineY(targetElement) {
+  let textNode = getTextNode(targetElement);
+
+  if (textNode === null) return [];
+
+  const emptySpan = document.createElement('span');
+  emptySpan.classList.add('empty-span');
+
+  targetElement.insertBefore(emptySpan, textNode);
+
+  const yPosition = emptySpan.getBoundingClientRect().top + 1;
+
+  const lh = parseInt(getComputedStyle(targetElement).lineHeight);
+
+  const times = Math.floor(targetElement.clientHeight / lh);
+
+  const arr = Array.from({ length: times }, (value, i) => yPosition + i * lh);
+
+  targetElement.removeChild(emptySpan);
+
+  return arr;
+}
+
+function getTextNode(targetElement) {
+  if (!targetElement.hasChildNodes()) return null;
+  if (targetElement.tagName === 'TABLE') return null; // TODO: подумать, что можно сделать с таблицами
+
+  let childNodes = targetElement.childNodes;
+  let textNode = null;
+
+  for (let i = 0, len = childNodes.length; i < len; i++) {
+    if (childNodes[i].nodeType === Node.TEXT_NODE && childNodes[i].textContent.match(/^(?!\s*$).+/g) !== null) {
+      textNode = childNodes[i];
+      break;
+    }
+  }
+
+  return textNode;
+}
+
+function checkKeyPointsForSnapping(pointPos, arr) {
+  for (let i = 0, len = arr.length; i < len; ++i) {
+    if (isInSnapArea(pointPos, arr[i])) {
+      return arr[i];
+    }
+  }
+
+  return null;
+}
+
+function isInSnapArea(point, target) {
+  return point >= target - CONFIG.SNAP_FACTOR && point <= target + CONFIG.SNAP_FACTOR;
 }

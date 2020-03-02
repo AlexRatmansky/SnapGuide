@@ -1,3 +1,4 @@
+import { events } from './events';
 import { SnapGuide } from './components/SnapGuide';
 import { store } from './store';
 import * as React from 'react';
@@ -15,6 +16,8 @@ ReactDOM.render(
   </Provider>,
   rootEl
 );
+
+events();
 
 // if (process.env.NODE_ENV === 'production') {
 //     chrome.runtime.onMessage.addListener(function(msg, _, sendResponse) {
