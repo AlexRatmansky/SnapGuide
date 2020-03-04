@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { Guide } from '~/components/Guide';
+import { Guide } from '~components/Guide';
 import { Store } from '~store';
 
 export { PointerGuide };
