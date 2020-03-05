@@ -4,6 +4,7 @@ import { CoordinatesBox } from '~/components/CoordinatesBox';
 import { ElementHighlighter } from '~/components/ElementHighlighter';
 import { Legend } from '~/components/Legend';
 import { PointerGuide } from '~/components/PointerGuide';
+import { DebugDot } from '~components/DebugDot';
 import { Store } from '~store';
 import { HorizontalGuides } from './HorizontalGuides';
 import './style.scss';
@@ -28,6 +29,8 @@ const SnapGuide: FC = () => {
         <ElementHighlighter elementProps={elem} />
 
         {showLegend && <Legend />}
+
+        <DebugDot />
       </div>
     )
   );

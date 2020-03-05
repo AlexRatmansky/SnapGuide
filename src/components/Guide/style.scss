@@ -1,18 +1,23 @@
 @keyframes rotate {
   from {
-    transform: rotate(-3deg);
+    transform: rotate(-1deg);
+    opacity: 0;
   }
   to {
     transform: rotate(0);
+    opacity: 1;
   }
 }
 
 @keyframes rotate2 {
   from {
-    transform: rotate(-3deg);
+
+    transform: rotate(-1deg);
+    opacity: 0;
   }
   to {
     transform: rotate(0);
+    opacity: 1;
   }
 }
 
@@ -71,9 +76,9 @@
   background-color: rgba(255, 0, 255, 0.5);
 
   &.vertical {
-    animation: rotate .3s ease-out;
+    animation: rotate .2s ease-out;
   }
   &.horizontal {
-    animation: rotate2 .3s ease-out;
+    animation: rotate2 .2s ease-out;
   }
 }

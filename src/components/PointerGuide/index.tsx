@@ -13,9 +13,9 @@ const PointerGuide: FC = () => {
   return (
     <>
       {['left', 'right'].includes(direction) ? (
-        <Guide isVertical={true} position={crossPos.x} crossGuide={true} />
+        <Guide isVertical={true} position={crossPos.x} crossGuide />
       ) : (
-        <Guide isVertical={false} position={crossPos.y} crossGuide={true} />
+        <Guide isVertical={false} position={crossPos.y} crossGuide />
       )}
     </>
   );
