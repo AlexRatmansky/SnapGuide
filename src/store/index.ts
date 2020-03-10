@@ -2,8 +2,9 @@ import { Guide } from '../components/Guide';
 import { checkSnap } from '../helpers/snapping';
 import _ from 'lodash';
 import { createStore } from 'redux';
+import { Direction } from '~constants';
 
-enum Actions {
+enum Action {
   TOGGLE_ACTIVE = 'TOGGLE_ACTIVE',
   TOGGLE_VERTICAL_RULE = 'TOGGLE_VERTICAL_RULE',
   TOGGLE_HORIZONTAL_RULE = 'TOGGLE_HORIZONTAL_RULE',
@@ -16,42 +17,42 @@ enum Actions {
 }
 
 export const toggleActive = () => ({
-  type: Actions.TOGGLE_ACTIVE,
+  type: Action.TOGGLE_ACTIVE,
 });
 
 export const toggleVerticalRule = () => ({
-  type: Actions.TOGGLE_VERTICAL_RULE,
+  type: Action.TOGGLE_VERTICAL_RULE,
 });
 
 export const toggleHorizontalRule = () => ({
-  type: Actions.TOGGLE_HORIZONTAL_RULE,
+  type: Action.TOGGLE_HORIZONTAL_RULE,
 });
 
 export const clearGuides = () => ({
-  type: Actions.CLEAR_GUIDES,
+  type: Action.CLEAR_GUIDES,
 });
 
 export const updateMousePosition = eventData => ({
-  type: Actions.UPDATE_MOUSE_POSITION,
+  type: Action.UPDATE_MOUSE_POSITION,
   eventData,
 });
 
 export const arrowPositioning = params => ({
-  type: Actions.ARROW_POSITIONING,
+  type: Action.ARROW_POSITIONING,
   params,
 });
 
 export const toggleLegend = () => ({
-  type: Actions.TOGGLE_LEGEND,
+  type: Action.TOGGLE_LEGEND,
 });
 
 export const updateScrollPosition = scrollPosition => ({
-  type: Actions.UPDATE_SCROLL_POSITION,
+  type: Action.UPDATE_SCROLL_POSITION,
   scrollPosition,
 });
 
 export const updateWindowSize = windowSize => ({
-  type: Actions.UPDATE_WINDOW_SIZE,
+  type: Action.UPDATE_WINDOW_SIZE,
   windowSize,
 });
 
@@ -100,12 +101,12 @@ const initialState: Store = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case Actions.TOGGLE_ACTIVE:
+    case Action.TOGGLE_ACTIVE:
       return Object.assign({}, state, {
         showApp: !state.showApp,
       });
 
-    case Actions.TOGGLE_VERTICAL_RULE:
+    case Action.TOGGLE_VERTICAL_RULE:
       let guidesArr = [...state.verticalGuides];
       let currGuidePosition = state.cursorPos.x;
       let currGuidePositionInArray = _.findIndex(guidesArr, guide => guide.position === currGuidePosition);
@@ -120,7 +121,7 @@ const reducer = (state = initialState, action) => {
       }
       return;
 
-    case Actions.TOGGLE_HORIZONTAL_RULE:
+    case Action.TOGGLE_HORIZONTAL_RULE:
       let guidesArr2 = state.horizontalGuides;
       let currGuidePosition2 = state.cursorPos.y;
       let currGuidePositionInArray2 = _.findIndex(guidesArr2, guide => guide.position === currGuidePosition2);
@@ -135,104 +136,63 @@ const reducer = (state = initialState, action) => {
       }
       return;
 
-    case Actions.CLEAR_GUIDES:
+    case Action.CLEAR_GUIDES:
       return Object.assign({}, state, {
         verticalGuides: [],
         horizontalGuides: [],
       });
 
-    case Actions.UPDATE_MOUSE_POSITION:
-      if (action.eventData === undefined) return;
-
-      const currElement = action.eventData.path[0] || undefined;
-      const bodyRect = document.body.getBoundingClientRect();
-      const elemRect = currElement.getBoundingClientRect();
-      const elemStyles = window.getComputedStyle(currElement);
-
-      const snapObj = checkSnap({
-        elem: currElement,
-        elemRect: elemRect,
-        bodyRect: bodyRect,
-        cursorPosX: action.eventData.pageX,
-        cursorPosY: action.eventData.pageY,
-        elemStyles: elemStyles,
-      });
-
-      const cursorPos = {
-        x: Math.round(snapObj.xPos),
-        y: Math.round(snapObj.yPos),
-      };
-
-      const crossPos = {
-        x: Math.round(Math.round(snapObj.xPos) + bodyRect.left),
-        y: Math.round(Math.round(snapObj.yPos) + bodyRect.top),
-      };
-
-      let left = Math.round(elemRect.left);
-      let top = Math.round(elemRect.top);
-
-      const elem = {
-        top: top,
-        left: left,
-        right: left + elemRect.width,
-        bottom: top + elemRect.height,
-        width: elemRect.width,
-        height: elemRect.height,
-        style: {
-          paddingTop: elemStyles.paddingTop,
-          paddingLeft: elemStyles.paddingLeft,
-          paddingRight: elemStyles.paddingRight,
-          paddingBottom: elemStyles.paddingBottom,
-        },
-      };
-
+    case Action.UPDATE_MOUSE_POSITION:
       return Object.assign({}, state, {
-        cursorPos,
-        crossPos,
-        elem,
+        cursorPos: action.eventData.cursorPos,
+        crossPos: action.eventData.crossPos,
+        elem: action.eventData.elem,
       });
 
-    case Actions.ARROW_POSITIONING:
+    case Action.ARROW_POSITIONING:
       let step = action.params.shiftKey ? 10 : 1;
+      let axis;
 
       switch (action.params.direction) {
-        case 'up':
-          state.crossPos.y -= step;
-          state.cursorPos.y -= step;
+        case Direction.UP:
+          axis = 'y';
+          step *= -1;
           break;
 
-        case 'down':
-          state.crossPos.y += step;
-          state.cursorPos.y += step;
+        case Direction.DOWN:
+          axis = 'y';
           break;
 
-        case 'left':
-          state.crossPos.x -= step;
-          state.cursorPos.x -= step;
+        case Direction.LEFT:
+          axis = 'x';
+          step *= -1;
           break;
 
-        case 'right':
-          state.crossPos.x += step;
-          state.cursorPos.x += step;
+        case Direction.RIGHT:
+          axis = 'x';
           break;
 
         default:
           break;
       }
 
-      return Object.assign({}, state);
+      const transfer = { crossPos: {}, cursorPos: {} };
+      transfer.crossPos[axis] = state.crossPos[axis] + step;
+      transfer.cursorPos[axis] = state.cursorPos[axis] + step;
 
-    case Actions.TOGGLE_LEGEND:
+      return Object.assign({}, state, transfer);
+
+    case Action.TOGGLE_LEGEND:
       return Object.assign({}, state, {
         legendVisible: !state.legendVisible,
       });
 
-    case Actions.UPDATE_SCROLL_POSITION:
+    case Action.UPDATE_SCROLL_POSITION:
       return Object.assign({}, state, {
         scrollPosition: Object.assign({}, action.scrollPosition),
       });
 
-    case Actions.UPDATE_WINDOW_SIZE:
+    case Action.UPDATE_WINDOW_SIZE:
       return Object.assign({}, state, {
         windowSize: Object.assign({}, action.windowSize),
       });

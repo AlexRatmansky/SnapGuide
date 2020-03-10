@@ -30,7 +30,7 @@ const SnapGuide: FC = () => {
 
         {showLegend && <Legend />}
 
-        <DebugDot />
+        {/* <DebugDot /> */}
       </div>
     )
   );
