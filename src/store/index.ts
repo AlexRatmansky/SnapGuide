@@ -1,19 +1,20 @@
-import { Guide } from '../components/Guide';
-import { checkSnap } from '../helpers/snapping';
 import _ from 'lodash';
 import { createStore } from 'redux';
-import { Direction } from '~constants';
+import { Guide } from '~/components/Guide';
+import { Direction } from '~/constants';
 
 enum Action {
   TOGGLE_ACTIVE = 'TOGGLE_ACTIVE',
   TOGGLE_VERTICAL_RULE = 'TOGGLE_VERTICAL_RULE',
   TOGGLE_HORIZONTAL_RULE = 'TOGGLE_HORIZONTAL_RULE',
   CLEAR_GUIDES = 'CLEAR_GUIDES',
-  UPDATE_MOUSE_POSITION = 'UPDATE_MOUSE_POSITION',
   ARROW_POSITIONING = 'ARROW_POSITIONING',
   TOGGLE_LEGEND = 'TOGGLE_LEGEND',
   UPDATE_SCROLL_POSITION = 'UPDATE_SCROLL_POSITION',
   UPDATE_WINDOW_SIZE = 'UPDATE_WINDOW_SIZE',
+  UPDATE_CURSOR_POS = 'UPDATE_CURSOR_POS',
+  UPDATE_CROSS_POS = 'UPDATE_CROSS_POS',
+  UPDATE_ELEM = 'UPDATE_ELEM',
 }
 
 export const toggleActive = () => ({
@@ -32,8 +33,18 @@ export const clearGuides = () => ({
   type: Action.CLEAR_GUIDES,
 });
 
-export const updateMousePosition = eventData => ({
-  type: Action.UPDATE_MOUSE_POSITION,
+export const updateCursorPos = eventData => ({
+  type: Action.UPDATE_CURSOR_POS,
+  eventData,
+});
+
+export const updateCrossPos = eventData => ({
+  type: Action.UPDATE_CROSS_POS,
+  eventData,
+});
+
+export const updateElem = eventData => ({
+  type: Action.UPDATE_ELEM,
   eventData,
 });
 
@@ -142,12 +153,14 @@ const reducer = (state = initialState, action) => {
         horizontalGuides: [],
       });
 
-    case Action.UPDATE_MOUSE_POSITION:
-      return Object.assign({}, state, {
-        cursorPos: action.eventData.cursorPos,
-        crossPos: action.eventData.crossPos,
-        elem: action.eventData.elem,
-      });
+    case Action.UPDATE_CURSOR_POS:
+      return Object.assign({}, state, { cursorPos: action.eventData });
+
+    case Action.UPDATE_CROSS_POS:
+      return Object.assign({}, state, { crossPos: action.eventData });
+
+    case Action.UPDATE_ELEM:
+      return Object.assign({}, state, { elem: action.eventData });
 
     case Action.ARROW_POSITIONING:
       let step = action.params.shiftKey ? 10 : 1;

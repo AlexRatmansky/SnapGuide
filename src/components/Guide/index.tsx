@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { FC, HTMLAttributes } from 'react';
 import { useSelector } from 'react-redux';
-import { Store } from '~store';
+import { Store } from '~/store';
 import './style.scss';
 
 export { Guide };

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { SnapGuide } from '~components/SnapGuide';
-import { events } from '~events';
-import { store } from '~store';
+import { SnapGuide } from '~/components/SnapGuide';
+import { events } from '~/events';
+import { store } from '~/store';
 import './style.scss';
 
 let rootEl = document.createElement('div');

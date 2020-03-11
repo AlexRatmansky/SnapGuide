@@ -1,3 +1,4 @@
+import { checkSnap } from '~/helpers/snapping';
 import {
   arrowPositioning,
   clearGuides,
@@ -5,11 +6,12 @@ import {
   toggleHorizontalRule,
   toggleLegend,
   toggleVerticalRule,
-  updateMousePosition,
+  updateCrossPos,
+  updateCursorPos,
+  updateElem,
   updateScrollPosition,
   updateWindowSize,
-} from './store';
-import { checkSnap } from '~helpers/snapping';
+} from '~/store';
 
 function passMousePosition(eventData) {
   if (eventData === undefined) return;
@@ -34,8 +36,8 @@ function passMousePosition(eventData) {
   };
 
   const crossPos = {
-    x: Math.round(Math.round(snapObj.xPos) + bodyRect.left),
-    y: Math.round(Math.round(snapObj.yPos) + bodyRect.top),
+    x: Math.round(snapObj.xPos + bodyRect.left),
+    y: Math.round(snapObj.yPos + bodyRect.top),
   };
 
   let left = Math.round(elemRect.left);
@@ -56,32 +58,28 @@ function passMousePosition(eventData) {
     },
   };
 
-  const storeEventData = {
-    cursorPos,
-    crossPos,
-    elem,
-  };
-
-  store.dispatch(updateMousePosition(storeEventData));
+  store.dispatch(updateCursorPos(cursorPos));
+  store.dispatch(updateCrossPos(crossPos));
+  store.dispatch(updateElem(elem));
 }
 
 function passScrollPosition() {
-  store.dispatch(
-    updateScrollPosition({
-      scrollTop: window.pageYOffset,
-      scrollLeft: window.pageXOffset,
-    })
-  );
+  const ScrollPosition = {
+    scrollTop: window.pageYOffset,
+    scrollLeft: window.pageXOffset,
+  };
+
+  store.dispatch(updateScrollPosition(ScrollPosition));
 }
 
-function passUpdatedWindowSize() {
-  store.dispatch(
-    updateWindowSize({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    })
-  );
-}
+const passUpdatedWindowSize = () => {
+  const windowSize = {
+    width: window.innerWidth,
+    height: window.innerHeight,
+  };
+
+  store.dispatch(updateWindowSize(windowSize));
+};
 
 function passKeyPressEvent(e) {
   switch (e.code) {

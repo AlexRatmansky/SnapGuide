@@ -11,7 +11,6 @@
 
 @keyframes rotate2 {
   from {
-
     transform: rotate(-1deg);
     opacity: 0;
   }
@@ -76,9 +75,9 @@
   background-color: rgba(255, 0, 255, 0.5);
 
   &.vertical {
-    animation: rotate .2s ease-out;
+    animation: rotate 0.2s ease-out;
   }
   &.horizontal {
-    animation: rotate2 .2s ease-out;
+    animation: rotate2 0.2s ease-out;
   }
 }

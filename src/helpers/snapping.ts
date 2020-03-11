@@ -1,6 +1,15 @@
-import { CONFIG } from '../config';
+import { CONFIG } from '~/config';
 
-export function checkSnap(params) {
+interface CheckSnap {
+  elem: Element;
+  bodyRect: DOMRect;
+  elemRect: DOMRect;
+  elemStyles: CSSStyleDeclaration;
+  cursorPosX: number;
+  cursorPosY: number;
+}
+
+export const checkSnap = (params: CheckSnap) => {
   const { bodyRect, elem, elemRect, elemStyles, cursorPosX, cursorPosY } = params;
 
   const top = Math.round(elemRect.top - bodyRect.top);
@@ -27,7 +36,7 @@ export function checkSnap(params) {
     yPos: newYPos !== null ? newYPos : cursorPosY,
     isSnapped: newXPos !== null || newYPos !== null,
   };
-}
+};
 
 function getBaselineY(targetElement) {
   let textNode = getTextNode(targetElement);
