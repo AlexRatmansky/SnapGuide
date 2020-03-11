@@ -1,0 +1,16 @@
+.snapGuide {
+  pointer-events: none !important;
+  font-family: Menlo, Consolas, Courier, monospace !important;
+  font-size: 12px !important;
+  will-change: transform;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999999;
+}
+
+.snapGuide * {
+  pointer-events: none !important;
+}
