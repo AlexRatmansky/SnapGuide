@@ -9,7 +9,7 @@
     "build-prod": "parcel build src/index.tsx"
   },
   "dependencies": {
-    "@types/chrome": "0.0.98",
+    "@types/chrome": "0.0.100",
     "@types/lodash": "^4.14.149",
     "@types/react": "^16.9.23",
     "@types/react-dom": "^16.9.5",
@@ -23,7 +23,7 @@
     "react-dom": "^16.13.0",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
-    "sass": "^1.26.1",
+    "sass": "^1.26.3",
     "styled-components": "^5.0.1",
     "typescript": "^3.8.2"
   }

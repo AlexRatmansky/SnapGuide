@@ -27,8 +27,6 @@ const Guide: FC<Guide> = props => {
     ['crossGuide']: crossGuide,
   });
 
-  console.log(window.innerWidth, window.innerHeight);
-
   const cssObject = isVertical
     ? {
         left: position - (!crossGuide && scrollPosition.scrollLeft) + 'px',
