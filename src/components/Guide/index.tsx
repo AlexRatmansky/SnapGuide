@@ -12,7 +12,7 @@ interface Guide extends HTMLAttributes<HTMLElement> {
   crossGuide?: boolean;
 }
 
-const Guide: FC<Guide> = props => {
+const Guide: FC<Guide> = (props) => {
   const { isVertical, position, crossGuide } = props;
   const { scrollPosition, crossPos } = useSelector((store: Store) => store);
 

@@ -25,7 +25,7 @@ let oldX = 0;
 let oldY = 0;
 let oldDirection = 0;
 
-const getDirection = crossPos => {
+const getDirection = (crossPos) => {
   let direction;
   let directionX;
   let directionY;

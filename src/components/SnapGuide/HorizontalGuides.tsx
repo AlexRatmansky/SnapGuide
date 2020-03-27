@@ -11,7 +11,7 @@ const HorizontalGuides: FC = () => {
 
   return (
     <>
-      {horizontalGuides.map(guide => (
+      {horizontalGuides.map((guide) => (
         <Guide key={guide.position} isVertical={false} position={guide.position} />
       ))}
     </>

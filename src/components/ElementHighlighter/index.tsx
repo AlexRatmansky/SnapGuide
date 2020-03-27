@@ -9,7 +9,7 @@ interface ElementHighlighter {
   elementProps?: any;
 }
 
-const ElementHighlighter: FC<ElementHighlighter> = props => {
+const ElementHighlighter: FC<ElementHighlighter> = (props) => {
   const { elementProps } = props;
   const { scrollPosition } = useSelector((store: Store) => store);
 

@@ -22,7 +22,7 @@ export const checkSnap = (params: CheckSnap) => {
   const paddingLeft = parseInt(elemStyles.paddingLeft);
   const paddingRight = parseInt(elemStyles.paddingRight);
 
-  const baselinePosition = getBaselineY(elem).map(item => Math.round(item - bodyRect.top));
+  const baselinePosition = getBaselineY(elem).map((item) => Math.round(item - bodyRect.top));
 
   const hKeyPoints = [left, left + paddingLeft, right - paddingRight, right];
 

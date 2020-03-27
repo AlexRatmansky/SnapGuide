@@ -33,22 +33,22 @@ export const clearGuides = () => ({
   type: Action.CLEAR_GUIDES,
 });
 
-export const updateCursorPos = eventData => ({
+export const updateCursorPos = (eventData) => ({
   type: Action.UPDATE_CURSOR_POS,
   eventData,
 });
 
-export const updateCrossPos = eventData => ({
+export const updateCrossPos = (eventData) => ({
   type: Action.UPDATE_CROSS_POS,
   eventData,
 });
 
-export const updateElem = eventData => ({
+export const updateElem = (eventData) => ({
   type: Action.UPDATE_ELEM,
   eventData,
 });
 
-export const arrowPositioning = params => ({
+export const arrowPositioning = (params) => ({
   type: Action.ARROW_POSITIONING,
   params,
 });
@@ -57,12 +57,12 @@ export const toggleLegend = () => ({
   type: Action.TOGGLE_LEGEND,
 });
 
-export const updateScrollPosition = scrollPosition => ({
+export const updateScrollPosition = (scrollPosition) => ({
   type: Action.UPDATE_SCROLL_POSITION,
   scrollPosition,
 });
 
-export const updateWindowSize = windowSize => ({
+export const updateWindowSize = (windowSize) => ({
   type: Action.UPDATE_WINDOW_SIZE,
   windowSize,
 });
@@ -120,7 +120,7 @@ const reducer = (state = initialState, action) => {
     case Action.TOGGLE_VERTICAL_RULE:
       let guidesArr = [...state.verticalGuides];
       let currGuidePosition = state.cursorPos.x;
-      let currGuidePositionInArray = _.findIndex(guidesArr, guide => guide.position === currGuidePosition);
+      let currGuidePositionInArray = _.findIndex(guidesArr, (guide) => guide.position === currGuidePosition);
 
       if (currGuidePositionInArray === -1) {
         guidesArr.push({ position: currGuidePosition });
@@ -135,7 +135,7 @@ const reducer = (state = initialState, action) => {
     case Action.TOGGLE_HORIZONTAL_RULE:
       let guidesArr2 = state.horizontalGuides;
       let currGuidePosition2 = state.cursorPos.y;
-      let currGuidePositionInArray2 = _.findIndex(guidesArr2, guide => guide.position === currGuidePosition2);
+      let currGuidePositionInArray2 = _.findIndex(guidesArr2, (guide) => guide.position === currGuidePosition2);
 
       if (currGuidePositionInArray2 === -1) {
         guidesArr2.push({ position: currGuidePosition2 });

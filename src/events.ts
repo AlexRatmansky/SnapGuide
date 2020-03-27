@@ -154,8 +154,8 @@ function passKeyPressEvent(e) {
 }
 
 export const events = () => {
-  document.addEventListener('keydown', e => requestAnimationFrame(() => passKeyPressEvent(e)), { capture: true });
-  document.addEventListener('mousemove', e => requestAnimationFrame(() => passMousePosition(e)), { capture: true });
+  document.addEventListener('keydown', (e) => requestAnimationFrame(() => passKeyPressEvent(e)), { capture: true });
+  document.addEventListener('mousemove', (e) => requestAnimationFrame(() => passMousePosition(e)), { capture: true });
   document.addEventListener('scroll', () => requestAnimationFrame(passScrollPosition), { capture: true });
   window.addEventListener('resize', () => requestAnimationFrame(passUpdatedWindowSize), { capture: true });
 };
