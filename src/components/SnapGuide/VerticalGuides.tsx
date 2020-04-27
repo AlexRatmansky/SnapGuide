@@ -1,13 +1,13 @@
-import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
-import { Guide } from '~/components/Guide';
-import { Store } from '~/store';
-import './style.scss';
+import React, { FC } from 'react'
+import { useSelector } from 'react-redux'
+import { Guide } from '../../components/Guide'
+import { Store } from '../../store'
+import './style.scss'
 
-export { VerticalGuides };
+export { VerticalGuides }
 
 const VerticalGuides: FC = () => {
-  const { verticalGuides } = useSelector((store: Store) => store);
+  const { verticalGuides } = useSelector((store: Store) => store)
 
   return (
     <>
@@ -15,5 +15,5 @@ const VerticalGuides: FC = () => {
         <Guide key={guide.position} isVertical position={guide.position} />
       ))}
     </>
-  );
-};
+  )
+}

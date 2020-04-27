@@ -1,17 +1,17 @@
-import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
-import { Store } from '~/store';
-import './style.scss';
+import React, { FC } from 'react'
+import { useSelector } from 'react-redux'
+import { Store } from '../../store'
+import style from './style.scss'
 
-export { ElementHighlighter };
+export { ElementHighlighter }
 
 interface ElementHighlighter {
-  elementProps?: any;
+  elementProps?: any
 }
 
 const ElementHighlighter: FC<ElementHighlighter> = (props) => {
-  const { elementProps } = props;
-  const { scrollPosition } = useSelector((store: Store) => store);
+  const { elementProps } = props
+  const { scrollPosition } = useSelector((store: Store) => store)
 
   const borderBox =
     (elementProps !== undefined && {
@@ -20,7 +20,7 @@ const ElementHighlighter: FC<ElementHighlighter> = (props) => {
       width: elementProps.width,
       height: elementProps.height,
     }) ||
-    undefined;
+    undefined
 
   const paddingBox =
     (elementProps !== undefined &&
@@ -30,11 +30,11 @@ const ElementHighlighter: FC<ElementHighlighter> = (props) => {
         right: elementProps.style.paddingRight || 0,
         bottom: elementProps.style.paddingBottom || 0,
       }) ||
-    undefined;
+    undefined
 
   return (
-    <div className={'element'} style={borderBox}>
-      <div className={'paddingBox'} style={paddingBox} />
+    <div className={style.element} style={borderBox}>
+      <div className={style.paddingBox} style={paddingBox} />
     </div>
-  );
-};
+  )
+}
