@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import React, { FC, HTMLAttributes } from 'react'
 import { useSelector } from 'react-redux'
-import { Store } from '../../store'
+import { Store } from 'store'
 import style from './style.scss'
 
 export { Guide }
@@ -16,9 +16,11 @@ const Guide: FC<Guide> = (props) => {
   const { isVertical, position, crossGuide } = props
   const { scrollPosition, crossPos } = useSelector((store: Store) => store)
 
-  const text = isVertical
-    ? position + (crossGuide && scrollPosition.scrollLeft)
-    : position + (crossGuide && scrollPosition.scrollTop)
+  const text = crossGuide
+    ? isVertical
+      ? position + scrollPosition.scrollLeft
+      : position + scrollPosition.scrollTop
+    : position
 
   const classList = classNames({
     [style.guide]: true,

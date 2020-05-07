@@ -1,9 +1,9 @@
+import { SnapGuide } from 'components/SnapGuide'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { SnapGuide } from './components/SnapGuide'
+import { store } from 'store'
 import { setEventListeners } from './events'
-import { store } from './store'
 
 import './style.scss'
 

@@ -1,6 +1,6 @@
+import { Guide } from 'components/Guide'
 import _ from 'lodash'
 import { createStore } from 'redux'
-import { Guide } from 'components/Guide'
 
 export enum Direction {
   UP = 'up',
@@ -195,9 +195,17 @@ const reducer = (state = initialState, action) => {
           break
       }
 
-      const transfer = { crossPos: {}, cursorPos: {} }
-      transfer.crossPos[axis] = state.crossPos[axis] + step
-      transfer.cursorPos[axis] = state.cursorPos[axis] + step
+      const transfer = {
+        crossPos: {
+          ...state.crossPos,
+        },
+        cursorPos: {
+          ...state.cursorPos,
+        },
+      }
+
+      transfer.crossPos[axis] += step
+      transfer.cursorPos[axis] += step
 
       return Object.assign({}, state, transfer)
 

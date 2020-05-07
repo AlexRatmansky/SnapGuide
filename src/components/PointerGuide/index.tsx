@@ -1,7 +1,8 @@
+import { Guide } from 'components/Guide'
 import React, { FC } from 'react'
 import { useSelector } from 'react-redux'
-import { Guide } from '../../components/Guide'
-import { Store } from '../../store'
+import { Store } from 'store'
+import { CONFIG } from '../../config'
 
 export { PointerGuide }
 
@@ -10,17 +11,17 @@ const PointerGuide: FC = () => {
 
   let direction = getDirection(crossPos)
 
-  const MODE = 'DOUBLE'
-
-  return MODE === 'DOUBLE' ? (
+  return CONFIG.SINGLE_MODE ? (
+    ['left', 'right'].includes(direction) ? (
+      <Guide isVertical={true} position={crossPos.x} crossGuide />
+    ) : (
+      <Guide isVertical={false} position={crossPos.y} crossGuide />
+    )
+  ) : (
     <>
       <Guide isVertical={true} position={crossPos.x} crossGuide />
       <Guide isVertical={false} position={crossPos.y} crossGuide />
     </>
-  ) : ['left', 'right'].includes(direction) ? (
-    <Guide isVertical={true} position={crossPos.x} crossGuide />
-  ) : (
-    <Guide isVertical={false} position={crossPos.y} crossGuide />
   )
 }
 

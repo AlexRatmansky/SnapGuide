@@ -4,4 +4,6 @@ export const CONFIG = {
   HORIZONTAL_GUIDES: [{ position: 64 }, { position: 244 }, { position: 409 }],
   VERTICAL_GUIDES_SIZER: [{ start: 300, end: 555 }],
   HORIZONTAL_GUIDES_SIZER: [{ start: 300, end: 555 }],
-};
+
+  SINGLE_MODE: false,
+}

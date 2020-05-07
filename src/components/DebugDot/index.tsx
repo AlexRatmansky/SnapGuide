@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { useSelector } from 'react-redux'
-import { Store } from '../../store'
+import { Store } from 'store'
 import style from './style.scss'
 
 export { DebugDot }

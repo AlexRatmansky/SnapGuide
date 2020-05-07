@@ -1,7 +1,8 @@
-import { checkSnap } from './helpers/snapping'
+import { checkSnap } from 'helpers/snapping'
 import {
   arrowPositioning,
   clearGuides,
+  Direction,
   store,
   toggleHorizontalRule,
   toggleLegend,
@@ -11,7 +12,7 @@ import {
   updateElem,
   updateScrollPosition,
   updateWindowSize,
-} from './store'
+} from 'store'
 
 function passMousePosition(eventData) {
   if (eventData === undefined) return
@@ -20,6 +21,11 @@ function passMousePosition(eventData) {
   const bodyRect = document.body.getBoundingClientRect()
   const elemRect = currElement.getBoundingClientRect()
   const elemStyles = window.getComputedStyle(currElement)
+
+  const scrollPosition = {
+    scrollTop: window.pageYOffset,
+    scrollLeft: window.pageXOffset,
+  }
 
   const snapObj = checkSnap({
     elem: currElement,
@@ -40,14 +46,11 @@ function passMousePosition(eventData) {
     y: Math.round(snapObj.yPos + bodyRect.top),
   }
 
-  let left = Math.round(elemRect.left)
-  let top = Math.round(elemRect.top)
-
   const elem = {
-    top: top,
-    left: left,
-    right: left + elemRect.width,
-    bottom: top + elemRect.height,
+    top: Math.round(elemRect.top) + scrollPosition.scrollTop,
+    left: Math.round(elemRect.left) + scrollPosition.scrollLeft,
+    right: Math.round(elemRect.right) + scrollPosition.scrollLeft,
+    bottom: Math.round(elemRect.bottom) + scrollPosition.scrollTop,
     width: elemRect.width,
     height: elemRect.height,
     style: {
@@ -82,6 +85,9 @@ const passUpdatedWindowSize = () => {
 }
 
 function passKeyPressEvent(e) {
+  e.preventDefault()
+  e.stopPropagation()
+
   switch (e.code) {
     // v - for vertical
     case 'KeyV':
@@ -106,7 +112,7 @@ function passKeyPressEvent(e) {
       e.preventDefault()
       store.dispatch(
         arrowPositioning({
-          direction: 'up',
+          direction: Direction.UP,
           shiftKey: e.shiftKey,
         })
       )
@@ -116,7 +122,7 @@ function passKeyPressEvent(e) {
       e.preventDefault()
       store.dispatch(
         arrowPositioning({
-          direction: 'down',
+          direction: Direction.DOWN,
           shiftKey: e.shiftKey,
         })
       )
@@ -126,7 +132,7 @@ function passKeyPressEvent(e) {
       e.preventDefault()
       store.dispatch(
         arrowPositioning({
-          direction: 'left',
+          direction: Direction.LEFT,
           shiftKey: e.shiftKey,
         })
       )
@@ -136,7 +142,7 @@ function passKeyPressEvent(e) {
       e.preventDefault()
       store.dispatch(
         arrowPositioning({
-          direction: 'right',
+          direction: Direction.RIGHT,
           shiftKey: e.shiftKey,
         })
       )
