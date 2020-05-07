@@ -12,7 +12,7 @@ import { VerticalGuides } from './VerticalGuides'
 export { SnapGuide }
 
 const SnapGuide: FC = () => {
-  const { elem, showLegend, showApp } = useSelector((store: Store) => store)
+  const { elem, legendVisible, showApp } = useSelector((store: Store) => store)
 
   return (
     showApp && (
@@ -27,7 +27,7 @@ const SnapGuide: FC = () => {
 
         <ElementHighlighter elementProps={elem} />
 
-        {showLegend && <Legend />}
+        {legendVisible && <Legend />}
 
         {/* <DebugDot /> */}
       </div>

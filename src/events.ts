@@ -4,6 +4,7 @@ import {
   clearGuides,
   Direction,
   store,
+  toggleActive,
   toggleHorizontalRule,
   toggleLegend,
   toggleVerticalRule,
@@ -85,9 +86,7 @@ const passUpdatedWindowSize = () => {
 }
 
 function passKeyPressEvent(e) {
-  e.preventDefault()
-  e.stopPropagation()
-
+  console.log(e)
   switch (e.code) {
     // v - for vertical
     case 'KeyV':
@@ -159,9 +158,37 @@ function passKeyPressEvent(e) {
   }
 }
 
-export const setEventListeners = () => {
-  document.addEventListener('keydown', (e) => requestAnimationFrame(() => passKeyPressEvent(e)), { capture: true })
-  document.addEventListener('mousemove', (e) => requestAnimationFrame(() => passMousePosition(e)), { capture: true })
-  document.addEventListener('scroll', () => requestAnimationFrame(passScrollPosition), { capture: true })
-  window.addEventListener('resize', () => requestAnimationFrame(passUpdatedWindowSize), { capture: true })
+const delayedPassMousePosition = (e) => requestAnimationFrame(() => passMousePosition(e))
+const delayedPassScrollPosition = () => requestAnimationFrame(() => passScrollPosition())
+const delayedPassUpdatedWindowSize = () => requestAnimationFrame(() => passUpdatedWindowSize())
+
+export function setEventListeners() {
+  document.addEventListener('keydown', passKeyPressEvent, { capture: true })
+  document.addEventListener('mousemove', delayedPassMousePosition, { capture: true })
+  document.addEventListener('scroll', delayedPassScrollPosition, { capture: true })
+  window.addEventListener('resize', delayedPassUpdatedWindowSize, { capture: true })
+}
+
+if (process.env.NODE_ENV === 'production') {
+  chrome.runtime.onMessage.addListener((msg) => {
+    switch (msg) {
+      case 'toggleActive':
+        store.dispatch(toggleActive())
+        if (store.getState().showApp) {
+          document.addEventListener('keydown', passKeyPressEvent, { capture: true })
+          document.addEventListener('mousemove', delayedPassMousePosition, { capture: true })
+          document.addEventListener('scroll', delayedPassScrollPosition, { capture: true })
+          window.addEventListener('resize', delayedPassUpdatedWindowSize, { capture: true })
+        } else {
+          document.removeEventListener('keydown', passKeyPressEvent, { capture: true })
+          document.removeEventListener('mousemove', delayedPassMousePosition, { capture: true })
+          document.removeEventListener('scroll', delayedPassScrollPosition, { capture: true })
+          window.removeEventListener('resize', delayedPassUpdatedWindowSize, { capture: true })
+        }
+        break
+
+      default:
+        break
+    }
+  })
 }
