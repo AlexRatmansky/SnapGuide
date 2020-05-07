@@ -1,4 +1,4 @@
-.empty-span {
+:global(.empty-span) {
   display: inline-block !important;
   position: static !important;
   height: 1px !important;
@@ -8,32 +8,38 @@
   opacity: 0 !important;
 }
 
-.list_vert-enter-active,
-.list_hor-enter-active {
-  transition: all 0.25s ease-out;
-}
-
-.list_vert-leave-active,
-.list_hor-leave-active {
-  transition: all 0.2s ease-out;
-}
-
-.list_vert-enter {
-  opacity: 0;
-  transform: translateX(-5px);
-}
-
-.list_vert-leave-to {
-  opacity: 0;
-  transform: translateX(4px);
-}
-
-.list_hor-enter {
+:global(.list_hor-enter) {
   opacity: 0;
   transform: translateY(-5px);
 }
-
-.list_hor-leave-to {
+:global(.list_hor-enter-active) {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all .25s ease-in;
+}
+:global(.list_hor-exit) {
+  opacity: 1;
+}
+:global(.list_hor-exit-active) {
   opacity: 0;
-  transform: translateY(4px);
+  transform: translateY(-5);
+  transition: all .25s ease-in;
+}
+
+:global(.list_vert-enter) {
+  opacity: 0;
+  transform: translateX(-5px);
+}
+:global(.list_vert-enter-active) {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all .25s ease-in;
+}
+:global(.list_vert-exit) {
+  opacity: 1;
+}
+:global(.list_vert-exit-active) {
+  opacity: 0;
+  transform: translateX(-5);
+  transition: all .25s ease-in;
 }

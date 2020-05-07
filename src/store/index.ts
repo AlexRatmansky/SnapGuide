@@ -134,9 +134,13 @@ const reducer = (state = initialState, action) => {
           verticalGuides: _.sortBy(guidesArr, ['position']),
         })
       } else {
-        _.pullAt(guidesArr, currGuidePositionInArray)
+        return Object.assign({}, state, {
+          verticalGuides: [
+            ...guidesArr.slice(0, currGuidePositionInArray),
+            ...guidesArr.slice(currGuidePositionInArray + 1),
+          ],
+        })
       }
-      return
 
     case Action.TOGGLE_HORIZONTAL_RULE:
       let guidesArr2 = state.horizontalGuides
@@ -149,9 +153,13 @@ const reducer = (state = initialState, action) => {
           horizontalGuides: _.sortBy(guidesArr2, ['position']),
         })
       } else {
-        _.pullAt(guidesArr2, currGuidePositionInArray2)
+        return Object.assign({}, state, {
+          horizontalGuides: [
+            ...guidesArr2.slice(0, currGuidePositionInArray2),
+            ...guidesArr2.slice(currGuidePositionInArray2 + 1),
+          ],
+        })
       }
-      return
 
     case Action.CLEAR_GUIDES:
       return Object.assign({}, state, {

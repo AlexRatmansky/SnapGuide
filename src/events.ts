@@ -86,7 +86,6 @@ const passUpdatedWindowSize = () => {
 }
 
 function passKeyPressEvent(e) {
-  console.log(e)
   switch (e.code) {
     // v - for vertical
     case 'KeyV':
