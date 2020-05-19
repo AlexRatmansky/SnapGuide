@@ -8,7 +8,9 @@ const Legend: FC = () => (
     <LegendLine code={'V'} description={'add vertical rule'} />
     <LegendLine code={'H'} description={'add horizontal rule'} />
     <LegendLine code={'Q'} description={'remove all guides'} />
-    <LegendLine code={'←, ↑, →, ↓'} description={'move cursor 1px (+ Shift 10px)'} />
+    <div className={style.textLine}>
+      <code>{'←'}</code><code>{'↑'}</code><code>{'→'}</code><code>{'↓'}</code> – move cursor 1px<br/>(+ <code>{'Shift'}</code> 10px)
+    </div>
     <LegendLine code={'Space'} description={'toggle help'} />
   </div>
 )

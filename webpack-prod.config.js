@@ -39,7 +39,11 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpg|jpeg|gif|svg|pdf)/,
+        test: /\.svg$/,
+        use: "svg-url-loader",
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|pdf)/,
         exclude: /(node_modules|bower_components)/,
         loader: 'file-loader',
         options: {
