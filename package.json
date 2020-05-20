@@ -1,7 +1,7 @@
 {
   "name": "snap-guide",
   "description": "Chrome extension for measuring elements on page",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "src/index.tsx",
   "scripts": {
     "start": "webpack-dev-server --config ./webpack-dev.config.js --open",

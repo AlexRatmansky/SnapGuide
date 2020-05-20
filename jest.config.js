@@ -10,4 +10,4 @@ module.exports = {
     },
   },
   setupFiles: ['./setupJest.ts'],
-}
+};

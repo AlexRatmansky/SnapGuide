@@ -6,14 +6,10 @@
     "48": "icon/icon48.png",
     "16": "icon/icon16.png"
   },
-  "version": "1.0.0",
-  "permissions": [
-    "activeTab"
-  ],
+  "version": "1.0.1",
+  "permissions": ["activeTab"],
   "background": {
-    "scripts": [
-      "background.js"
-    ],
+    "scripts": ["background.js"],
     "persistent": false
   },
   "browser_action": {
