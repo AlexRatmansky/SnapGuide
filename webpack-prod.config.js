@@ -86,11 +86,11 @@ module.exports = {
       title: 'MeasureMate',
       template: path.resolve(__dirname, 'static/index.html'),
     }),
-    new CopyWebpackPlugin([
+    new CopyWebpackPlugin({patterns:[
       { from: 'static/manifest.json' },
       { from: 'static/background.js' },
       { from: 'static/icon/*.png', to: 'icon', flatten: true },
-    ]),
+    ]}),
     new ZipPlugin({
       path: 'zip',
       filename: 'pack.zip',
